@@ -12,21 +12,86 @@
 </head>
 <body>
     {% block logo %}
-
+        <header class="container-fluid bg-primary">
+            <img src="static/images/logo.png" alt="Logo" class="w-25 h-25 d-block mx-auto">
+        </header>
     {% endblock logo %}
 
     {% block navbar %}
-
+        <nav class="navbar bg-body-tertiary bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand text-light">Menu</a>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn text-light bg-warning" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
     {% endblock navbar %}
-    
-    {% block menu %}
-    
-    {% endblock menu %}
-    {% block content %}
-    
-    {% endblock content %}
-    {% block footer %}
+    <div class="row">
+        {% block menu %}
+            <aside class="container h-auto bg-primary col-3">
+                {% comment %} loop over the data from database {% endcomment %}
+                <ul class="list-group w-100">
+                    <li class="list-group-item btn text-start">Math <span class="badge bg-warning">10</span></li>
+                    <li class="list-group-item">Biology <span class="badge bg-warning">1</span></li>
+                    <li class="list-group-item">Physics <span class="badge bg-warning">2</span></li>
+                    <li class="list-group-item">Chemistry <span class="badge bg-warning">5</span></li>
+                </ul>
+            </aside>
+        {% endblock menu %}
+        {% block content %}
+        {% comment %} loop through the database data {% endcomment %}
+            <main class="col-9">
+                <div class="row">
+                    <div class="card col-4 my-2">
+                        <div class="card-body">
+                            <div class="card-image">
+                                <img src="" alt="photo">
+                            </div>
+                            <div class="card-title">
+                                <h4>Quadratic formula</h4>
+                            </div>
+                            <div class="card-text">
+                                <p>{% lorem 1 b random %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-4 my-2">
+                        <div class="card-body">
+                            <div class="card-image">
+                                <img src="" alt="photo">
+                            </div>
+                            <div class="card-title">
+                                <h4>Quadratic formula</h4>
+                            </div>
+                            <div class="card-text">
+                                <p>{% lorem 1 b random %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-4 my-2">
+                        <div class="card-body">
+                            <div class="card-image">
+                                <img src="" alt="photo">
+                            </div>
+                            <div class="card-title">
+                                <h4>Quadratic formula</h4>
+                            </div>
+                            <div class="card-text">
+                                <p>{% lorem 1 b random %}</p>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+            </main>
+        {% endblock content %}
+    </div>
+    {% block footer %}
+        <footer class="container-fluid bg-primary py-3 text-center">
+            <h5>All rights reserved &copy;</h5>
+        </footer>
     {% endblock footer %}
 
 </body>
