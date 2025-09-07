@@ -1,57 +1,71 @@
-{% extends 'index.html' %}
-
+{% extends "index.html" %}
 {% block logo %}
- <header class="container-fluid bg-primary">
-    <img src="../../static/images/logo.png" alt="Logo" class="w-25 h-25 d-block mx-auto" />
-  </header>
-{% endblock %}
+      <header class="container-fluid bg-primary">
+        <img src="../../static/images/logo.png" alt="Logo" class="w-25 h-25 d-block mx-auto" />
+      </header>
+    {% endblock %}
 
-{% block navbar %}
-   <nav class="navbar bg-body-tertiary bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand text-light">Menu</a>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        <button class="btn text-light bg-warning" type="submit">Search</button>
-    </form>
-    <div class="profile">
-        <img src="#" alt="Profile_picture">
-    </div>
-    </div>
-  </nav>
-{% endblock %}
- <div class="row">
-    {% block menu %}
+    {% block navbar %}
+      <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand text-light" href="{% url 'home' %}">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Create</a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'create_item' "article" %}">Article</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'create_item' 'task' %}">Task</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'create_item' 'quizz'%}">Quizz</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex" role="search" method="post" action={% url "search_filter" %}>
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="item" />
+              <button class="btn btn-warning" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    {% endblock %}
+    <div class="row">
+      {% block menu %}
         <aside class="container h-auto bg-primary col-3">
-
-        <ul class="list-group w-100">
+          {% comment %}loop over the data from database{% endcomment %}
+          <ul class="list-group w-100">
             <li class="list-group-item btn text-start">
-            Math <span class="badge bg-warning">10</span>
+              Math <span class="badge bg-warning">10</span>
             </li>
             <li class="list-group-item">
-            Biology <span class="badge bg-warning">1</span>
+              Biology <span class="badge bg-warning">1</span>
             </li>
             <li class="list-group-item">
-            Physics <span class="badge bg-warning">2</span>
+              Physics <span class="badge bg-warning">2</span>
             </li>
             <li class="list-group-item">
-            Chemistry <span class="badge bg-warning">5</span>
+              Chemistry <span class="badge bg-warning">5</span>
             </li>
-        </ul>
+          </ul>
         </aside>
+      {% endblock %}
+      {% block content %}
+      {% comment %}loop through the database data{% endcomment %}
+          <div class="containter bg-primary text-center text-light col-9">
+            <h2>{{ card.title }}</h2>
+            <p class="text-warning">{{ card.description }}</p>
+            <div>{{ card.content }}</div>
+          </div>
+      {% endblock %}
+    </div>
+    {% block footer %}
+      <footer class="container-fluid bg-primary py-3 text-center">
+        <h5>All rights reserved &copy;</h5>
+      </footer>
     {% endblock %}
-    {% block content %}
-        <div class="containter bg-primary text-center text-light col-9">
-                <h2>{{card.title}}</h2>
-                <p class="text-warning"> {{card.description}}</p>
-                <div>
-                    {{card.content}}
-                </div>
-            </div>
-    {% endblock %}
-</div>
-{% block footer %}
-  <footer class="container-fluid bg-primary py-3 text-center">
-    <h5>All rights reserved &copy;</h5>
-  </footer> 
-{% endblock %}

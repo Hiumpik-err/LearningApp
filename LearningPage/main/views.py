@@ -20,3 +20,15 @@ def item_view(request, item_id):
     }
     return render(request, "item_view.html", context)
 
+def create_item(request, type):
+    if type == "article":
+        pass
+    elif type == 'task':
+        pass
+    else: pass
+
+    return render(request, "create_item.html")
+
+
+def search_item(request):
+    pass
