@@ -44,7 +44,7 @@
         {% comment %} loop through the database data {% endcomment %}
             <main class="col-9">
                 <div class="row">
-                    <div class="card col-4 my-2">
+                    <a class="card col-4 my-2 btn" href="{% url "item_view" card.id %}">
                         <div class="card-body">
                             <div class="card-image">
                                 <img src="" alt="photo">
@@ -56,34 +56,7 @@
                                 <p>{% lorem 1 b random %}</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="card col-4 my-2">
-                        <div class="card-body">
-                            <div class="card-image">
-                                <img src="" alt="photo">
-                            </div>
-                            <div class="card-title">
-                                <h4>Quadratic formula</h4>
-                            </div>
-                            <div class="card-text">
-                                <p>{% lorem 1 b random %}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card col-4 my-2">
-                        <div class="card-body">
-                            <div class="card-image">
-                                <img src="" alt="photo">
-                            </div>
-                            <div class="card-title">
-                                <h4>Quadratic formula</h4>
-                            </div>
-                            <div class="card-text">
-                                <p>{% lorem 1 b random %}</p>
-                            </div>
-                        </div>
-                    </div>
-
+                    </a>
                 </div>
             </main>
         {% endblock content %}
