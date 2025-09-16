@@ -16,7 +16,7 @@
                 <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Create</a>
                 <ul class="dropdown-menu">
                   <li>
-                    <a class="dropdown-item" href="{% url 'create_item' "article" %}">Article</a>
+                    <a class="dropdown-item" href="{% url 'create_item' 'article' %}">Article</a>
                   </li>
                   <li>
                     <a class="dropdown-item" href="{% url 'create_item' 'task' %}">Task</a>
@@ -56,7 +56,12 @@
         </aside>
       {% endblock %}
       {% block content %}
-        <div class="col-9"></div>
+        <div class="col-9 my-5">
+          <h1 class="text-center">Create Article:</h1>
+          {% csrf_token %}
+          {{form.as_p}}
+          <button type="submit" class="btn btn-warning">Add Article</button>
+        </div>
       {% endblock %}
     </div>
     {% block footer %}

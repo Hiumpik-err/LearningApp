@@ -3,7 +3,7 @@ from .models import Wpis
 
 
 def create_article(data):
-    wpis = Wpis()
+   pass
         
 def create_task(data):
     pass

@@ -15,7 +15,7 @@ class Uzytkownik(models.Model):
 class Wpis(models.Model):
     id_wpisu = models.AutoField(primary_key=True)
     title = models.CharField(max_length = 50)
-    file_name = models.CharField(max_length = 30)
+    file_name = models.CharField(max_length = 50)
     subject = models.CharField(max_length = 30)
     category = models.CharField(max_length = 15)
 
