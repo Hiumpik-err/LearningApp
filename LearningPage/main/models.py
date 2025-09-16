@@ -10,7 +10,7 @@ class Uzytkownik(models.Model):
     is_teacher = models.BooleanField(default=False)
 
     def __str__(self):
-        return username
+        return self.username
 
 class Wpis(models.Model):
     id_wpisu = models.AutoField(primary_key=True)
@@ -20,11 +20,14 @@ class Wpis(models.Model):
     category = models.CharField(max_length = 15)
 
     def __str__(self):
-        return title
+        return self.title
 
 class User_Wpis(models.Model):
     id_uzytkownika = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
     id_wpisu = models.ForeignKey(Wpis, on_delete= models.CASCADE)
     score = models.IntegerField(default = 0)
     data = models.DateField(auto_now_add = True)
+
+    def __str__(self):
+        return f"{self.score}"
 

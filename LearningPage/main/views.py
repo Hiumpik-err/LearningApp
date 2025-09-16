@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from . import function as fn
+
 
 def home(request):
     context = {
@@ -22,10 +24,11 @@ def item_view(request, item_id):
 
 def create_item(request, type):
     if type == "article":
-        pass
+        fn.create_article(request.POST)
     elif type == 'task':
-        pass
-    else: pass
+        fn.create_task(request.POST)
+    else:
+        fn.create_quizz(request.POST)
 
     return render(request, "create_item.html")
 
