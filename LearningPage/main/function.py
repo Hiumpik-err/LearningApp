@@ -1,9 +1,21 @@
-from .forms import WpisForm
-from .models import Wpis
-
-
+from .models import Article, Task
 def create_article(data):
-   pass
+    topic = data.get("topic")
+    subject = data.get("subject")
+    description = data.get("description")
+
+    article = Article(
+       topic = topic,
+       subject = subject,
+       description = description
+    )
+
+    try:
+       article.save()
+       return True
+    except:
+        print("Coś poszło nie tak z artkułem")
+        return False
         
 def create_task(data):
     pass

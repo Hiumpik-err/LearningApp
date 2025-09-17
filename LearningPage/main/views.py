@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from . import function as fn
-from .forms import WpisForm
+from .forms import ArticleForm, TaskForm
+
 
 
 def home(request):
@@ -24,14 +25,25 @@ def item_view(request, item_id):
     return render(request, "item_view.html", context)
 
 def create_item(request, type):
-    if type == "article":
-        pass
-    elif type == 'task':
-        pass
-    else:
-        form = WpisForm
+    if request.method == "GET":
+        if type == "article":
+            form = ArticleForm()
+        elif type == 'task':
+            form = TaskForm()
+        else:
+            pass
+    elif request.method == "POST":
+        if type == "article":
+            if fn.create_article(request.POST):
+                return redirect("home")
+        elif type == "task":
+            if fn.create_task(request.POST):
+                return redirect("home")
+        else:
+            if fn.create_quizz(request.POST):
+                return redirect("home")
 
-    return render(request, "create_item.html", {"form": form})
+    return render(request, "create_item.html", {"form" : form, "type" : type})
 
 
 def search_item(request):

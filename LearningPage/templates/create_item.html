@@ -57,10 +57,13 @@
       {% endblock %}
       {% block content %}
         <div class="col-9 my-5">
-          <h1 class="text-center">Create Article:</h1>
-          {% csrf_token %}
-          {{form.as_p}}
-          <button type="submit" class="btn btn-warning">Add Article</button>
+          <h1 class="text-center">Create {{type}}:</h1>
+          <form action="{% url 'create_item' type %}" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+          <input type="submit" class="btn btn-warning" value="Create {{type}}">
+          </form>
+          
         </div>
       {% endblock %}
     </div>
