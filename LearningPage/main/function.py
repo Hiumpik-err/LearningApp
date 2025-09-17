@@ -18,7 +18,24 @@ def create_article(data):
         return False
         
 def create_task(data):
-    pass
+    topic = data.get("topic")
+    subject = data.get("subject")
+    description = data.get("description")
+    answer = data.get("answer")
+
+    task = Task(
+       topic = topic,
+       subject = subject,
+       description = description,
+       answer = answer
+    )
+
+    try:
+       task.save()
+       return True
+    except:
+        print("Coś poszło nie tak z zadaniem")
+        return False
 
 def create_quizz(data):
     pass
