@@ -1,33 +1,41 @@
 from django.db import models
-from django import forms
 
 class Uzytkownik(models.Model):
-    id_uzytkownika = models.AutoField(primary_key=True)
-    username = models.CharField(max_length = 20)
-    password = models.CharField(max_length= 50)
-    fname = models.CharField(max_length= 20)
-    lname = models.CharField(max_length=50)
-    is_teacher = models.BooleanField(default=False)
+    UserId = models.AutoField(primary_key=True, auto_created=True)
+    email = models.EmailField(max_length=254)
+    password = models.CharField(max_length=50)
+    username = models.CharField(max_length=15)
+    fname = models.CharField(max_length=20)
+    lname = models.CharField(max_length=20)
 
     def __str__(self):
         return self.username
 
-class Wpis(models.Model):
-    id_wpisu = models.AutoField(primary_key=True)
-    title = models.CharField(max_length = 50)
-    file_name = models.CharField(max_length = 50)
-    subject = models.CharField(max_length = 30)
-    category = models.CharField(max_length = 15)
-
+class Article(models.Model):
+    ArticleId = models.AutoField(primary_key=True, auto_created=True)
+    topic = models.CharField(max_length=20)
+    subject = models.CharField(max_length=20)
+    description = models.JSONField()
+    created = models.DateField(auto_now_add=True)
+    
     def __str__(self):
-        return self.title
+        return self.topic
 
-class User_Wpis(models.Model):
-    id_uzytkownika = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
-    id_wpisu = models.ForeignKey(Wpis, on_delete= models.CASCADE)
-    score = models.IntegerField(default = 0)
-    data = models.DateField(auto_now_add = True)
-
+class Task(models.Model):
+    TaskId = models.AutoField(primary_key=True, auto_created=True)
+    topic = models.CharField(max_length=20)
+    subject = models.CharField(max_length=20)
+    description = models.JSONField()
+    created = models.DateField(auto_now_add=True)
+    answer = models.IntegerField()
+    
     def __str__(self):
-        return f"{self.score}"
+        return self.topic
 
+class Quizz(models.Model):
+    QuizzId = models.AutoField(primary_key=True, auto_created=True)
+    topic = models.CharField(max_length=20)
+    subject = models.CharField(max_length=20)
+    description = models.JSONField()
+    created = models.DateField(auto_now_add=True)
+    #???
