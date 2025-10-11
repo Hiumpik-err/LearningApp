@@ -1,3 +1,90 @@
-.proflie{
-    border-radius: 100%; 
+/* rgb(48, 56, 65) */
+
+.btn-success:hover
+{
+    background-color: rgb(28, 93, 193);
+}
+.btn-outline-primary
+{
+    background-color: rgb(19, 62, 135);
+    color: rgb(218,218,218);
+    border: none;
+}
+.navbar-brand, #navbarDropdownMenuLink, #footer
+{
+    color: rgb(218,218,218);
+}
+
+.navbar-brand:hover{
+    color: white;
+}
+.nav-link
+{
+    color: rgb(28, 93, 193);
+}
+.nav-link:hover
+{
+    color: rgb(40, 102, 207);
+}
+.dropdown-item
+{
+    color: rgb(28, 93, 193);
+}
+.dropdown-item:hover
+{
+    color: rgb(19, 62, 135);
+    background-color: rgba(28, 93, 193, 0.15);
+}
+.dropdown-item, .dropdown-menu
+{
+    min-width: 5rem;
+    width: 80px;
+}
+
+.article-card, .course-card
+{
+    margin: 0.67%;
+    padding-inline: 0.67%;
+    box-shadow: 0px 0px 2px black;
+    transition: ease-in-out;
+    transform: scale(95%);
+}
+.article-card:hover, .course-card:hover{
+    transform: scale(100%);
+    
+}
+/* do not touch */
+.multi-line-truncate {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 5;
+  -webkit-line-clamp: 5;   /*liczba widocznych linii  */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* touch from here */
+.sidebar
+{
+    min-height: 15em;
+    height: fit-content;
+    background-color: rgb(30, 32, 34) !important;
+}
+.collapse-btn
+{
+    color: rgb(238,238, 238);
+}
+
+.collapse-btn:hover
+{
+    color: white;
+}
+.form-control
+{
+    margin: 5px;
+    width: 25vw;
+}
+.form-textarea
+{
+    width: 45vw;
+    height: 25vh;
 }
