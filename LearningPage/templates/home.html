@@ -9,30 +9,30 @@
     <title>NextGenHub | Home</title>
 
 
-    <!-- {% load static %} -->
-    <link rel="stylesheet" href="style.css">
+    {% load static %}
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body style="background-color: rgb(34, 40, 49) !important;">
-    <!-- {% block logo %} -->
+{% block logo %}
     <header class="container container-fluid">
         
     </header>
-    <!-- {% endblock %} -->
+{% endblock %}
      
-    <!-- {% block navbar %} -->
+{% block navbar %}
     <nav class="navbar navbar-expand-lg sticky-top" style="background-color: rgb(30, 32, 34) !important;">
         <div class="container-fluid">
-            <a class="navbar-brand active fs-2" href="index.html">
-                <img src="szpontlogo.png" style="width: 67px; height: 67px;">
+            <a class="navbar-brand active fs-2" href="{% url 'home' %}">
+                <img src="../static/images/szpontlogo.png" style="width: 67px; height: 67px;">
                 Home
             </a>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                     <button class="btn btn-toggle shadow-none nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Create</button>
                     <ul class="dropdown-menu dropMenu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="create_item.html">Article</a></li>
-                        <li><a class="dropdown-item" href="#">Course</a></li>
-                        <li><a class="dropdown-item" href="#">Quiz</a></li>
+                        <li><a class="dropdown-item" href="{% url 'create_item' 'article'%}">Article</a></li>
+                        <li><a class="dropdown-item" href="{% url 'create_item' 'course'%}">Course</a></li>
+                        <li><a class="dropdown-item" href="{% url 'create_item' 'quizz'%}">Quiz</a></li>
                     </ul>
                 </li>
             </ul>
@@ -44,11 +44,11 @@
             <!-- <button class="btn btn-light" type="button">Theme change</button> -->
         </div>
     </nav>
-    <!-- {% endblock %} -->
+{% endblock %}
 
-    <!-- {% block main %} -->
+{% block main %}
     <main class="container-fluid mx-0 px-2 row">
-        <!-- {% block side-navbar %} -->
+ {% block side-navbar %}
         <!-- Loop data from DB -->
         <nav class="sidebar bg-light col-lg-1">
             <ul class="nav flex-column">
@@ -118,9 +118,9 @@
                 </li>
             </ul>    
         </nav>
-        <!-- {% endblock %} -->
+{% endblock %}
          
-        <!-- {% block main-content %} -->
+{% block main-content %}
         <div class="content col-lg-11">
             <div class="card px-2">
                 <p class="lead text-center mb-5">Learn, Grow, and Achieve—All in One Place.</p>
@@ -133,15 +133,15 @@
 
             </div>
         </div>
-        <!-- {% endblock %} -->
+    {% endblock %}
     </main>
-    <!-- {% endblock %} -->
+{% endblock %}
 
-    <!-- {% block footer %} -->
+{% block footer %}
     <footer class="container text-center fixed-bottom py-3">
         <p class="lead" id="footer">All rights reserved &copy;</p>
     </footer>
-    <!-- {% endblock %} -->
+{% endblock %}
 
 </body>
 </html>

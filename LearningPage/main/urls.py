@@ -6,7 +6,6 @@ urlpatterns = [
     path('', views.home, name="home"),
     path("item/<int:item_id>/", views.item_view, name="item_view"),
     path("create/<str:type>/", views.create_item , name="create_item"),
-    path("filter/", views.search_item, name="search_filter")
 ]
 
 
