@@ -14,37 +14,77 @@
             align-items: center;
             justify-content: center;
         }
-        .login-card {
+        .login-card, .register-card {
             width: 100%;
             max-width: 400px;
-            max-height: 550px;
+            max-height: 650px;
             padding: 2rem;
             border-radius: 0.75rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             background-color: rgb(218, 218, 218);
         }
+        .navtab-login, .tab-content .card{
+            background-color: rgb(218, 218, 218) !important;
+            outline: none;
+            border: none;
+        }
+        .nav-link{
+            color: black;
+        }
+        .nav-link.active{
+            background-color: rgb(200, 200, 200);
+        }
     </style>
 
 </head>
 <body>
-    <div class="login-card card">
-        <img src="../static/images/szpontlogo2.png" alt="Logo" class="card-img-top w-auto h-25">
-        <h3 class="text-center mb-4">Login</h3>
+    <div class="login-card">
+        <ul class="nav nav-pills justify-content-center navtab-login" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Login</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#register" type="button" role="tab" aria-controls="register">Register</button>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="card tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                <img src="../static/images/szpontlogo2.png" alt="Logo" class="card-img-top">
+                <h3 class="text-center mb-4">Login</h3>
 
-        <div class="mb-3">
-            <label for="input-username" class="form-label">Username</label>
-            <input type="text" id="input-username" class="form-control" placeholder="Enter your username">
-        </div>
+                <div class="mb-3">
+                    <label for="input-username" class="form-label">Username</label>
+                    <input type="text" id="input-username" class="form-control" placeholder="Enter your username">
+                </div>
 
-        <div class="mb-3">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <label for="input-password" class="form-label mb-0">Password</label>
-                <a href="#" class="text-decoration-none small">Forgot password?</a> <!-- Site with contact informaton to admin of site-->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <label for="input-password" class="form-label mb-0">Password</label>
+                        <a href="#" class="text-decoration-none small">Forgot password?</a> <!-- Site with contact informaton to admin of site-->
+                    </div>
+                    <input type="password" id="input-password" class="form-control" placeholder="Enter your password">
+                </div>
+
+                <button class="btn btn-primary w-100 mt-2">Login</button>
             </div>
-            <input type="password" id="input-password" class="form-control" placeholder="Enter your password">
-        </div>
+            <div class="card tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                <img src="../static/images/szpontlogo2.png" alt="Logo" class="card-img-top">
+                <h3 class="text-center mb-4">Register</h3>
 
-    <button class="btn btn-primary w-100 mt-2">Login</button>
-  </div>
+                <div class="mb-3">
+                    <label for="input-username" class="form-label">Username</label>
+                    <input type="text" id="input-username" class="form-control" placeholder="Enter your username">
+                </div>
+
+                <div class="mb-3">
+                    <label for="input-password" class="form-label mb-0">Password</label>
+                    <input type="password" id="input-password" class="form-control" placeholder="Enter your password">
+                    <input type="password" id="input-repeat-password" class="form-control" placeholder="Repeat your password">
+                </div>
+
+                <button class="btn btn-primary w-100 mt-2">Register</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
