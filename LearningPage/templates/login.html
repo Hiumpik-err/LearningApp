@@ -34,6 +34,15 @@
         .nav-link.active{
             background-color: rgb(200, 200, 200);
         }
+        .forgot-card{
+            width: 100%;
+            max-width: 400px;
+            max-height: 650px;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgb(218, 218, 218);
+        }
     </style>
 
 </head>
@@ -53,8 +62,8 @@
                 <h3 class="text-center mb-4">Login</h3>
 
                 <div class="mb-3">
-                    <label for="input-username" class="form-label">Username</label>
-                    <input type="text" id="input-username" class="form-control" placeholder="Enter your username">
+                    <label for="input-username" class="form-label">Email</label>
+                    <input type="email" id="input-username" class="form-control" placeholder="Enter your email">
                 </div>
 
                 <div class="mb-3">
@@ -72,8 +81,8 @@
                 <h3 class="text-center mb-4">Register</h3>
 
                 <div class="mb-3">
-                    <label for="input-username" class="form-label">Username</label>
-                    <input type="text" id="input-username" class="form-control" placeholder="Enter your username">
+                    <label for="input-username" class="form-label">Email</label>
+                    <input type="email" id="input-username" class="form-control" placeholder="Enter your email">
                 </div>
 
                 <div class="mb-3">
@@ -85,6 +94,16 @@
                 <button class="btn btn-primary w-100 mt-2">Register</button>
             </div>
         </div>
+    </div>
+
+    <div class="forgot-card d-none"> <!--Remove d-none. Add this card if user clicks forgot password on login page-->
+        <h3 class="text-center mb-4">Forgot your password?</h3>
+
+        <div class="mb-3">
+            <label for="input-username" class="form-label">Email</label>
+             <input type="email" id="input-username" class="form-control" placeholder="Enter your email">
+        </div>
+        <button class="btn btn-primary w-100 mt-2">Recover password</button>
     </div>
 </body>
 </html>
