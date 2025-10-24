@@ -1,6 +1,17 @@
 from django.shortcuts import render
 from . import function as fn
 
+def login(request):
+    if request.method == "POST":
+        if "logging" in request.POST:
+            pass
+        elif registering in request.POST:
+            pass
+        elif:
+            pass
+
+
+    return render(request, "login.html")
 
 def home(request):
 
