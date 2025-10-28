@@ -1,7 +1,13 @@
-from .models import Uzytkownik, Wpis, User_Wpis
-from django.forms import ModelForm
+# accounts/forms.py
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import Uzytkownik
 
-class WpisForm(ModelForm):
+class UzytkownikCreationForm(UserCreationForm):
     class Meta:
-        model = Wpis
-        fields = ["title", "subject", "category"]
+        model = Uzytkownik
+        fields = ('email',) 
+
+class UzytkownikChangeForm(UserChangeForm):
+    class Meta:
+        model = Uzytkownik
+        fields = ('email', 'is_active', 'is_admin')

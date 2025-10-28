@@ -1,16 +1,33 @@
-from django.shortcuts import render
-from . import function as fn
+from django.shortcuts import render, redirect
+from .models import Uzytkownik
+from django.contrib.auth import login
+from django.contrib import messages
 
 def login(request):
     if request.method == "POST":
-        if "logging" in request.POST:
-            pass
-        elif registering in request.POST:
-            pass
-        elif:
-            pass
+        if "registering" in request.POST:
+            email_input = request.POST.get("input-username")
+            password_input = request.POST.get("input-password")
+            password2_input = request.POST.get("input-repeat-password")
+            print(email_input)
+            print(password_input)
+            print(password2_input)
+            
 
+            if(not email_input or not password_input or not password2_input):
+                messages.error(request, "Fill all fields")
+                return redirect("login")
 
+            if(password_input != password2_input): 
+                messages.error(request, "Passwords dont match")
+                return redirect("login")
+
+            login(request, user)
+            user = Uzytkownik.objects.create_user(email = email_input, password = password_input)
+            print(f"Utworzono uzytkownika o email = {email_input} i hasle ={password_input}")
+            
+            return redirect("home")
+            
     return render(request, "login.html")
 
 def home(request):

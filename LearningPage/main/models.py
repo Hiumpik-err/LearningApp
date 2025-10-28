@@ -1,33 +1,47 @@
 from django.db import models
-from django import forms
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-class Uzytkownik(models.Model):
-    id_uzytkownika = models.AutoField(primary_key=True)
-    username = models.CharField(max_length = 20)
-    password = models.CharField(max_length= 50)
-    fname = models.CharField(max_length= 20)
-    lname = models.CharField(max_length=50)
-    is_teacher = models.BooleanField(default=False)
+class UzytkownikManager(BaseUserManager):
+    def create_user(self, email, password = None):
+        if not email:
+            raise ValueError("Email must be provided")
+
+        user = self.model(
+            email = self.normalize_email(email)
+        )
+        user.set_password(password)
+        user.save()
+        return user
+    
+    def create_superuser(self, email, password):
+        user = self.create_user(
+            email = email,
+            password = password 
+        )
+        user.is_superuser = True
+        user.isAdmin = True
+        user.save(using=self._db)
+        return user
+    
+class Uzytkownik(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(max_length=50, unique=True, null=False)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = [] 
+
+    objects = UzytkownikManager()
 
     def __str__(self):
-        return self.username
+        return self.email
 
-class Wpis(models.Model):
-    id_wpisu = models.AutoField(primary_key=True)
-    title = models.CharField(max_length = 50)
-    file_name = models.CharField(max_length = 30)
-    subject = models.CharField(max_length = 30)
-    category = models.CharField(max_length = 15)
+    def has_perm(self, perm, obj=None):
+        return True
 
-    def __str__(self):
-        return self.title
+    def has_module_perms(self, app_label):
+        return True
 
-class User_Wpis(models.Model):
-    id_uzytkownika = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE)
-    id_wpisu = models.ForeignKey(Wpis, on_delete= models.CASCADE)
-    score = models.IntegerField(default = 0)
-    data = models.DateField(auto_now_add = True)
-
-    def __str__(self):
-        return f"{self.score}"
-
+    @property
+    def is_staff(self):
+        return self.is_admin

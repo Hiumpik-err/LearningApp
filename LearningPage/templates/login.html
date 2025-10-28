@@ -86,19 +86,21 @@
             <div class="card tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                 <img src="{% static 'images/szpontlogo2.png' %}" alt="Logo" class="card-img-top">
                 <h3 class="text-center mb-4">Register</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="input-username" class="form-label">Email</label>
+                        <input type="email" id="input-username" class="form-control" placeholder="Enter your email">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="input-username" class="form-label">Email</label>
-                    <input type="email" id="input-username" class="form-control" placeholder="Enter your email">
-                </div>
+                    <div class="mb-3">
+                        <label for="input-password" class="form-label mb-0">Password</label>
+                        <input type="password" id="input-password" class="form-control" placeholder="Enter your password">
+                        <input type="password" id="input-repeat-password" class="form-control" placeholder="Repeat your password">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="input-password" class="form-label mb-0">Password</label>
-                    <input type="password" id="input-password" class="form-control" placeholder="Enter your password">
-                    <input type="password" id="input-repeat-password" class="form-control" placeholder="Repeat your password">
-                </div>
-
-                <button class="btn btn-primary w-100 mt-2" name="registering">Register</button>
+                    <button class="btn btn-primary w-100 mt-2" name="registering" type="submit">Register</button>
+                </form>
             </div>
         </div>
     </div>
