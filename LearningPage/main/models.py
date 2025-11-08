@@ -45,3 +45,17 @@ class Uzytkownik(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_admin
+    
+def article_content_structure():
+    return {
+        "headers": [],
+        "contents": []
+    }
+
+class Article(models.Model):
+    
+    ArticleId = models.BigAutoField(primary_key=True)
+    title = models.CharField(null=False, max_length=255)
+    wholeContent = models.JSONField(
+        default=article_content_structure
+    )

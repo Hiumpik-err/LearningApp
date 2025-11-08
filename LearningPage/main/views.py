@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Uzytkownik
+from .models import Uzytkownik, Article
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib import messages
-from django.urls import reverse
 
 def login(request):
     if request.method == "POST":
@@ -75,8 +74,8 @@ def create_item(request, type):
         context = { "type" : type,
                     "current_count" : current_count,
                     "header_count" : reversed(list(range(current_count))),
-                    "content_list" : content_list,
                     "header_list" : header_list,
+                    "content_list" : content_list,
                     "title" : title
                 }
         return render(request, "create_item.html", context)
@@ -97,12 +96,42 @@ def create_item(request, type):
             request.session["current_count"] = int(request.session.get("current_count")) + 1
 
             return redirect("create_item", type=type)
+        
+        if "saveAll" in request.POST:
+            headers = set()
+            contents = set()
+            title = request.session.get("title")
+            current_count = request.session.get("current_count")
+            print(current_count)
 
-        for key in request.POST:
-            if(key.startswith("delete_section_")):
-                request.session["current_count"] = int(request.session.get("current_count")) - 1
+            for index in range(current_count):
+                header = request.POST.get("header_" + str(index)).strip()
+                content = request.POST.get("content_" + str(index)).strip()
+                headers.add(header)
+                contents.add(content)
 
-                return redirect("create_item", type)
+            print(headers)
+            print(contents)
+            try:
+                article = Article.objects.create(
+                    title = title,
+                    wholeContent = {
+                        "headers": list(headers),
+                        "contents": list(contents)
+                    }
+                )
+                return redirect("home")
+            except Exception as e:
+                print(f"Error message: {e}")
+            
+
+        if not "add_new_section" in request.POST and not "saveAll" in request.POST:
+            
+            for key in request.POST:
+                if(key.startswith("delete_section_")):
+                    request.session["current_count"] = int(request.session.get("current_count")) - 1
+
+                    return redirect("create_item", type)
         
 
             

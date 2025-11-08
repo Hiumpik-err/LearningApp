@@ -1,7 +1,7 @@
 # accounts/admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Uzytkownik
+from .models import Uzytkownik, Article
 from .forms import UzytkownikCreationForm, UzytkownikChangeForm
 
 class UzytkownikAdmin(UserAdmin):
@@ -30,3 +30,4 @@ class UzytkownikAdmin(UserAdmin):
     readonly_fields = ('last_login',)
 
 admin.site.register(Uzytkownik, UzytkownikAdmin)
+admin.site.register(Article)
