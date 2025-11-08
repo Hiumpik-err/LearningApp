@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Uzytkownik
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib import messages
+from django.urls import reverse
 
 def login(request):
     if request.method == "POST":
@@ -53,17 +54,58 @@ def login(request):
     return render(request, "login.html")
 
 def home(request):
+    request.session["current_count"] = 1
+    #request.session["images"] = []
+    request.session["header_list"] = ""
+    request.session["content_list"] = ""
+    request.session["title"] = ""
 
     return render(request, "home.html")
 
 def item_view(request):
-
     return render(request, "item_view.html")
 
-def create_item(request, type):
-    context = {"type" : type}
-    return render(request, "create_item.html", context)
 
+def create_item(request, type):
+    if request.method == "GET":
+        current_count = request.session.get("current_count")
+        header_list = request.session.get("header_list")
+        content_list = request.session.get("content_list")
+        title = request.session.get("title")
+        context = { "type" : type,
+                    "current_count" : current_count,
+                    "header_count" : reversed(list(range(current_count))),
+                    "content_list" : content_list,
+                    "header_list" : header_list,
+                    "title" : title
+                }
+        return render(request, "create_item.html", context)
+
+    elif request.method == "POST":
+        if "add_new_section" in request.POST:
+            request.session["title"] = request.POST.get("title")
+            header_list = set()
+            content_list = set()
+            for i in range(request.session.get("current_count")):
+                header_list.add(request.POST.get("header_" + str(i)).strip())
+                content_list.add(request.POST.get("content_" + str(i)).strip())
+
+            request.session["header_list"] = list(header_list)
+            request.session["content_list"] = list(content_list)
+
+
+            request.session["current_count"] = int(request.session.get("current_count")) + 1
+
+            return redirect("create_item", type=type)
+
+        for key in request.POST:
+            if(key.startswith("delete_section_")):
+                request.session["current_count"] = int(request.session.get("current_count")) - 1
+
+                return redirect("create_item", type)
+        
+
+            
 def available_article(request):
     return render(request, "articles.html")
 
