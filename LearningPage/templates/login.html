@@ -78,8 +78,13 @@
                             <label for="input-password" class="form-label mb-0">Password</label>
                             <a href="#" class="text-decoration-none small">Forgot password?</a> <!-- Site with contact informaton to admin of site-->
                         </div>
-                        <input type="password" id="input-password" name="password" class="form-control" placeholder="Enter your password">
-                    </div>
+                        <div class="d-flex">
+                            <input type="password" id="input-password" name="password" class="form-control" placeholder="Enter your password">
+                            <button type="button" onclick="showPassword();" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
+                                <img src="{% static 'images/eye.png' %}" alt="Show password" style="position: relative; top: 4px;">
+                            </button>
+                        </div>
+                    </div> 
 
                     <button class="btn btn-primary w-100 mt-2" name="logging" type="submit">Login</button>
                 </form>
@@ -115,5 +120,12 @@
         </div>
         <button class="btn btn-primary w-100 mt-2" name="recoverPassword">Recover password</button>
     </div>
+
+    <script>
+        const showPassword = () => {
+            const x = document.getElementById("input-password");
+            if (x.type === "password") { x.type = "text"; } else { x.type = "password"; }
+        }
+    </script>
 </body>
 </html>
