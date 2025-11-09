@@ -10,9 +10,6 @@ def login(request):
             email_input = request.POST.get("input-username")
             password_input = request.POST.get("input-password")
             password2_input = request.POST.get("input-repeat-password")
-            print(email_input)
-            print(password_input)
-            print(password2_input)
             
 
             if(not email_input or not password_input or not password2_input):
@@ -101,8 +98,7 @@ def create_item(request, type):
             headers = set()
             contents = set()
             title = request.session.get("title")
-            current_count = request.session.get("current_count")
-            print(current_count)
+            current_count = int(request.session.get("current_count"))
 
             for index in range(current_count):
                 header = request.POST.get("header_" + str(index)).strip()
@@ -110,8 +106,6 @@ def create_item(request, type):
                 headers.add(header)
                 contents.add(content)
 
-            print(headers)
-            print(contents)
             try:
                 article = Article.objects.create(
                     title = title,
@@ -129,6 +123,24 @@ def create_item(request, type):
             
             for key in request.POST:
                 if(key.startswith("delete_section_")):
+                    remove_index = int(key.split("_")[-1])
+
+                    headers = []
+                    contents = []
+                    current_count = int(request.session.get("current_count"))
+
+                    for index in range(current_count):
+                        if index != remove_index:
+                            header = request.POST.get("header_" + str(index)).strip()
+                            content = request.POST.get("content_" + str(index)).strip()
+                            headers.insert(0,header)
+                            contents.insert(0,content)
+
+                    print(f'header: {headers}, cont: {contents}')
+
+                    request.session["header_list"] = headers
+                    request.session["content_list"] = contents
+
                     request.session["current_count"] = int(request.session.get("current_count")) - 1
 
                     return redirect("create_item", type)
