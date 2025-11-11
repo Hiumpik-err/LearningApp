@@ -25,10 +25,8 @@
 
 {% block main %}
     <main class="container-fluid mx-0 px-2 row">
-        
- {% block side-navbar %}
-    {% include "sidebar.html" %}
-  {%endblock%}      
+    {% comment %} sidebar {% endcomment %}
+    {% load content_tags %} {% show_categories%}    
          
 {% block main-content %}
         <div class="content col-lg-11">

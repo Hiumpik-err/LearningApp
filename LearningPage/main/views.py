@@ -147,13 +147,13 @@ def create_item(request, type):
         
 
             
-def available_article(request):
+def available_articles(request, category):
     return render(request, "articles.html")
 
-def available_courses(request):
+def available_courses(request, category):
     return render(request, "courses.html")
 
-def available_quizzes(request):
+def available_quizzes(request, category):
     return render(request, "quizzes.html")
 
 def search_item(request):

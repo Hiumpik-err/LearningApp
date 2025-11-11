@@ -59,3 +59,4 @@ class Article(models.Model):
     wholeContent = models.JSONField(
         default=article_content_structure
     )
+    category = models.CharField(null=False, max_length=50)
