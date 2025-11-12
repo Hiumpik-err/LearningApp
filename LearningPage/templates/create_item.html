@@ -7,8 +7,20 @@
         {% comment %} Artukuł {% endcomment %}
             <div class="card px-2">
                 <p class="lead text-center mb-5">Add An Article</p>
-                <form method="post">
+                <form method="post" class="gap-1">
                     {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <label for="category" class="input-group-text">Categories</label>
+                        <select id="category" class="form-select text-center" >
+                            <option selected disabled>---Choose category---</option>
+                            <option value="Math">Math</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Biology">Biology</option>
+                            <option value="History">History</option>
+                            <option value="Add new">Add new +</option>
+                        </select>
+                    </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" type="text" id="title" placeholder="Title" name="title" value = {{title}}>
                         <label for="title">Title</label>
@@ -26,11 +38,13 @@
                                 <label for="content_{{index}}">Content</label>
                             </div>
 
-                        {% if current_count > 1 %}<button type="submit" name="delete_section_{{index}}" value>❌</button>{% endif %}
+                        {% if current_count > 1 %}<button type="submit" class="bnt btn-danger" name="delete_section_{{index}}" value>✗</button>{% endif %}
                     {% endfor %}
 
-                    <button type="submit" name="add_new_section">New Section</button>
-                    <button type="submit" name="saveAll">Save article</button>
+                    <button type="submit" name="add_new_section" class="btn btn-primary">New Section</button>
+                    <div class="container d-flex justify-content-end mt-3 mb-3">
+                        <button type="submit" name="saveAll" class="btn btn-success">Save article</button>
+                    </div>
                 </form>
             </div>
         {% endblock %}
