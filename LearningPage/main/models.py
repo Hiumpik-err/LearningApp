@@ -60,3 +60,26 @@ class Article(models.Model):
         default=article_content_structure
     )
     category = models.CharField(null=False, max_length=50)
+
+    def __str__(self):
+        return self.title
+    
+class Quizz(models.Model):
+    QuizzId = models.BigAutoField(primary_key=True)
+    title = models.CharField(null=False, max_length=255)
+    description = models.CharField(null=False, max_length=500)
+    link = models.URLField(max_length=200, null=False)
+    category = models.CharField(max_length=50, null=False)
+
+    def __str__(self):
+        return self.title
+    
+class Course(models.Model):
+    CourseId = models.BigAutoField(primary_key=True)
+    category = models.CharField(max_length=50, null=False)
+    title = models.CharField(null=False, max_length=255)
+    question = models.TextField(null=False)
+    answers = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title

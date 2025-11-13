@@ -2,14 +2,14 @@
 
 {% block main-content %}
 <div class="item-content card col-lg-11">
+    {% load app_filters %}
     {% for article in articles %}
         <div class="article-card">
             <div class="card-header">
                 <h3 class="card-title">{{article.title}}</h3>
             </div>
             <div class="card-body">
-                <p class="lead multi-line-truncate" >{{article.category}}</p>                       
-                <p class="d-none">{{article.content}}</p>                
+                <p class="lead multi-line-truncate" >{{article.wholeContent.contents|get:0}}</p>                       
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button class="btn btn-outline-primary" id="read-more">Read more...</button>

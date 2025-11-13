@@ -11,14 +11,13 @@
                     {% csrf_token %}
                     <div class="input-group mb-3">
                         <label for="category" class="input-group-text">Categories</label>
-                        <select id="category" class="form-select text-center" >
+                        <select id="category" class="form-select text-center" name="category">
                             <option selected disabled>---Choose category---</option>
-                            <option value="Math">Math</option>
-                            <option value="Physics">Physics</option>
-                            <option value="Chemistry">Chemistry</option>
-                            <option value="Biology">Biology</option>
-                            <option value="History">History</option>
-                            <option value="Add new">Add new +</option>
+                            <option  {%if category == "Math"%} selected{% endif%} value="Math">Math</option>
+                            <option  {%if category == "Physics"%} selected{% endif%} value="Physics">Physics</option>
+                            <option  {%if category == "Chemistry"%} selected{% endif%}value="Chemistry">Chemistry</option>
+                            <option  {%if category == "Biology"%} selected {% endif%}value="Biology">Biology</option>
+                            <option  {%if category == "History"%} selected {% endif%}value="History">History</option>
                         </select>
                     </div>
                     <div class="form-floating mb-3">
@@ -55,7 +54,7 @@
         <div class="card px-2">
             <p class="lead text-center mb-5">Add A Task</p>
 
-            <form action="#" method="post">
+            <form method="post">
                 <div class="input-group mb-3">
                     <label for="category" class="input-group-text">Categories</label>
                     <select id="category" class="form-select text-center" >
@@ -65,7 +64,6 @@
                         <option value="Chemistry">Chemistry</option>
                         <option value="Biology">Biology</option>
                         <option value="History">History</option>
-                        <option value="Add new">Add new +</option>
                     </select>
                 </div>
                 <div class="form-floating mb-3">
@@ -95,29 +93,28 @@
         <div class="card px-2">
             <p class="lead text-center mb-5">Add A Quizz</p>
 
-            <form action="#" method="post">
+            <form method="post">
                 <div class="input-group mb-3">
                     <label for="category" class="input-group-text">Categories</label>
-                    <select id="category" class="form-select text-center" >
+                    <select id="category" class="form-select text-center" name="category">
                         <option selected disabled>---Choose category---</option>
                         <option value="Math">Math</option>
                         <option value="Physics">Physics</option>
                         <option value="Chemistry">Chemistry</option>
                         <option value="Biology">Biology</option>
                         <option value="History">History</option>
-                        <option value="Add new">Add new +</option>
                     </select>
                 </div>
                 <div class="form-floating mb-3">
-                    <input class="form-control" type="text" id="title" placeholder="Title">
+                    <input class="form-control" type="text" id="title" placeholder="Title" name="title">
                     <label for="title">Title</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <textarea class="form-control form-textarea" type="text" id="lead" placeholder="Lead"></textarea>
+                    <textarea class="form-control form-textarea" type="text" id="lead" placeholder="Lead" name="description"></textarea>
                     <label for="lead">Quiz description</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <textarea class="form-control form-textarea" type="text" id="Content"
+                    <textarea class="form-control form-textarea" type="text" id="Content" name="link"
                         placeholder="Link to quiz"></textarea>
                     <label for="Content">Link to quiz</label>
                 </div>

@@ -21,7 +21,6 @@ def login(request):
                 raise Exception("Passwords dont match")
             try:
                 user = Uzytkownik.objects.create_user(email = email_input, password = password_input)
-                print(f"Utworzono uzytkownika o email = {email_input} i hasle ={password_input}")
                 auth_login(request, user=user)
                 
                 return redirect("home")
@@ -63,88 +62,97 @@ def item_view(request):
 
 
 def create_item(request, type):
-    if request.method == "GET":
-        current_count = request.session.get("current_count")
-        header_list = request.session.get("header_list")
-        content_list = request.session.get("content_list")
-        title = request.session.get("title")
-        context = { "type" : type,
-                    "current_count" : current_count,
-                    "header_count" : reversed(list(range(current_count))),
-                    "header_list" : header_list,
-                    "content_list" : content_list,
-                    "title" : title
-                }
-        return render(request, "create_item.html", context)
-
-    elif request.method == "POST":
-        if "add_new_section" in request.POST:
-            request.session["title"] = request.POST.get("title")
-            header_list = set()
-            content_list = set()
-            for i in range(request.session.get("current_count")):
-                header_list.add(request.POST.get("header_" + str(i)).strip())
-                content_list.add(request.POST.get("content_" + str(i)).strip())
-
-            request.session["header_list"] = list(header_list)
-            request.session["content_list"] = list(content_list)
-
-
-            request.session["current_count"] = int(request.session.get("current_count")) + 1
-
-            return redirect("create_item", type=type)
-        
-        if "saveAll" in request.POST:
-            headers = set()
-            contents = set()
-            title = request.session.get("title")
-            current_count = int(request.session.get("current_count"))
-
-            for index in range(current_count):
-                header = request.POST.get("header_" + str(index)).strip()
-                content = request.POST.get("content_" + str(index)).strip()
-                headers.add(header)
-                contents.add(content)
-
-            try:
-                article = Article.objects.create(
-                    title = title,
-                    wholeContent = {
-                        "headers": list(headers),
-                        "contents": list(contents)
+    if type == "article":
+        if request.method == "GET":
+            current_count = request.session.get("current_count", "")
+            header_list = request.session.get("header_list", "")
+            content_list = request.session.get("content_list", "")
+            title = request.session.get("title", "")
+            category = request.session.get("category", "")
+            context = { "type" : type,
+                        "current_count" : current_count,
+                        "header_count" : reversed(list(range(current_count))),
+                        "header_list" : header_list,
+                        "content_list" : content_list,
+                        "title" : title,
+                        "category" : category
                     }
-                )
-                return redirect("home")
-            except Exception as e:
-                print(f"Error message: {e}")
+            return render(request, "create_item.html", context)
+
+        elif request.method == "POST":
+            if "add_new_section" in request.POST:
+                request.session["title"] = request.POST.get("title", "") #NOTE doesnt work with space, later check why
+                request.session["category"] = request.POST.get("category", "")
+
+                header_list = set()
+                content_list = set()
+
+                for i in range(request.session.get("current_count")):
+                    header_list.add(request.POST.get("header_" + str(i)).strip())
+                    content_list.add(request.POST.get("content_" + str(i)).strip())
+
+                request.session["header_list"] = list(header_list)
+                request.session["content_list"] = list(content_list)
+
+
+                request.session["current_count"] = int(request.session.get("current_count")) + 1
+
+                return redirect("create_item", type=type)
             
+            if "saveAll" in request.POST:
+                headers = set()
+                contents = set()
+                title = request.POST.get("title", "")
+                category = request.POST.get("category", "")
+                current_count = int(request.session.get("current_count"))
 
-        if not "add_new_section" in request.POST and not "saveAll" in request.POST:
-            
-            for key in request.POST:
-                if(key.startswith("delete_section_")):
-                    remove_index = int(key.split("_")[-1])
+                for index in range(current_count):
+                    header = request.POST.get("header_" + str(index)).strip()
+                    content = request.POST.get("content_" + str(index)).strip()
+                    headers.add(header)
+                    contents.add(content)
 
-                    headers = []
-                    contents = []
-                    current_count = int(request.session.get("current_count"))
+                try:
+                    article = Article.objects.create(
+                        title = title,
+                        wholeContent = {
+                            "headers": list(headers),
+                            "contents": list(contents)
+                        },
+                        category = category
+                    )
+                    return redirect("home")
+                except Exception as e:
+                    print(f"Error message: {e}")
+                
 
-                    for index in range(current_count):
-                        if index != remove_index:
-                            header = request.POST.get("header_" + str(index)).strip()
-                            content = request.POST.get("content_" + str(index)).strip()
-                            headers.insert(0,header)
-                            contents.insert(0,content)
+            if not "add_new_section" in request.POST and not "saveAll" in request.POST:
+                
+                for key in request.POST:
+                    if(key.startswith("delete_section_")):
+                        remove_index = int(key.split("_")[-1])
 
-                    print(f'header: {headers}, cont: {contents}')
+                        headers = []
+                        contents = []
+                        current_count = int(request.session.get("current_count"))
 
-                    request.session["header_list"] = headers
-                    request.session["content_list"] = contents
+                        for index in range(current_count):
+                            if index != remove_index:
+                                header = request.POST.get("header_" + str(index)).strip()
+                                content = request.POST.get("content_" + str(index)).strip()
+                                headers.insert(0,header)
+                                contents.insert(0,content)
 
-                    request.session["current_count"] = int(request.session.get("current_count")) - 1
+                        request.session["header_list"] = headers
+                        request.session["content_list"] = contents
+                        request.session["current_count"] = int(request.session.get("current_count")) - 1
 
-                    return redirect("create_item", type)
-        
+                        return redirect("create_item", type)
+    elif type == 'course':
+        pass
+    else:
+        pass
+
 
             
 def available_articles(request, category):
