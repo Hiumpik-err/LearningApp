@@ -148,7 +148,8 @@ def create_item(request, type):
 
             
 def available_articles(request, category):
-    return render(request, "articles.html")
+    articles = Article.objects.filter(category=category)
+    return render(request, "articles.html", {"articles": articles})
 
 def available_courses(request, category):
     return render(request, "courses.html")
