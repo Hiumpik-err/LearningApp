@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Uzytkownik, Article
+from .models import Uzytkownik, Article, Course, Quizz
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib import messages
 
@@ -84,12 +84,12 @@ def create_item(request, type):
                 request.session["title"] = request.POST.get("title", "") #NOTE doesnt work with space, later check why
                 request.session["category"] = request.POST.get("category", "")
 
-                header_list = set()
-                content_list = set()
+                header_list = []
+                content_list = []
 
                 for i in range(request.session.get("current_count")):
-                    header_list.add(request.POST.get("header_" + str(i)).strip())
-                    content_list.add(request.POST.get("content_" + str(i)).strip())
+                    header_list.append(request.POST.get("header_" + str(i)).strip())
+                    content_list.append(request.POST.get("content_" + str(i)).strip())
 
                 request.session["header_list"] = list(header_list)
                 request.session["content_list"] = list(content_list)
@@ -100,8 +100,8 @@ def create_item(request, type):
                 return redirect("create_item", type=type)
             
             if "saveAll" in request.POST:
-                headers = set()
-                contents = set()
+                headers = []
+                contents = []
                 title = request.POST.get("title", "")
                 category = request.POST.get("category", "")
                 current_count = int(request.session.get("current_count"))
@@ -109,8 +109,8 @@ def create_item(request, type):
                 for index in range(current_count):
                     header = request.POST.get("header_" + str(index)).strip()
                     content = request.POST.get("content_" + str(index)).strip()
-                    headers.add(header)
-                    contents.add(content)
+                    headers.append(header)
+                    contents.append(content)
 
                 try:
                     article = Article.objects.create(
@@ -149,9 +149,50 @@ def create_item(request, type):
 
                         return redirect("create_item", type)
     elif type == 'course':
-        pass
+        if request.method == "GET":
+            return render(request, "create_item.html", {"type": type})
+
+        if request.method == "POST":
+            category = request.POST.get("category", "")
+            title = request.POST.get("title", "")
+            question = request.POST.get("question", "")
+            answers = request.POST.get("answers", "")
+
+            try:
+                course = Course.objects.create(
+                    category=category, 
+                    title=title,
+                    question=question,
+                    answers=answers
+                )
+                print("Objekt został stworzony")
+                return redirect("home")
+            except Exception as e:
+                print(e)
+                return redirect("create_item", type=type)
+
     else:
-        pass
+        if request.method == "GET":
+            return render(request, "create_item.html", {"type": type})
+
+        if request.method == "POST":
+            category = request.POST.get("category", "")
+            title = request.POST.get("title", "")
+            description = request.POST.get("description", "")
+            link = request.POST.get("link", "")
+
+            try:
+                quizz = Quizz.objects.create(
+                    category=category, 
+                    title=title,
+                    description=description,
+                    link=link
+                )
+                print("Objekt został stworzony")
+                return redirect("home")
+            except Exception as e:
+                print(e)
+                return redirect("create_item", type=type)
 
 
             
@@ -160,10 +201,12 @@ def available_articles(request, category):
     return render(request, "articles.html", {"articles": articles})
 
 def available_courses(request, category):
-    return render(request, "courses.html")
+    courses = Course.objects.filter(category=category)
+    return render(request, "courses.html", {"courses" : courses})
 
 def available_quizzes(request, category):
-    return render(request, "quizzes.html")
+    quizz = Quizz.objects.filter(category=category)
+    return render(request, "quizzes.html", {"quizzes" : quizz})
 
 def search_item(request):
     pass

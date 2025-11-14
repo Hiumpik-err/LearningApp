@@ -1,7 +1,7 @@
 # accounts/admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Uzytkownik, Article
+from .models import Uzytkownik, Article, Course, Quizz
 from .forms import UzytkownikCreationForm, UzytkownikChangeForm
 
 class UzytkownikAdmin(UserAdmin):
@@ -31,3 +31,5 @@ class UzytkownikAdmin(UserAdmin):
 
 admin.site.register(Uzytkownik, UzytkownikAdmin)
 admin.site.register(Article)
+admin.site.register(Course)
+admin.site.register(Quizz)

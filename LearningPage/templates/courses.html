@@ -2,13 +2,14 @@
 
 {% block main-content %}
         <div class="item-content card col-lg-11">
+            {%for course in courses%}
             <div class="card col task-card">
                 <div class="card-header">
-                    <h3 class="card-title">Read chapter 1</h3>
+                    <h3 class="card-title">{{course.title}}</h3>
                 </div>
 
                 <div class="card-body">
-                    <p class="lead">What did you find interesting in this chapter?</p>
+                    <p class="lead">{{course.question}}</p>
                     <div class="input-group mb-3">
                         <label for="task1ans" class="input-group-text">Your answer</label>
                         <input type="text" id="task1ans">
@@ -19,39 +20,6 @@
                     <button class="btn btn-outline-primary" id="read-more">Submit answer</button>
                 </div>
             </div>
-            <div class="card col task-card">
-                <div class="card-header">
-                    <h3 class="card-title">Solve quiz 1</h3>
-                </div>
-
-                <div class="card-body">
-                    <p class="lead">What percentage did you get?</p>
-                    <div class="input-group mb-3">
-                        <label for="task1ans" class="input-group-text">Your answer</label>
-                        <input type="text" id="task1ans">
-                    </div>
-                <!-- content visible after read more is clicked -->
-                </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <button class="btn btn-outline-primary" id="read-more">Submit answer</button>
-                </div>
-            </div>
-            <div class="card col task-card">
-                <div class="card-header">
-                    <h3 class="card-title">Read chapter 3</h3>
-                </div>
-
-                <div class="card-body">
-                    <p class="lead">What did you find interesting in this chapter?</p>
-                    <div class="input-group mb-3">
-                        <label for="task1ans" class="input-group-text">Your answer</label>
-                        <input type="text" id="task1ans">
-                    </div>
-                <!-- content visible after read more is clicked -->
-                </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <button class="btn btn-outline-primary" id="read-more">Submit answer</button>
-                </div>
-            </div>
+            {%endfor%}
         </div>
-        {% endblock %}
+{% endblock %}

@@ -2,18 +2,20 @@
 
 {% block main-content %}
 <div class="item-content card col-lg-11">
+    {%for quizz in quizzes%}
     <div class="card col quiz-card">
         <div class="card-header">
-            <h3 class="card-title">Quiz title 1</h3>
+            <h3 class="card-title">{{quizz.title}}</h3>
         </div>
         <div class="card-body">
-            <p class="lead">General quiz about arithmetics</p>
+            <p class="lead">{{quizz.description}}</p>
         </div>
         <div class="card-footer d-flex justify-content-end">
-            <a href="#">
+            <a href="{{quizz.link}}">
                 <button class="btn btn-outline-primary" type="button">Solve the quiz</button>
             </a>
         </div>
-    </div>            
+    </div> 
+    {%endfor%}           
 </div>
 {% endblock %}
