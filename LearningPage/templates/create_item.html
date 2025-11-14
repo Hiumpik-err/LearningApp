@@ -26,18 +26,23 @@
                     </div>
                     {% load app_filters %}
                     {% for index in header_count %}
-
+                        <div class="mb-3">
+                            <h2>Section {{forloop.counter}}</h2>
                             <div class="form-floating mb-3">
                                 <textarea class="form-control form-textarea" type="text" id="lead" placeholder="Lead" name="header_{{index}}">{{ header_list|get:index}}</textarea>
                                 <label for="lead">Header</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <textarea class="form-control form-textarea" type="text" id="Content" name="content_{{index}}" placeholder="Content">{{ content_list|get:index}}</textarea>
+                                <textarea class="form-control form-textarea" rows="4" type="text" id="Content" name="content_{{index}}" placeholder="Content">{{ content_list|get:index}}</textarea>
                                 <label for="content_{{index}}">Content</label>
                             </div>
 
-                        {% if current_count > 1 %}<button type="submit" class="bnt btn-danger" name="delete_section_{{index}}" value>✗</button>{% endif %}
+                            <div class="d-flex justify-content-center">
+                                {% if current_count > 1 %}<button type="submit" class="bnt btn-danger" name="delete_section_{{index}}">Remove section</button>{% endif %}
+                            </div>
+                        </div>
+
                     {% endfor %}
 
                     <button type="submit" name="add_new_section" class="btn btn-primary">New Section</button>

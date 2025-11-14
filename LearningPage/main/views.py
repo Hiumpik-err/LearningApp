@@ -71,7 +71,7 @@ def create_item(request, type):
             category = request.session.get("category", "")
             context = { "type" : type,
                         "current_count" : current_count,
-                        "header_count" : reversed(list(range(current_count))),
+                        "header_count" : list(range(current_count)),
                         "header_list" : header_list,
                         "content_list" : content_list,
                         "title" : title,
