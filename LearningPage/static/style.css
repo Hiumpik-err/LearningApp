@@ -38,9 +38,13 @@
 }
 
 .dropdown-item,
-.dropdown-menu {
+.dropdown-menu { 
     min-width: 5rem;
     width: 80px;
+}
+
+.user-dropdown{
+    width: 110px;
 }
 
 .item-content{
@@ -50,17 +54,32 @@
     grid-gap: 1%;
     margin-bottom: 5%;
 }
+main{
+    min-height: 75vh;
+    height: 25vh;
+}
 
 .item-content.card{
     padding: 2% 0 5% 0;
 }
 
+#overlay-card{
+    position: fixed; 
+    top:50%; 
+    left:50%; 
+    transform: translate(-50%, -50%); 
+    width: 60%; 
+    z-index: 1050; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding-inline: 0;
+}
+
 .article-card,
-.course-card {
-    padding-inline: 0.67%;
+.task-card, .quiz-card {
     box-shadow: 0px 0px 2px black;
     transition: ease-in-out;
     transform: scale(95%);
+    height: 325px;
 }
 
 .article-card:hover,

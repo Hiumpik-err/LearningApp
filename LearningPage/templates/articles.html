@@ -11,21 +11,19 @@
             <div class="card-body">
                 <p class="lead multi-line-truncate" >{{article.wholeContent.contents|get:0}}</p>                       
             </div>
-            <div class="card-footer d-flex justify-content-end">
-                <button class="btn btn-outline-primary read-more" data-title="{{article.title}}" data-content="{{article.wholeContent|escapejs}}">Read more...</button>
+            <div class="card-footer position-relative">
+                <button class="btn btn-outline-primary read-more position-absolute top-50 end-0 mx-3 mt-3" title="Read more of the article" data-title="{{article.title}}" data-content="{{article.wholeContent|escapejs}}">Read more...</button>
             </div>
         </div>
     {% endfor %}
 </div>
 
-<div class="card d-none" id="overlay-card" style="position: fixed; top:50%; left:50%; transform: translate(-50%, -50%); width: 60%; z-index: 1050; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-    <div class="card-header">
+<div class="card d-none" id="overlay-card">
+    <div class="card-header d-flex justify-content-between">
         <h3 class="card-title" id="overlay-title"></h3>
+        <button class="btn btn-outline-danger read-more" id="close-overlay" title="Close currently view article">Close</button>
     </div>
     <div class="card-body" id="overlay-content">
-    </div>
-    <div class="card-footer d-flex justify-content-end">
-        <button class="btn btn-outline-danger read-more" id="close-overlay">Close</button>
     </div>
 </div>
 {% endblock %}

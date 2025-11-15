@@ -8,18 +8,24 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                     <button class="btn btn-toggle shadow-none nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Create</button>
-                    <ul class="dropdown-menu dropMenu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{% url 'create_item' 'article'%}">Article</a></li>
-                        <li><a class="dropdown-item" href="{% url 'create_item' 'course'%}">Course</a></li>
-                        <li><a class="dropdown-item" href="{% url 'create_item' 'quizz'%}">Quiz</a></li>
+                    <ul class="dropdown-menu dropMenu createDropdown" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item createDropdown" href="{% url 'create_item' 'article'%}">Article</a></li>
+                        <li><a class="dropdown-item createDropdown" href="{% url 'create_item' 'course'%}">Task</a></li>
+                        <li><a class="dropdown-item createDropdown" href="{% url 'create_item' 'quizz'%}">Quiz</a></li>
                     </ul>
                 </li>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="🔍︎ Search" aria-label="🔍︎ Search">
-                <!-- <button class="btn btn-success mx-2" type="submit">Search</button> -->
                 <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
-            <!-- <button class="btn btn-light" type="button">Theme change</button> -->
+            
+            <div class="dropdown mx-3">
+                <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Username</button>
+                <ul class="dropdown-menu user-dropdown">
+                    <li class="dropdown-item user-dropdown">Profile</li>
+                    <li class="dropdown-item user-dropdown">Log out [→</li>
+                </ul>
+            </div>
         </div>
     </nav>

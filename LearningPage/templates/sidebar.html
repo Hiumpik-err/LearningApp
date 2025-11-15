@@ -1,4 +1,5 @@
 <nav class="sidebar bg-light col-lg-1">
+    <button class="btn btn-primary btn-toggle mx-3 rounded collapse-btn" data-bs-toggle="collapse" data-bs-target=".collapse">Expand all</button>
     <ul class="nav flex-column">
         {% for category in categories %}
 
@@ -11,7 +12,7 @@
                             <a href="{% url 'available_articles' category %}" class="nav-link">Articles</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'available_courses' category %}" class="nav-link">Courses</a>
+                            <a href="{% url 'available_courses' category %}" class="nav-link">Tasks</a>
                         </li>
                         <li class="nav-item">
                             <a href="{% url 'available_quizzes' category%}" class="nav-link">Quizzes</a>
