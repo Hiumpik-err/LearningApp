@@ -210,3 +210,7 @@ def available_quizzes(request, category):
 
 def search_item(request):
     pass
+
+def profile(request):
+    profile_data = Uzytkownik.objects.first()
+    return render(request, "profile.html", {"profile_data" : profile_data})
