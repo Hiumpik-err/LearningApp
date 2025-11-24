@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from tinymce.models import HTMLField
+
 
 class UzytkownikManager(BaseUserManager):
     def create_user(self, email, password = None):
@@ -46,19 +48,13 @@ class Uzytkownik(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         return self.is_admin
     
-def article_content_structure():
-    return {
-        "headers": [],
-        "contents": []
-    }
 
 class Article(models.Model):
     
     ArticleId = models.BigAutoField(primary_key=True)
     title = models.CharField(null=False, max_length=255)
-    wholeContent = models.JSONField(
-        default=article_content_structure
-    )
+    lead = models.CharField(null=False, max_length=255)
+    content = HTMLField(null=True)
     category = models.CharField(null=False, max_length=50)
 
     def __str__(self):

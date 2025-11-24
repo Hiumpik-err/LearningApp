@@ -3,33 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const overlayContent = document.getElementById('overlay-content');
     const overlay = document.getElementById('overlay-card');
     const overlayTitle = document.getElementById('overlay-title');
-    function showArticle(title, content) {
-        content = content.replace(/\\u0027/g, "'");
-        const jsonString = content.replace(/'/g, '"').trim();
-
-        let parsed;
-        try {
-            parsed = JSON.parse(jsonString);
-        } catch (e) {
-            console.error("Failed to parse article JSON:", e);
-            return;
-        }
-
-        // Step 2: fill overlay content
-        overlayTitle.textContent = title;
-        overlayContent.innerHTML = '';
-
-        parsed.headers.forEach((header, i) => {
-            const h = document.createElement('h4');
-            h.classList.add('section-header');
-            h.textContent = header;
-
-            const p = document.createElement('p');
-            p.textContent = parsed.contents[i] || '';
-
-            overlayContent.appendChild(h);
-            overlayContent.appendChild(p);
+    
+    function decodeUnicodeEscapes(str) {        
+        return str.replace(/\\u([0-9a-fA-F]{4})/g, function(match, code) {
+            return String.fromCharCode(parseInt(code, 16));
         });
+    }
+    
+    function showArticle(title, content) {
+        overlayTitle.textContent = title;        
+        const decodedContent = decodeUnicodeEscapes(content);
+        overlayContent.innerHTML = decodedContent;
         overlay.classList.remove('d-none');
     }
 

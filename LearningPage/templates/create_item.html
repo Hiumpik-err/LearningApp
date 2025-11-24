@@ -7,47 +7,57 @@
         {% comment %} Artukuł {% endcomment %}
         <div class="card px-2">
             <p class="lead text-center mb-5">Add An Article</p>
-            <form method="post" class="gap-1">
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post" class="gap-1" novalidate>
                 {% csrf_token %}
                 <div class="input-group mb-3">
-                    <label for="category" class="input-group-text">Categories</label>
-                    <select id="category" class="form-select text-center" name="category">
-                        <option selected disabled>---Choose category---</option>
-                        <option  {%if category == "Math"%} selected{% endif%} value="Math">Math</option>
-                        <option  {%if category == "Physics"%} selected{% endif%} value="Physics">Physics</option>
-                        <option  {%if category == "Chemistry"%} selected{% endif%}value="Chemistry">Chemistry</option>
-                        <option  {%if category == "Biology"%} selected {% endif%}value="Biology">Biology</option>
-                        <option  {%if category == "History"%} selected {% endif%}value="History">History</option>
-                        <option  {%if category == "English"%} selected {% endif%}value="English">English</option>
-                    </select>
+                    <label for="{{ form.category.id_for_label }}" class="input-group-text">Categories</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.category.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="form-floating mb-3">
-                    <input class="form-control" type="text" id="title" placeholder="Title" name="title" value = {{title}}>
-                    <label for="title">Title</label>
+                    {{ form.title }}
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {% if form.title.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.title.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.lead }}
+                    <label for="{{ form.lead.id_for_label }}">Lead</label>
+                    {% if form.lead.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.lead.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.content.id_for_label }}" class="form-label">Main Content</label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.content.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-text">Use this field for the main article content. You can also add additional sections below.</div>
                 </div>
                 {% load app_filters %}
-                {% for index in header_count %}
-                    <div class="mb-3">
-                        <h2>
-                            Section {{forloop.counter}} 
-                            {% if current_count > 1 %}<button type="submit" class="btn btn-danger" name="delete_section_{{index}}">Remove section</button>{% endif %}
-                        </h2>
-                        
-                        <div class="form-floating mb-3">
-                            <textarea class="form-control form-textarea" type="text" id="lead" placeholder="Lead" name="header_{{index}}">{{ header_list|get:index}}</textarea>
-                            <label for="lead">Header</label>
-                        </div>
-                        
-
-                        <div class="form-floating mb-3">
-                            <textarea class="form-control form-textarea" rows="4" type="text" id="Content" name="content_{{index}}" placeholder="Content">{{ content_list|get:index}}</textarea>
-                            <label for="content_{{index}}">
-                                {% if index == 0 %} Lead {% else %} Content {% endif %}
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                <button type="submit" name="add_new_section" class="btn btn-primary">New Section</button>
+                               
                 <div class="container d-flex justify-content-end mt-3 mb-3">
                     <button type="submit" name="saveAll" class="btn btn-success">Save article</button>
                 </div>
@@ -60,35 +70,54 @@
         {% block add_course %}
         <div class="card px-2">
             <p class="lead text-center mb-5">Add A Task</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
 
-            <form method="post">
+            <form method="post" novalidate>
                 {% csrf_token %}
                 <div class="input-group mb-3">
-                    <label for="category" class="input-group-text">Categories</label>
-                    <select id="category" class="form-select text-center" name="category">
-                        <option selected disabled>---Choose category---</option>
-                        <option  {%if category == "Math"%} selected{% endif%} value="Math">Math</option>
-                        <option  {%if category == "Physics"%} selected{% endif%} value="Physics">Physics</option>
-                        <option  {%if category == "Chemistry"%} selected{% endif%}value="Chemistry">Chemistry</option>
-                        <option  {%if category == "Biology"%} selected {% endif%}value="Biology">Biology</option>
-                        <option  {%if category == "History"%} selected {% endif%}value="History">History</option>
-                        <option  {%if category == "English"%} selected {% endif%}value="English">English</option>
-                    </select>
+                    <label for="{{ form.category.id_for_label }}" class="input-group-text">Categories</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.category.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="form-floating mb-3">
-                    <input class="form-control" type="text" id="title" placeholder="Title" name="title">
-                    <label for="title">Title</label>
+                    {{ form.title }}
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {% if form.title.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.title.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="form-floating mb-3">
-                    <textarea class="form-control form-textarea" type="text" id="lead" placeholder="Lead" name="question"></textarea>
-                    <label for="lead">Question</label>
+                    {{ form.question }}
+                    <label for="{{ form.question.id_for_label }}">Question</label>
+                    {% if form.question.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.question.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-                <!-- do usunięcia, nie wiem czy ci sie tak uda -->
                 <div class="form-floating mb-3">
-                    <textarea class="form-control form-textarea" type="text" id="Content" name="answers"
-                        placeholder="Link to quiz"></textarea>
-                    <label for="Content">Possible answers</label>
+                    {{ form.answers }}
+                    <label for="{{ form.answers.id_for_label }}">Possible answers</label>
                     <p class="fs-6 mx-2 font-monospace text-body-secondary">Possible answers separated by a semicolon e.g. 100;95;43 or leave empty</p>
+                    {% if form.answers.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.answers.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="container d-flex justify-content-end mt-3 mb-3">
                     <button type="submit" name="saveAll" class="btn btn-success">Save task</button>
@@ -100,34 +129,54 @@
         {% comment %} Quizz {% endcomment %}
         {% block add_quiz %}
         <div class="card px-2">
-            <p class="lead text-center mb-5">Add A Quizz</p>
+            <p class="lead text-center mb-5">Add A Quiz</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
 
-            <form method="post">
+            <form method="post" novalidate>
                 {% csrf_token %}
                 <div class="input-group mb-3">
-                    <label for="category" class="input-group-text">Categories</label>
-                    <select id="category" class="form-select text-center" name="category">
-                        <option selected disabled>---Choose category---</option>
-                        <option  {%if category == "Math"%} selected{% endif%} value="Math">Math</option>
-                        <option  {%if category == "Physics"%} selected{% endif%} value="Physics">Physics</option>
-                        <option  {%if category == "Chemistry"%} selected{% endif%}value="Chemistry">Chemistry</option>
-                        <option  {%if category == "Biology"%} selected {% endif%}value="Biology">Biology</option>
-                        <option  {%if category == "History"%} selected {% endif%}value="History">History</option>
-                        <option  {%if category == "English"%} selected {% endif%}value="English">English</option>
-                    </select>
+                    <label for="{{ form.category.id_for_label }}" class="input-group-text">Categories</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.category.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="form-floating mb-3">
-                    <input class="form-control" type="text" id="title" placeholder="Title" name="title">
-                    <label for="title">Title</label>
+                    {{ form.title }}
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {% if form.title.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.title.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="form-floating mb-3">
-                    <textarea class="form-control form-textarea" type="text" id="lead" placeholder="Lead" name="description"></textarea>
-                    <label for="lead">Quiz description</label>
+                    {{ form.description }}
+                    <label for="{{ form.description.id_for_label }}">Quiz description</label>
+                    {% if form.description.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.description.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="form-floating mb-3">
-                    <textarea class="form-control form-textarea" type="text" id="Content" name="link"
-                        placeholder="Link to quiz"></textarea>
-                    <label for="Content">Link to quiz</label>
+                    {{ form.link }}
+                    <label for="{{ form.link.id_for_label }}">Link to quiz</label>
+                    {% if form.link.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.link.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="container d-flex justify-content-end mt-3 mb-3">
                     <button type="submit" name="saveAll" class="btn btn-success">Save quiz</button>
@@ -138,6 +187,35 @@
         {%endif%}
 
     </div>
+
+    <script>
+        // Bootstrap form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        // Add needs-validation class to all forms
+        document.addEventListener('DOMContentLoaded', function() {
+            var forms = document.querySelectorAll('form');
+            forms.forEach(function(form) {
+                form.classList.add('needs-validation');
+            });
+        });        
+    </script>
+    
+    {% if type == "article" %}
+        {{ form.media }}
+    {% endif %}
     {% endblock %}
-
-
