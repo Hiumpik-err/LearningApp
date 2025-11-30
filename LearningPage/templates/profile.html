@@ -10,7 +10,10 @@
             <p>Username: {{profile_data.email}}</p>
         </div>
         <div class="card-footer position-relative">
-            <button class="btn btn-outline-primary read-more position-absolute top-50 end-0 mx-3 mt-3">Log out</button>
+            <form method="post">
+                {% csrf_token %}
+                <button class="btn btn-outline-primary read-more position-absolute top-50 end-0 mx-3 mt-3" type="submit" name="logout">Log out</button>
+            </form>
         </div>
     </div>
 </div>

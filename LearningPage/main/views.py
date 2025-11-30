@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Uzytkownik, Article, Course, Quizz
 from .forms import ArticleForm, CourseForm, QuizzForm
-from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 
 def login(request):
@@ -158,13 +158,17 @@ def search_item(request):
     pass
 
 def profile(request):
-    try:
-        if request.user.is_authenticated:
-            profile_data = request.user
-            print(profile_data)
-            return render(request, "profile.html", {"profile_data" : profile_data})
-        else: 
-            raise Exception("User not authenticated")
-    except Exception as e:
-        print(e)
-        return redirect('profile')
+    if request.method == "GET":
+        try:
+            if request.user.is_authenticated:
+                profile_data = request.user
+                print(profile_data)
+                return render(request, "profile.html", {"profile_data" : profile_data})
+            else: 
+                raise Exception("User not authenticated")
+        except Exception as e:
+            print(e)
+            return redirect('profile')
+    if request.method == "POST":
+        logout(request)
+        return redirect("/")
