@@ -7,26 +7,27 @@ from django.contrib import messages
 def login(request):
     if request.method == "POST":
         if "registering" in request.POST:
-
-            email_input = request.POST.get("input-username")
-            password_input = request.POST.get("input-password")
-            password2_input = request.POST.get("input-repeat-password")
-            
-
-            if(not email_input or not password_input or not password2_input):
-                messages.error(request, "Fill all fields")
-                raise Exception("Not all requiered fields are filled")
-
-            if(password_input != password2_input): 
-                messages.error(request, "Passwords dont match")
-                raise Exception("Passwords dont match")
             try:
+                email_input = request.POST.get("input-username")
+                password_input = request.POST.get("input-password")
+                password2_input = request.POST.get("input-repeat-password")
+                
+
+                if(not email_input or not password_input or not password2_input):
+                    messages.error(request, "Fill all fields")
+                    raise Exception("Not all requiered fields are filled")
+
+                if(password_input != password2_input): 
+                    messages.error(request, "Passwords dont match")
+                    raise Exception("Passwords dont match")
+                
                 user = Uzytkownik.objects.create_user(email = email_input, password = password_input)
                 auth_login(request, user=user)
-                
+                    
                 return redirect("home")
             except Exception as e:
                 messages.info(request, f"Error: {e}")
+                print(e)
 
         if "logging" in request.POST:
             email = request.POST.get("email")
@@ -53,9 +54,6 @@ def home(request):
     request.session["title"] = ""
 
     return render(request, "home.html")
-
-def item_view(request):
-    return render(request, "item_view.html")
 
 
 def create_item(request, type):
@@ -160,5 +158,13 @@ def search_item(request):
     pass
 
 def profile(request):
-    profile_data = Uzytkownik.objects.first()
-    return render(request, "profile.html", {"profile_data" : profile_data})
+    try:
+        if request.user.is_authenticated:
+            profile_data = request.user
+            print(profile_data)
+            return render(request, "profile.html", {"profile_data" : profile_data})
+        else: 
+            raise Exception("User not authenticated")
+    except Exception as e:
+        print(e)
+        return redirect('profile')
