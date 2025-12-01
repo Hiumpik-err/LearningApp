@@ -58,16 +58,14 @@ def home(request):
     
     if request.method == "POST":
         searched_value = request.POST.get("searched_value", "")
-        articles = Article.objects.filter(Q(title__icontains=searched_value) | 
+        articles = list(Article.objects.filter(Q(title__icontains=searched_value) | 
                                           Q(content__icontains=searched_value)
-                                        )
-        courses = Course.objects.filter(title__icontains=searched_value)
-        quizzes = Quizz.objects.filter(Q(title__icontains=searched_value) | 
-                                       Q(description__icontains=searched_value))
+                                        ))
+        courses = list(Course.objects.filter(title__icontains=searched_value))
+        quizzes = list(Quizz.objects.filter(Q(title__icontains=searched_value) | 
+                                       Q(description__icontains=searched_value)))
         
-        all_data = [articles, courses, quizzes]
-
-        print(all_data)
+        all_data = articles + courses + quizzes
         
         context = {"all_data": all_data}
 
