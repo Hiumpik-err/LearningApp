@@ -15,8 +15,9 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="🔍︎ Search" aria-label="🔍︎ Search">
+            <form class="d-flex" action="{% url "home" %}" method="POST">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="🔍︎ Search" aria-label="🔍︎ Search" name="searched_value">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
             

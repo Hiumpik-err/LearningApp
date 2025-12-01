@@ -10,14 +10,14 @@
 
                 <div class="card-body">
                     <p class="lead">{{course.question}}</p>
-                    <div class="input-group mb-3">
+                    {% comment %} <div class="input-group mb-3">
                         <label for="task1ans" class="input-group-text">Your answer</label>
                         <input type="text" id="task1ans">
-                    </div>
+                    </div> {% endcomment %}
                 <!-- content visible after read more is clicked -->
                 </div>
                 <div class="card-footer d-flex justify-content-end">
-                    <button class="btn btn-outline-primary" id="read-more">Submit answer</button>
+                    <button class="btn btn-outline-primary" id="read-more"><a href="{% url "item_view" 'course' course.CourseId %}"></a></button>
                 </div>
             </div>
             {%endfor%}

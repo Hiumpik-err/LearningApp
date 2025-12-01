@@ -31,18 +31,26 @@
          
 {% block main-content %}
         <div class="content col-lg-11">
-            <div class="card px-2">
-                <p class="lead text-center mb-5">Learn, Grow, and Achieve—All in One Place.</p>
 
-                <p>Welcome to EEX - which stands for European Educational Experience! Here you can learn any sorts of things, from learning many languages to various fields of science! We offer high quality articles from subject such as, biology, chemistry or math and even more. Those articles are packed with a lot of information, which could find use on your next tests or quizzes.
-                Our platform is incredibly easy to navigate, all of things needed for you, can be found on the left sidebar, if you are interested in adding some articles by yourself, you found the right place, we also have such possibility, after adding an article contact with your teacher, so he can approve that one and publish it for you.</p>
+                <div class="card px-2">
+                    <p class="lead text-center mb-5">Learn, Grow, and Achieve—All in One Place.</p>
 
-                <p>This site doesn't feature a lot by itself, but with your help we can build something more! Unlike popular educational platforms we allow you to create the foundational data for others 
-                to learn from. The compilation of quizzes, articles, and tasks reflects the quality of your contributions, everyone here has a chance to shine and inspire others to learn new skills! 
-                And remember you will not be unnoticed, we value each of our fellow users and the profound impact you have on our community. </p>
+                    <p>Welcome to EEX - which stands for European Educational Experience! Here you can learn any sorts of things, from learning many languages to various fields of science! We offer high quality articles from subject such as, biology, chemistry or math and even more. Those articles are packed with a lot of information, which could find use on your next tests or quizzes.
+                    Our platform is incredibly easy to navigate, all of things needed for you, can be found on the left sidebar, if you are interested in adding some articles by yourself, you found the right place, we also have such possibility, after adding an article contact with your teacher, so he can approve that one and publish it for you.</p>
 
-                <p>We are incredibly proud to host this dynamic educational hub right here in our community. In fact, many of the high-quality resources you see are inspired by the dedication found at institution ZST Mikołów—a testament to local excellence fostering global learning. Join us in making EEX the ultimate destination for knowledge. Start exploring, start contributing, and help us redefine the educational experience!</p>
-            </div>
+                    <p>This site doesn't feature a lot by itself, but with your help we can build something more! Unlike popular educational platforms we allow you to create the foundational data for others 
+                    to learn from. The compilation of quizzes, articles, and tasks reflects the quality of your contributions, everyone here has a chance to shine and inspire others to learn new skills! 
+                    And remember you will not be unnoticed, we value each of our fellow users and the profound impact you have on our community. </p>
+
+                    <p>We are incredibly proud to host this dynamic educational hub right here in our community. In fact, many of the high-quality resources you see are inspired by the dedication found at institution ZST Mikołów—a testament to local excellence fostering global learning. Join us in making EEX the ultimate destination for knowledge. Start exploring, start contributing, and help us redefine the educational experience!</p>
+                </div>
+
+        </div>
+        <div>
+            {% for value  in all_data %}
+                <p>{{value}}</p>
+            
+            {% endfor %}
         </div>
     {% endblock %}
     </main>

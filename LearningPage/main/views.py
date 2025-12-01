@@ -3,6 +3,7 @@ from .models import Uzytkownik, Article, Course, Quizz
 from .forms import ArticleForm, CourseForm, QuizzForm
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
+from django.db.models import Q
 
 def login(request):
     if request.method == "POST":
@@ -51,10 +52,27 @@ def login(request):
     return render(request, "login.html")
 
 def home(request):
-    request.session["title"] = ""
+    if request.method == "GET":
+        request.session["title"] = ""
+        return render(request, "home.html")
+    
+    if request.method == "POST":
+        searched_value = request.POST.get("searched_value", "")
+        articles = Article.objects.filter(Q(title__icontains=searched_value) | 
+                                          Q(content__icontains=searched_value)
+                                        )
+        courses = Course.objects.filter(title__icontains=searched_value)
+        quizzes = Quizz.objects.filter(Q(title__icontains=searched_value) | 
+                                       Q(description__icontains=searched_value))
+        
+        all_data = [articles, courses, quizzes]
 
-    return render(request, "home.html")
+        print(all_data)
+        
+        context = {"all_data": all_data}
 
+        return render(request, "home.html", context)
+        
 
 def create_item(request, type):
     if type == "article":
@@ -154,8 +172,6 @@ def available_quizzes(request, category):
     quizz = Quizz.objects.filter(category=category)
     return render(request, "quizzes.html", {"quizzes" : quizz})
 
-def search_item(request):
-    pass
 
 def profile(request):
     if request.method == "GET":
@@ -172,3 +188,11 @@ def profile(request):
     if request.method == "POST":
         logout(request)
         return redirect("/")
+    
+def item_view(request, type, id):
+    if type == "article":
+        article = Article.objects.get(ArticleId=id)
+        return render(request, "item_view.html", {"article": article, "type":type})
+    elif type == "course":
+        course = Course.objects.get(CourseId=id)
+        return render(request, "item_view.html", {"course": course, "type": type})

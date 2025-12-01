@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+{% block main-content %}
+        <div class="content col-lg-11">
+            {% if type == 'article' %}
+                <h1>{{article.title}}</h1>
+                
+            
+            {% else %}
+                <h1>{{course.title}}</h1>
+            {% endif %}
+            
+            
+                
+
+        </div>
+{% endblock %}
