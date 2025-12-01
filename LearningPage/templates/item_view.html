@@ -2,7 +2,15 @@
 {% block main-content %}
         <div class="content col-lg-11">
             {% if type == 'article' %}
-                <h1>{{article.title}}</h1>
+                <div class="item-card card" id="overlay-card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h3 class="card-title" id="overlay-title">{{article.title}}</h3>
+                        <button class="btn btn-outline-danger read-more" id="close-overlay" title="Close currently view article">Close</button>
+                    </div>
+                    <div class="card-body" id="overlay-content">
+                        {{article.content|safe}}
+                    </div>
+                </div>
                 
             
             {% else %}

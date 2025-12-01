@@ -24,13 +24,12 @@
             <div class="dropdown mx-3">
                 <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Username</button>
                 <ul class="dropdown-menu user-dropdown">
-                    <li class="dropdown-item user-dropdown"><a href="{% url 'profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item user-dropdown" href="{% url 'profile' %}">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     <form method="post" action="{% url "profile" %}">
                         {% csrf_token %}
-                        <li class="dropdown-item user-dropdown">
-                            <button class="btn btn-outline-primary read-more position-absolute top-50 end-0 mx-3 mt-3" 
-                                type="submit">Log out [→
-                            </button>
+                        <li>
+                            <button class="dropdown-item user-dropdown" type="submit">Log out [-></button>
                         </li>
                     </form>
                 </ul>

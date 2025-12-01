@@ -9,10 +9,11 @@
                 <h3 class="card-title">{{article.title}}</h3>
             </div>
             <div class="card-body">
-                <p class="lead multi-line-truncate" >{{article.lead}}</p>                       
+                <p class="lead multi-line-truncate" >{{article.lead}}</p>   
+                                
             </div>
             <div class="card-footer position-relative">
-                <button class="btn btn-outline-primary read-more position-absolute top-50 end-0 mx-3 mt-3" ><a href="{% url "item_view" 'article' article.ArticleId %}">Read more...</a></button>
+                <button class="btn btn-outline-primary read-more position-absolute top-50 end-0 mx-3 mt-3" ><a class="text-decoration-none lead text-light" href="{% url "item_view" 'article' article.ArticleId %}">Read more...</a></button>
             </div>
         </div>
     {% endfor %}
