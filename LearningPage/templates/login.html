@@ -70,16 +70,19 @@
                 <form method="post">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="input-username" class="form-label">Email</label>
-                        <input type="email" id="input-username" name="email" class="form-control" placeholder="Enter your email">
+                        <label for="{{form.email.id_for_label}}" class="form-label">Email</label><br>
+                        
+                        {{form.email}}
+                        {% comment %} <input type="email" id="input-username" name="email" class="form-control" placeholder="Enter your email"> {% endcomment %}
                     </div>
                     <div class="mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <label for="input-password" class="form-label mb-0">Password</label>
+                            <label for="{{form.password.id_for_label}}" class="form-label mb-0">Password</label>
                             <a href="#" class="text-decoration-none small">Forgot password?</a> <!-- Site with contact informaton to admin of site-->
                         </div>
                         <div class="d-flex">
-                            <input type="password" id="input-password" name="password" class="form-control" placeholder="Enter your password">
+                            {{form.password}}
+                            {% comment %} <input type="password" id="input-password" name="password" class="form-control" placeholder="Enter your password"> {% endcomment %}
                             <button type="button" onclick="showPassword();" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
                                 <img src="{% static 'images/eye.png' %}" alt="Show password" style="position: relative; top: 4px;">
                             </button>
@@ -95,13 +98,15 @@
                 <form method="post">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="input-username" class="form-label">Email</label>
-                        <input type="email" id="input-username" name="input-username" class="form-control" placeholder="Enter your email">
+                        <label for="{{form.email.id_for_label}}" class="form-label">Email</label>
+                        {{form.email}}
+                        {% comment %} <input type="email" id="input-username" name="input-username" class="form-control" placeholder="Enter your email"> {% endcomment %}
                     </div>
 
                     <div class="mb-3">
-                        <label for="input-password" class="form-label mb-0">Password</label>
-                        <input type="password" id="input-password" name="input-password" class="form-control" placeholder="Enter your password">
+                        <label for="{{form.password.id_for_label}}" class="form-label mb-0">Password</label>
+                        {{form.password}}
+                        {% comment %} <input type="password" id="input-password" name="input-password" class="form-control" placeholder="Enter your password"> {% endcomment %}
                         <input type="password" id="input-repeat-password" name="input-repeat-password" class="form-control" placeholder="Repeat your password">
                     </div>
 

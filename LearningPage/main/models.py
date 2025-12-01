@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from tinymce.models import HTMLField
+from django.core.validators import EmailValidator
 
 
 class UzytkownikManager(BaseUserManager):
@@ -26,7 +27,8 @@ class UzytkownikManager(BaseUserManager):
         return user
     
 class Uzytkownik(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(max_length=50, unique=True, null=False)
+    email = models.EmailField(max_length=50, unique=True, null=False, validators=[EmailValidator(code="", message="Invalid email")])
+    
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

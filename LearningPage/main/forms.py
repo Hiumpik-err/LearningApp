@@ -3,7 +3,31 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Uzytkownik, Article, Course, Quizz
 from django import forms
 from tinymce.widgets import TinyMCE
+from django.core.validators import RegexValidator
 
+EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$'  
+email_validation = RegexValidator(
+    regex=EMAIL_REGEX,
+    message="Enter valid email",
+    code="invalid_strict_email"
+)
+
+PASSWORD_REGEX = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-+_=])(?=.{8,}).*$'
+password_validation = RegexValidator(
+    regex=PASSWORD_REGEX,
+    message="Enter more complex password",
+    code="invalid_password"
+)
+
+class UzytkownikForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'required': True}), validators=[password_validation])
+    email = forms.EmailField(
+        validators=[email_validation], 
+        widget=forms.EmailInput(attrs={'required': True})
+    )
+    class Meta:
+        model = Uzytkownik
+        fields = ["email", "password"]
 
 class UzytkownikCreationForm(UserCreationForm):
     class Meta:

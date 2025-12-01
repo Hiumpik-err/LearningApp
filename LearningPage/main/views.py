@@ -1,28 +1,26 @@
 from django.shortcuts import render, redirect
 from .models import Uzytkownik, Article, Course, Quizz
-from .forms import ArticleForm, CourseForm, QuizzForm
+from .forms import ArticleForm, CourseForm, QuizzForm, UzytkownikForm
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from django.db.models import Q
 
 def login(request):
     if request.method == "POST":
+        form = UzytkownikForm(request.POST)
         if "registering" in request.POST:
             try:
-                email_input = request.POST.get("input-username")
-                password_input = request.POST.get("input-password")
                 password2_input = request.POST.get("input-repeat-password")
-                
-
-                if(not email_input or not password_input or not password2_input):
+                print(form.is_valid())
+                if(not form.is_valid() or not password2_input):
                     messages.error(request, "Fill all fields")
                     raise Exception("Not all requiered fields are filled")
 
-                if(password_input != password2_input): 
+                if( form.data.get("password") != password2_input): 
                     messages.error(request, "Passwords dont match")
                     raise Exception("Passwords dont match")
                 
-                user = Uzytkownik.objects.create_user(email = email_input, password = password_input)
+                user = form.save()
                 auth_login(request, user=user)
                     
                 return redirect("home")
@@ -31,10 +29,8 @@ def login(request):
                 print(e)
 
         if "logging" in request.POST:
-            email = request.POST.get("email")
-            password = request.POST.get("password")
             try:
-                user = authenticate(request, email=email, password=password)
+                user = authenticate(request, email=form.data.get("email"), password=form.data.get("password"))
 
                 if not user:
                     messages.error(request, "User not found. womp womp ")
@@ -49,7 +45,7 @@ def login(request):
                     return redirect("login")
                 
 
-    return render(request, "login.html")
+    return render(request, "login.html", {"form": UzytkownikForm()})
 
 def home(request):
     if request.method == "GET":
