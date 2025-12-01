@@ -20,10 +20,20 @@ password_validation = RegexValidator(
 )
 
 class UzytkownikForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'required': True}), validators=[password_validation])
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'required': True, 
+        'class' : 'form-control',
+        'id' : 'input-password',
+        'placeholder' : 'Enter your password'
+        }),
+        validators=[password_validation])
     email = forms.EmailField(
         validators=[email_validation], 
-        widget=forms.EmailInput(attrs={'required': True})
+        widget=forms.EmailInput(attrs={
+            'required': True, 
+            'class' : 'form-control',
+            'placeholder' : 'Enter your email'
+        })
     )
     class Meta:
         model = Uzytkownik
