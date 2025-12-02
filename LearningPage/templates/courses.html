@@ -17,7 +17,7 @@
                 <!-- content visible after read more is clicked -->
                 </div>
                 <div class="card-footer d-flex justify-content-end">
-                    <button class="btn btn-outline-primary" id="read-more"><a href="{% url "item_view" 'course' course.CourseId %}"></a></button>
+                    <button class="btn btn-outline-primary" id="read-more"><a class="text-decoration-none lead text-light" href="{% url "item_view" 'course' course.CourseId %}">See more</a></button>
                 </div>
             </div>
             {%endfor%}

@@ -10,10 +10,9 @@
         <div class="card-body">
             <p class="lead">{{quizz.description}}</p>
         </div>
-        <div class="card-footer d-flex justify-content-end">
-            <a href="{{quizz.link}}" target="_blank">
-                <button class="btn btn-outline-primary" type="button">Solve the quiz</button>
-            </a>
+        <div class="card-footer position-relative">
+            <button class="btn btn-outline-primary btn-footer" type="button"><a class="text-decoration-none lead text-light" href="{{quizz.link}}">Solve the quiz</a></button>
+        
         </div>
     </div> 
     {%endfor%}           

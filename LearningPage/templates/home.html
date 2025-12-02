@@ -31,32 +31,94 @@
          
 {% block main-content %}
         <div class="content col-lg-11">
-
-                <div class="card px-2">
-                    <p class="lead text-center mb-5">Learn, Grow, and Achieve—All in One Place.</p>
-
-                    <p>Welcome to EEX - which stands for European Educational Experience! Here you can learn any sorts of things, from learning many languages to various fields of science! We offer high quality articles from subject such as, biology, chemistry or math and even more. Those articles are packed with a lot of information, which could find use on your next tests or quizzes.
-                    Our platform is incredibly easy to navigate, all of things needed for you, can be found on the left sidebar, if you are interested in adding some articles by yourself, you found the right place, we also have such possibility, after adding an article contact with your teacher, so he can approve that one and publish it for you.</p>
-
-                    <p>This site doesn't feature a lot by itself, but with your help we can build something more! Unlike popular educational platforms we allow you to create the foundational data for others 
-                    to learn from. The compilation of quizzes, articles, and tasks reflects the quality of your contributions, everyone here has a chance to shine and inspire others to learn new skills! 
-                    And remember you will not be unnoticed, we value each of our fellow users and the profound impact you have on our community. </p>
-
-                    <p>We are incredibly proud to host this dynamic educational hub right here in our community. In fact, many of the high-quality resources you see are inspired by the dedication found at institution ZST Mikołów—a testament to local excellence fostering global learning. Join us in making EEX the ultimate destination for knowledge. Start exploring, start contributing, and help us redefine the educational experience!</p>
+            {% if articles or courses or quizzes %}
+            {% comment %}
+            <div>
+                {% for data in articles.data %}
+                    <p style="color: white;">{{data.category}}</p>
+                {% endfor %}
+                {% for data in courses.data %}
+                    <p style="color: white;">{{data.category}}</p>
+                {% endfor %}
+                {% for data in quizzes.data %}
+                    <p style="color: white;">{{data.category}}</p>
+                {% endfor %}
+            </div> 
+            {% endcomment %}
+            
+            <div class="card px-2">
+                <h3>Found articles: </h3>
+                <div class="found-articles item-content col-lg-11">
+                    {% for data in articles.data %}
+                        <div class="article-card">
+                            <div class="card-header">
+                                <h3 class="card-title">{{data.title}} | {{data.category}}</h3>
+                            </div>
+                            <div class="card-body article-body">
+                                <p class="lead multi-line-truncate">{{data.lead}}</p>
+                            </div>
+                            <div class="card-footer position-relative d-flex justify-content-end">
+                                <button class="btn btn-outline-primary">
+                                    <a class="text-decoration-none lead text-light" href="{% url "item_view" 'article' data.ArticleId %}">Read more...</a>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
 
+                <h3>Found courses: </h3>
+                <div class="found-courses item-content col-lg-11">
+                    {% for data in courses.data %}
+                        <div class="card task-card">
+                            <div class="card-header">
+                                <h3 class="card-title">{{data.title}} | {{data.category}}</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <p class="lead">{{data.question}}</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end">
+                                <button class="btn btn-outline-primary" id="read-more"><a class="text-decoration-none lead text-light" href="{% url "item_view" 'course' data.CourseId %}">See more</a></button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <h3>Found quizzes: </h3>
+                <div class="found-quizzes item-content col-lg-11">
+                    {% for data in quizzes.data %}
+                        <div class="card quiz-card">
+                            <div class="card-header">
+                                <h3 class="card-title">{{data.title}} | {{data.category}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="lead">{{data.description}}</p>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end">
+                                <button class="btn btn-outline-primary" type="button"><a class="text-decoration-none lead text-light" href="{{quizz.link}}">Solve the quiz</a></button>
+                            </div>
+                        </div> 
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% else %}
+            
+            <div class="card px-2">
+                <p class="lead text-center mb-5">Learn, Grow, and Achieve—All in One Place.</p>
+
+                <p>Welcome to EEX - which stands for European Educational Experience! Here you can learn any sorts of things, from learning many languages to various fields of science! We offer high quality articles from subject such as, biology, chemistry or math and even more. Those articles are packed with a lot of information, which could find use on your next tests or quizzes.
+                Our platform is incredibly easy to navigate, all of things needed for you, can be found on the left sidebar, if you are interested in adding some articles by yourself, you found the right place, we also have such possibility, after adding an article contact with your teacher, so he can approve that one and publish it for you.</p>
+
+                <p>This site doesn't feature a lot by itself, but with your help we can build something more! Unlike popular educational platforms we allow you to create the foundational data for others 
+                to learn from. The compilation of quizzes, articles, and tasks reflects the quality of your contributions, everyone here has a chance to shine and inspire others to learn new skills! 
+                And remember you will not be unnoticed, we value each of our fellow users and the profound impact you have on our community. </p>
+
+                <p>We are incredibly proud to host this dynamic educational hub right here in our community. In fact, many of the high-quality resources you see are inspired by the dedication found at institution ZST Mikołów—a testament to local excellence fostering global learning. Join us in making EEX the ultimate destination for knowledge. Start exploring, start contributing, and help us redefine the educational experience!</p>
+            </div>    
+            {% endif %}
         </div>
-        <div>
-            {% for data in articles.data %}
-                <p style="color: white;">{{data.category}}</p>
-            {% endfor %}
-            {% for data in courses.data %}
-                <p style="color: white;">{{data.category}}</p>
-            {% endfor %}
-            {% for data in quizzes.data %}
-                <p style="color: white;">{{data.category}}</p>
-            {% endfor %}
-        </div>
+        
     {% endblock %}
     </main>
 {% endblock %}
@@ -69,3 +131,12 @@
 
 </body>
 </html>
+
+
+
+                
+                {% comment %}
+                
+                    
+                        {% endcomment %}
+                

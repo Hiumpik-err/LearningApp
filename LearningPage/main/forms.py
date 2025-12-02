@@ -19,12 +19,23 @@ password_validation = RegexValidator(
     code="invalid_password"
 )
 
+CATEGORY_CHOICES = [
+        ('', '---Choose category---'),
+        ('Math', 'Math'),
+        ('Physics', 'Physics'),
+        ('Chemistry', 'Chemistry'),
+        ('Biology', 'Biology'),
+        ('History', 'History'),
+        ('English', 'English'),
+    ]
+
 class UzytkownikForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'required': True, 
         'class' : 'form-control',
         'id' : 'input-password',
         'placeholder' : 'Enter your password'
+        # 'title' : "Password must contain the following 1 Uppercase letter 1 Lowercase letter 1 Special character Must be at least 8 characters"
         }),
         validators=[password_validation])
     email = forms.EmailField(
@@ -51,15 +62,6 @@ class UzytkownikChangeForm(UserChangeForm):
 
 
 class ArticleForm(forms.ModelForm):
-    CATEGORY_CHOICES = [
-        ('', '---Choose category---'),
-        ('Math', 'Math'),
-        ('Physics', 'Physics'),
-        ('Chemistry', 'Chemistry'),
-        ('Biology', 'Biology'),
-        ('History', 'History'),
-        ('English', 'English'),
-    ]
     
     category = forms.ChoiceField(
         choices=CATEGORY_CHOICES,
@@ -117,15 +119,6 @@ class ArticleForm(forms.ModelForm):
 
 
 class CourseForm(forms.ModelForm):
-    CATEGORY_CHOICES = [
-        ('', '---Choose category---'),
-        ('Math', 'Math'),
-        ('Physics', 'Physics'),
-        ('Chemistry', 'Chemistry'),
-        ('Biology', 'Biology'),
-        ('History', 'History'),
-        ('English', 'English'),
-    ]
     
     category = forms.ChoiceField(
         choices=CATEGORY_CHOICES,
@@ -160,15 +153,15 @@ class CourseForm(forms.ModelForm):
 
 
 class QuizzForm(forms.ModelForm):
-    CATEGORY_CHOICES = [
-        ('', '---Choose category---'),
-        ('Math', 'Math'),
-        ('Physics', 'Physics'),
-        ('Chemistry', 'Chemistry'),
-        ('Biology', 'Biology'),
-        ('History', 'History'),
-        ('English', 'English'),
-    ]
+    # CATEGORY_CHOICES = [
+    #     ('', '---Choose category---'),
+    #     ('Math', 'Math'),
+    #     ('Physics', 'Physics'),
+    #     ('Chemistry', 'Chemistry'),
+    #     ('Biology', 'Biology'),
+    #     ('History', 'History'),
+    #     ('English', 'English'),
+    # ]
     
     category = forms.ChoiceField(
         choices=CATEGORY_CHOICES,

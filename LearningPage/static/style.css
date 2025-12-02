@@ -126,4 +126,24 @@ main{
     
 }
 
+.card-footer
+{
+    top: -30px !important;
+    min-height: 5vh !important;
+}
 
+/* position-absolute top-50 end-0 mx-3 mt-3 */
+.btn-footer 
+{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    height: 50px;
+    margin: 0 10px;
+    margin-bottom: 25px;
+    margin-top: -5px;
+}
+
+.article-body{
+    min-height: 72.4%;
+}

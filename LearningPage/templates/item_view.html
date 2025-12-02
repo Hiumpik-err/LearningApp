@@ -2,23 +2,36 @@
 {% block main-content %}
         <div class="content col-lg-11">
             {% if type == 'article' %}
-                <div class="item-card card" id="overlay-card">
-                    <div class="card-header d-flex justify-content-between">
-                        <h3 class="card-title" id="overlay-title">{{article.title}}</h3>
-                        <button class="btn btn-outline-danger read-more" id="close-overlay" title="Close currently view article">Close</button>
+                <div class="item-card card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{article.title}}</h3>
                     </div>
-                    <div class="card-body" id="overlay-content">
-                        {{article.content|safe}}
+                    <div class="card-body">
+                        <p class="lead">{{article.lead}}</p>   
+                        <p class="content">{{article.content|safe}}</p>
+                    </div>
+                    <div class="card-footer position-relative">
+                        <button class="btn btn-outline-primary btn-footer" ><a class="text-decoration-none lead text-light" href="{% url "home" %}">Close</a></button>
                     </div>
                 </div>
-                
             
-            {% else %}
-                <h1>{{course.title}}</h1>
-            {% endif %}
-            
-            
-                
+            {% elif type == 'course' %}
+                <div class="item-card card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{course.title}}</h3>
+                    </div>
 
+                    <div class="card-body">
+                        <p class="lead">{{course.question}}</p>
+                        <div class="input-group mb-3">
+                            <label for="task1ans" class="input-group-text">Your answer</label>
+                            <input type="text" id="task1ans">
+                        </div> 
+                    </div>
+                    <div class="card-footer position-relative">
+                        <button class="btn btn-outline-primary btn-footer" id="read-more"><a class="text-decoration-none lead text-light" href="{% url "item_view" 'course' course.CourseId %}">Send</a></button>
+                    </div>
+                </div>
+            {% endif %}
         </div>
 {% endblock %}
