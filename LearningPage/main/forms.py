@@ -28,7 +28,7 @@ CATEGORY_CHOICES = [
         ('History', 'History'),
         ('English', 'English'),
     ]
-
+'''
 class UzytkownikForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'required': True, 
@@ -38,6 +38,8 @@ class UzytkownikForm(forms.ModelForm):
         # 'title' : "Password must contain the following 1 Uppercase letter 1 Lowercase letter 1 Special character Must be at least 8 characters"
         }),
         validators=[password_validation])
+    
+    
     email = forms.EmailField(
         validators=[email_validation], 
         widget=forms.EmailInput(attrs={
@@ -49,6 +51,7 @@ class UzytkownikForm(forms.ModelForm):
     class Meta:
         model = Uzytkownik
         fields = ["email", "password"]
+'''
 
 class UzytkownikCreationForm(UserCreationForm):
     class Meta:

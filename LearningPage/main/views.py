@@ -1,26 +1,31 @@
 from django.shortcuts import render, redirect
 from .models import Uzytkownik, Article, Course, Quizz
-from .forms import ArticleForm, CourseForm, QuizzForm, UzytkownikForm
+from .forms import ArticleForm, CourseForm, QuizzForm
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from django.db.models import Q
 
 def login(request):
     if request.method == "POST":
-        form = UzytkownikForm(request.POST)
+        # form = UzytkownikForm(request.POST)
         if "registering" in request.POST:
             try:
                 password2_input = request.POST.get("input-repeat-password")
-                print(form.is_valid())
-                if(not form.is_valid() or not password2_input):
+                password_input = request.POST.get("input-password")
+                email = request.POST.get("input-username", "")
+                # print(form.is_valid())
+                if(not email or not password_input or not password2_input):
                     messages.error(request, "Fill all fields")
                     raise Exception("Not all requiered fields are filled")
 
-                if( form.data.get("password") != password2_input): 
+                if( password_input != password2_input): 
                     messages.error(request, "Passwords dont match")
                     raise Exception("Passwords dont match")
                 
-                user = form.save()
+                # user = form.save()
+                # user = Uzytkownik.objects.create(email = email, password = password_input)
+                user = Uzytkownik.objects.create_user(email = email, password= password_input)
+                print(user)
                 auth_login(request, user=user)
                     
                 return redirect("home")
@@ -30,7 +35,15 @@ def login(request):
 
         if "logging" in request.POST:
             try:
-                user = authenticate(request, email=form.data.get("email"), password=form.data.get("password"))
+                '''user = authenticate(request, email=form.data.get("email"), password=form.data.get("password"))'''
+                password_input = request.POST.get("password", "")
+                email = request.POST.get("email", "")
+
+                print(f"{password_input} {email}")
+
+                user = authenticate(request, email=email, password=password_input)
+                print(user)
+
 
                 if not user:
                     messages.error(request, "User not found. womp womp ")
@@ -45,7 +58,7 @@ def login(request):
                     return redirect("login")
                 
 
-    return render(request, "login.html", {"form": UzytkownikForm()})
+    return render(request, "login.html")
 
 def home(request):
     if request.method == "GET":
