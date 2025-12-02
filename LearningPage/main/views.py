@@ -61,9 +61,20 @@ def home(request):
         quizzes = list(Quizz.objects.filter(Q(title__icontains=searched_value) | 
                                        Q(description__icontains=searched_value)))
         
-        all_data = articles + courses + quizzes
-        
-        context = {"all_data": all_data}
+        context = {
+            "articles": {
+                "type": "article",
+                "data": articles
+            },
+            "courses": {
+                "type": "course",
+                "data": courses
+            },
+            "quizzes" : {
+                "type": "quizz",
+                "data": quizzes
+            }
+        }
 
         return render(request, "home.html", context)
         

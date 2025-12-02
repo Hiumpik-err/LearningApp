@@ -47,9 +47,14 @@
 
         </div>
         <div>
-            {% for value  in all_data %}
-                <p style="color: white;">{{value.title}}</p>
-            
+            {% for data in articles.data %}
+                <p style="color: white;">{{data.category}}</p>
+            {% endfor %}
+            {% for data in courses.data %}
+                <p style="color: white;">{{data.category}}</p>
+            {% endfor %}
+            {% for data in quizzes.data %}
+                <p style="color: white;">{{data.category}}</p>
             {% endfor %}
         </div>
     {% endblock %}
