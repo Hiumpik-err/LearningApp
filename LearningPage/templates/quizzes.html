@@ -3,16 +3,15 @@
 {% block main-content %}
 <div class="item-content card col-lg-11">
     {%for quizz in quizzes%}
-    <div class="card col quiz-card">
+    <div class="card quiz-card">
         <div class="card-header">
             <h3 class="card-title">{{quizz.title}}</h3>
         </div>
         <div class="card-body">
             <p class="lead">{{quizz.description}}</p>
         </div>
-        <div class="card-footer position-relative">
-            <button class="btn btn-outline-primary btn-footer" type="button"><a target="_blank" class="text-decoration-none lead text-light" href="{{quizz.link}}">Solve the quiz</a></button>
-        
+        <div class="card-footer footer d-flex justify-content-end">
+            <button class="btn btn-outline-primary" type="button"><a class="text-decoration-none lead text-light" href="{{quizz.link}}">Solve the quiz</a></button>
         </div>
     </div> 
     {%endfor%}           

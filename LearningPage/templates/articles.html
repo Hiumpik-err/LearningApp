@@ -6,14 +6,15 @@
     {% for article in articles %}
         <div class="article-card">
             <div class="card-header">
-                <h3 class="card-title">{{article.title}}</h3>
+                <h3 class="card-title header-truncate">{{article.title}}</h3>
             </div>
             <div class="card-body article-body">
-                <p class="lead multi-line-truncate" >{{article.lead}}</p>   
-                                
+                <p class="lead multi-line-truncate">{{article.lead}}</p>
             </div>
-            <div class="card-footer position-relative">
-                <button class="btn btn-outline-primary read-more position-absolute top-50 end-0 mx-3 mt-3" ><a class="text-decoration-none lead text-light" href="{% url "item_view" 'article' article.ArticleId %}">Read more...</a></button>
+            <div class="card-footer footer position-relative d-flex justify-content-end">
+                <button class="btn btn-outline-primary">
+                    <a class="text-decoration-none lead text-light" href="{% url "item_view" 'article' article.ArticleId %}">Read more...</a>
+                </button>
             </div>
         </div>
     {% endfor %}
