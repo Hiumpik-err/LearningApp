@@ -52,6 +52,7 @@
         
     </style>
     {%load static%}
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
 </head>
 <body>
     <div class="login-card">
@@ -65,7 +66,7 @@
         </ul>
         <div class="tab-content">
             <div class="card tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                <img src="{% static 'images/szpontlogo2.png' %}" alt="Logo" class="card-img-top">
+                <img src="{% static 'images/logo_eex.png' %}" alt="Logo" class="card-img-top">
                 <h3 class="text-center mb-4">Login</h3>
                 <form method="post">
                     {% csrf_token %}
@@ -93,7 +94,7 @@
                 </form>
             </div>
             <div class="card tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                <img src="{% static 'images/szpontlogo2.png' %}" alt="Logo" class="card-img-top">
+                <img src="{% static 'images/logo_eex.png' %}" alt="Logo" class="card-img-top">
                 <h3 class="text-center mb-4">Register</h3>
                 <form method="post">
                     {% csrf_token %}
