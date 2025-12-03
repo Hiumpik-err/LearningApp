@@ -1,37 +1,60 @@
 {% extends "home.html" %}
 {% block main-content %}
         <div class="content col-lg-11">
-            {% if type == 'article' %}
-                <div class="item-card card">
-                    <div class="card-header">
-                        <h3 class="card-title">{{article.title}}</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {% if type == 'article' %}
+                    <div class="item-card card">
+                        <div class="card-header">
+                            <h3 class="card-title">{{article.title}}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="lead">{{article.lead}}</p>   
+                            <p class="content">{{article.content|safe}}</p>
+                        </div>
+                        <div class="card-footer position-relative">
+                            <button class="btn btn-outline-primary btn-footer" ><a class="text-decoration-none lead text-light" href="{% url 'home' %}">Close</a></button>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p class="lead">{{article.lead}}</p>   
-                        <p class="content">{{article.content|safe}}</p>
-                    </div>
-                    <div class="card-footer position-relative">
-                        <button class="btn btn-outline-primary btn-footer" ><a class="text-decoration-none lead text-light" href="{% url "home" %}">Close</a></button>
-                    </div>
-                </div>
-            
-            {% elif type == 'course' %}
-                <div class="item-card card">
-                    <div class="card-header">
-                        <h3 class="card-title">{{course.title}}</h3>
-                    </div>
+                
+                {% elif type == 'course' %}
+                    <div class="item-card card">
+                        <div class="card-header">
+                            <h3 class="card-title">{{course.title}}</h3>
+                        </div>
 
-                    <div class="card-body">
-                        <p class="lead">{{course.question}}</p>
-                        <div class="input-group mb-3">
-                            <label for="task1ans" class="input-group-text">Your answer</label>
-                            <input type="text" id="task1ans">
-                        </div> 
+                        <div class="card-body">
+                            <p class="lead">{{course.question}}</p>
+                            <div class="input-group mb-3">
+                                <label for="task1ans" class="input-group-text">Your answer</label>
+                                <input type="text" id="task1ans" name="answer">
+
+                                
+                            </div> 
+                        </div>
+                        <div class="card-footer position-relative">
+                            <button class="btn btn-outline-primary btn-footer" id="read-more"> Send
+                                <!-- <a class="text-decoration-none lead text-light" href="{% url 'item_view' 'course' course.CourseId %}">Send</a> -->
+                            
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-footer position-relative">
-                        <button class="btn btn-outline-primary btn-footer" id="read-more"><a class="text-decoration-none lead text-light" href="{% url "item_view" 'course' course.CourseId %}">Send</a></button>
-                    </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </form>
         </div>
+
+        {% if result %}
+            <div class="output">
+                <div class="output-result">
+                    <h1>{{answer}}</h1>
+                </div>
+            </div>
+
+            <script>
+                setTimeout(function(){
+                    window.location.href = '{% url "home" %}'
+                }, 3000)
+            </script>
+        {% endif %}
+        
 {% endblock %}

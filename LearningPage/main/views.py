@@ -208,9 +208,34 @@ def profile(request):
         return redirect("/")
     
 def item_view(request, type, id):
-    if type == "article":
-        article = Article.objects.get(ArticleId=id)
-        return render(request, "item_view.html", {"article": article, "type":type})
-    elif type == "course":
-        course = Course.objects.get(CourseId=id)
-        return render(request, "item_view.html", {"course": course, "type": type})
+    answer = request.session.get("result", "")
+    if request.method == "GET":
+        if type == "article":
+            article = Article.objects.get(ArticleId=id)
+            return render(request, "item_view.html", {"article": article, "type":type, "result": False, "answer":answer})
+        elif type == "course":
+            course = Course.objects.get(CourseId=id)
+            return render(request, "item_view.html", {"course": course, "type": type, "result": False, "answer":answer})
+        
+        elif type == "result":
+            course = Course.objects.get(CourseId=id)
+            return render(request, "item_view.html", {"course": course, "type": type, "result": True, "answer":answer})
+
+        
+    elif request.method == "POST":
+        answer: str = str(request.POST.get("answer", "")).lower()
+        course_answer = Course.objects.get(CourseId=id).answers.lower()
+
+        if answer != course_answer:
+            request.session["result"] = "❌"
+        
+        else:
+            request.session["result"] = "✅"
+        
+        return redirect("item_view", type="result", id=id)
+
+
+            
+        
+
+
