@@ -61,6 +61,7 @@
                             <div class="card-footer footer position-relative d-flex justify-content-end">
                                 <button class="btn btn-outline-primary">
                                     <a class="text-decoration-none lead text-light" href="{% url "item_view" 'article' data.ArticleId %}">Read more...</a>
+                                    {% comment %} Jak to ma wyglądać <a class="text-decoration-none lead text-light" href="{% url "update" 'article' data.ArticleId %}">👌</a> {% endcomment %}
                                 </button>
                             </div>
                         </div>
@@ -132,12 +133,3 @@
 
 </body>
 </html>
-
-
-
-                
-                {% comment %}
-                
-                    
-                        {% endcomment %}
-                

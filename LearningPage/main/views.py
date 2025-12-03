@@ -216,7 +216,9 @@ def item_view(request, type, id):
         elif type == "course":
             course = Course.objects.get(CourseId=id)
             return render(request, "item_view.html", {"course": course, "type": type, "result": False, "answer":answer})
-        
+        elif type == "quizz":
+            quizz = Quizz.objects.get(QuizzId = id)
+            return render(request, "item_view.html", {"course": quizz, "type": type, "result": False, "answer":answer})
         elif type == "result":
             course = Course.objects.get(CourseId=id)
             return render(request, "item_view.html", {"course": course, "type": type, "result": True, "answer":answer})
@@ -234,8 +236,43 @@ def item_view(request, type, id):
         
         return redirect("item_view", type="result", id=id)
 
+def update(request, type, id):
+    if type == "article":
+        article = Article.objects.get(ArticleId=id)
+        if request.method == "GET":
+            form = ArticleForm(instance=article)
+            return render(request, "update.html", {"type": type, "form": form})
+        
+        elif request.method == "POST":
+            form = ArticleForm(request.POST, instance= article)
 
-            
+            form.save()
+
+            return redirect("item_view", type = type, id=article.ArticleId)
+        
+    elif type == "course":
+        course = Course.objects.get(CourseId=id)
+        if request.method == "GET":
+            form = CourseForm(instance=course)
+            return render(request, "update.html", {"type": type, "form": form})
+        
+        elif request.method == "POST":
+            form = CourseForm(request.POST, instance= course)
+
+            form.save()
+            return redirect("item_view", type =type, id=course.CourseId)
+        
+    elif type == 'quizz':
+        quizz = Quizz.objects.get(QuizzId = id)
+        if request.method == "GET":
+            form = QuizzForm(instance=quizz)
+            return render(request, "update.html", {"type": type, "form": form})
+        
+        elif request.method == "POST":
+            form = QuizzForm(request.POST, instance=quizz)
+            form.save()
+            return redirect("home")
+
         
 
 

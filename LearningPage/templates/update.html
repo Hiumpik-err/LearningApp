@@ -1,0 +1,221 @@
+{% extends "home.html" %}
+
+    {% block main-content %}
+    <div class="content col-lg-11">
+        {% if type == "article" %}
+        {% block add_article %}
+        {% comment %} Artukuł {% endcomment %}
+        <div class="card px-2">
+            <p class="lead text-center mb-5">Add An Article</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post" class="gap-1" novalidate>
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <label for="{{ form.category.id_for_label }}" class="input-group-text">Categories</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.category.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.title }}
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {% if form.title.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.title.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.lead }}
+                    <label for="{{ form.lead.id_for_label }}">Lead</label>
+                    {% if form.lead.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.lead.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.content.id_for_label }}" class="form-label">Main Content</label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.content.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-text">Use this field for the main article content.</div>
+                </div>
+                {% load app_filters %}
+                               
+                <div class="container d-flex justify-content-end mt-3 mb-3">
+                    <button type="submit" name="saveAll" class="btn btn-success">Save article</button>
+                </div>
+            </form>
+        </div>
+        {% endblock %}
+        {% comment %} Kurs {% endcomment %}
+        {% elif type == "course" %}
+
+        {% block add_course %}
+        <div class="card px-2">
+            <p class="lead text-center mb-5">Add A Task</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <label for="{{ form.category.id_for_label }}" class="input-group-text">Categories</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.category.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.title }}
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {% if form.title.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.title.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.question }}
+                    <label for="{{ form.question.id_for_label }}">Question</label>
+                    {% if form.question.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.question.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.answers }}
+                    <label for="{{ form.answers.id_for_label }}">Possible answers</label>
+                    <p class="fs-6 mx-2 font-monospace text-body-secondary">Possible answers separated by a semicolon e.g. 100;95;43 or leave empty</p>
+                    {% if form.answers.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.answers.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="container d-flex justify-content-end mt-3 mb-3">
+                    <button type="submit" name="saveAll" class="btn btn-success">Save task</button>
+                </div>
+            </form>
+        </div>
+        {% endblock %}
+        {% else %}
+        {% comment %} Quizz {% endcomment %}
+        {% block add_quiz %}
+        <div class="card px-2">
+            <p class="lead text-center mb-5">Add A Quiz</p>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <label for="{{ form.category.id_for_label }}" class="input-group-text">Categories</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.category.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.title }}
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {% if form.title.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.title.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.description }}
+                    <label for="{{ form.description.id_for_label }}">Quiz description</label>
+                    {% if form.description.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.description.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form.link }}
+                    <label for="{{ form.link.id_for_label }}">Link to quiz</label>
+                    {% if form.link.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.link.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="container d-flex justify-content-end mt-3 mb-3">
+                    <button type="submit" name="saveAll" class="btn btn-success">Save quiz</button>
+                </div>
+            </form>
+        </div>
+        {% endblock %}
+        {%endif%}
+
+    </div>
+
+    <script>
+        // Bootstrap form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        // Add needs-validation class to all forms
+        document.addEventListener('DOMContentLoaded', function() {
+            var forms = document.querySelectorAll('form');
+            forms.forEach(function(form) {
+                form.classList.add('needs-validation');
+            });
+        });        
+    </script>
+    
+    {% if type == "article" %}
+        {{ form.media }}
+    {% endif %}
+    {% endblock %}
