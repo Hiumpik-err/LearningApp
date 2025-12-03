@@ -89,6 +89,16 @@ main{
 
 }
 
+.header-truncate
+{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* do not touch */
 .multi-line-truncate {
     display: -webkit-box;
@@ -126,11 +136,17 @@ main{
     
 }
 
-.card-footer
+.footer
 {
-    top: -30px !important;
+    top: -60px !important;
     min-height: 5vh !important;
 }
+
+
+.close-btn{
+    top: -35px !important;
+}
+
 
 /* position-absolute top-50 end-0 mx-3 mt-3 */
 .btn-footer 
@@ -141,7 +157,7 @@ main{
     height: 50px;
     margin: 0 10px;
     margin-bottom: 25px;
-    margin-top: -5px;
+    margin-top: -12.5px;
 }
 
 .article-body{
