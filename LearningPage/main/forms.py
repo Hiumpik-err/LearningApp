@@ -108,6 +108,13 @@ class ArticleForm(forms.ModelForm):
             raise forms.ValidationError('Title must be no more than 200 characters long.')
         return title
         
+    def clean_lead(self):
+        lead = self.cleaned_data.get('lead')
+        if len(lead) < 3:
+            raise forms.ValidationError('Lead must be at least 3 characters long.')
+        if len(lead) > 200:
+            raise forms.ValidationError('Lead must be no more than 200 characters long.')
+        return lead
     def clean_category(self):
         category = self.cleaned_data.get('category')
         if not category:
