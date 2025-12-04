@@ -17,7 +17,7 @@
                             <p class="content">{{article.content|safe}}</p>
                         </div>
                         <div class="card-footer position-relative">
-                            <button class="btn btn-outline-primary btn-footer" ><a class="text-decoration-none lead text-light" href="{% url 'home' %}">Close</a></button>
+                            <button class="btn btn-outline-primary btn-footer close-btn" ><a class="text-decoration-none lead text-light" href="{% url 'home' %}">Close</a></button>
                         </div>
                     </div>
                 
@@ -36,8 +36,6 @@
                             <div class="input-group mb-3">
                                 <label for="task1ans" class="input-group-text">Your answer</label>
                                 <input type="text" id="task1ans" name="answer">
-
-                                
                             </div> 
                         </div>
                         <div class="card-footer position-relative">
@@ -47,6 +45,7 @@
                             </button>
                         </div>
                     </div>
+
                 {% endif %}
             </form>
         </div>
