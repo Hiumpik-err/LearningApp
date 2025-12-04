@@ -24,10 +24,13 @@ def show_categories():
 @register.inclusion_tag("navbar.html")
 def get_page_name(request):
     subject = str(request).split("/")
-    # print(subject)
-    if len(subject) > 2:
-        result = "".join([(part + "|") for part in subject[1:]])
+    print("home'>" in subject[1])
+
+    if len(subject) > 2 and "home'>" not in subject[1]:
+        result = "".join([(part + "|") for part in subject[2:]])
         ans = result[0:len(result) - 3]
+    elif len(subject) == 2 and "home'>" in subject[1] or "profile'>" in subject[1]:
+        ans = subject[1][0:len(subject[1]) - 2]
     else:
         ans = subject[1]
     return {"result" : ans.title()}

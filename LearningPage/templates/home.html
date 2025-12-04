@@ -15,14 +15,8 @@
     <script src="{% static 'scripts/main.js' %}"></script>
 </head>
 <body style="background-color: rgb(34, 40, 49) !important;">
-{% block logo %}
-    <header class="container container-fluid">
-        
-    </header>
-{% endblock %}
      
 {% block navbar %}
-    {% comment %} {% include "navbar.html" %} {% endcomment %}
     {% load content_tags %} {% get_page_name request%}
 {% endblock %}
 
