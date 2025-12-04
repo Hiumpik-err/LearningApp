@@ -84,7 +84,7 @@
                         <div class="d-flex">
                             {% comment %} {{form.password}} {% endcomment %}
                             <input type="password" id="input-password" name="password" class="form-control" placeholder="Enter your password">
-                            <button type="button" onclick="showPassword();" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
+                            <button type="button" onclick="showPasswordLogin();" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
                                 <img src="{% static 'images/eye.png' %}" alt="Show password" style="position: relative; top: 4px;">
                             </button>
                         </div>
@@ -96,7 +96,7 @@
             <div class="card tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                 <img src="{% static 'images/logo_eex.png' %}" alt="Logo" class="card-img-top">
                 <h3 class="text-center mb-4">Register</h3>
-                <form method="post">
+                <form method="post" onkeyup="passWordStrength()">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="{{form.email.id_for_label}}" class="form-label">Email</label>
@@ -105,23 +105,25 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="{{form.password.id_for_label}}" class="form-label mb-0">Password</label>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label for="{{form.password.id_for_label}}" class="form-label mb-0">Password</label>
+                            <p class="text-decoration-none small mb-0">Password strength: <span id="passwordStrength" style="color: red;">Weak</span></p> 
+                        </div>
                         {% comment %} {{form.password}} {% endcomment %}
                         
                         <div>
-                            <button type="button" onclick="showPassword();" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
+                            <button type="button" onclick="showPasswordRegister1();" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
                                 <img src="{% static 'images/eye.png' %}" alt="Show password" style="position: relative; top: 4px;">
                             </button>
-                            <input type="password" id="input-password" name="input-password" class="form-control" placeholder="Enter your password">
+                            <input type="password" id="input-password-register" name="input-password" class="form-control" placeholder="Enter your password">
                         </div>
                         <div>
-                            <button type="button" onclick="showPassword();" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
+                            <button type="button" onclick="showPasswordRegister2();" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
                                 <img src="{% static 'images/eye.png' %}" alt="Show password" style="position: relative; top: 4px;">
                             </button>
-                            <input type="password" id="input-repeat-password" name="input-repeat-password" class="form-control" placeholder="Repeat your password">
+                            <input type="password" id="input-repeat-password-register" name="input-repeat-password" class="form-control" placeholder="Repeat your password">
                         </div>
                     </div>
-
                     <button class="btn btn-primary w-100 mt-2" name="registering" type="submit">Register</button>
                 </form>
             </div>
@@ -139,9 +141,29 @@
     </div>
 
     <script>
-        const showPassword = () => {
+        const showPasswordLogin = () => {
             const x = document.getElementById("input-password");
             if (x.type === "password") { x.type = "text"; } else { x.type = "password"; }
+        }
+        const showPasswordRegister1 = () => {
+            const x = document.getElementById("input-password-register");
+            if (x.type === "password") { x.type = "text"; } else { x.type = "password"; }
+        }
+        const showPasswordRegister2 = () => {
+            const x = document.getElementById("input-repeat-password-register");
+            if (x.type === "password") { x.type = "text"; } else { x.type = "password"; }
+        }
+        const passWordStrength = () => {
+            const x = document.getElementById("input-password-register");
+            const y = document.getElementById("passwordStrength");
+            if(x.value.length > 12){
+                y.innerHTML = "Good";
+                y.style.color = "green";
+            }   
+            else{
+                y.innerHTML = "Weak";
+                y.style.color = "red";
+            }
         }
     </script>
 </body>

@@ -164,9 +164,8 @@ main{
     min-height: 72.4%;
 }
 
-/* #navbarDropdownMenuLink{
-    font-style: italic;
-    font-weight: 700;
-    font-size: 1rem;
-
-} */
+.found-quizzes, .found-articles, .found-courses {
+    max-height: 500px;
+    overflow: auto;
+    width: 100%;
+}

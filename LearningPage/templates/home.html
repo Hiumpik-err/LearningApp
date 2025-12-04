@@ -29,7 +29,11 @@
             {% if articles or courses or quizzes %}
             
             <div class="card px-2">
-                <h3>Found articles: </h3>
+                <div class="d-flex justify-content-between">
+                    <hr style="width: 33%;">
+                    <h2 class="text-center" style="width: 33%;">Found articles: </h3>
+                    <hr style="width: 33%;"> 
+                </div>
                 <div class="found-articles item-content col-lg-11">
                     {% for data in articles.data %}
                         <div class="article-card">
@@ -47,17 +51,23 @@
                         </div>
                     {% endfor %}
                 </div>
+                
+                <div class="d-flex justify-content-between">
+                    <hr style="width: 33%;">
+                    <h2 class="text-center" style="width: 33%;">Found courses: </h3>
+                    <hr style="width: 33%;"> 
+                </div>
 
-                <h3>Found courses: </h3>
+                
                 <div class="found-courses item-content col-lg-11">
                     {% for data in courses.data %}
                         <div class="card task-card">
                             <div class="card-header">
-                                <h3 class="card-title">{{data.title}} | {{data.category}}</h3>
+                                <h3 class="card-title">{{data.category}} | {{data.title}}</h3>
                             </div>
 
                             <div class="card-body">
-                                <p class="lead">{{data.question}}</p>
+                                <p class="lead multi-line-truncate">{{data.question}}</p>
                             </div>
                             <div class="card-footer footer d-flex justify-content-end">
                                 <button class="btn btn-outline-primary" id="read-more"><a class="text-decoration-none lead text-light" href="{% url "item_view" 'course' data.CourseId %}">See more</a></button>
@@ -66,18 +76,22 @@
                     {% endfor %}
                 </div>
 
-                <h3>Found quizzes: </h3>
+                <div class="d-flex justify-content-between">
+                    <hr style="width: 33%;">
+                    <h2 class="text-center" style="width: 33%;">Found quizzes: </h3>
+                    <hr style="width: 33%;"> 
+                </div>
                 <div class="found-quizzes item-content col-lg-11">
                     {% for data in quizzes.data %}
                         <div class="card quiz-card">
                             <div class="card-header">
-                                <h3 class="card-title">{{data.title}} | {{data.category}}</h3>
+                                <h3 class="card-title">{{data.category}} | {{data.title}}</h3>
                             </div>
                             <div class="card-body">
                                 <p class="lead">{{data.description}}</p>
                             </div>
                             <div class="card-footer footer d-flex justify-content-end">
-                                <button class="btn btn-outline-primary" type="button"><a class="text-decoration-none lead text-light" href="{{quizz.link}}">Solve the quiz</a></button>
+                                <button class="btn btn-outline-primary" type="button"><a class="text-decoration-none lead text-light" href="{{data.link}}" target="_blank">Solve the quiz</a></button>
                             </div>
                         </div> 
                     {% endfor %}
