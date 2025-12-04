@@ -20,3 +20,14 @@ def show_categories():
 
     
     return{"categories": list(categories)}
+
+@register.inclusion_tag("navbar.html")
+def get_page_name(request):
+    subject = str(request).split("/")
+    # print(subject)
+    if len(subject) > 2:
+        result = "".join([(part + "|") for part in subject[1:]])
+        ans = result[0:len(result) - 3]
+    else:
+        ans = subject[1]
+    return {"result" : ans.title()}

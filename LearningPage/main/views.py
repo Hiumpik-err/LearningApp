@@ -63,7 +63,7 @@ def login(request):
 def home(request):
     if request.method == "GET":
         request.session["title"] = ""
-        return render(request, "home.html")
+        return render(request, "home.html", {"request" : request.path})
     
     if request.method == "POST":
         searched_value = request.POST.get("searched_value", "")
@@ -237,41 +237,44 @@ def item_view(request, type, id):
         return redirect("item_view", type="result", id=id)
 
 def update(request, type, id):
-    if type == "article":
-        article = Article.objects.get(ArticleId=id)
-        if request.method == "GET":
-            form = ArticleForm(instance=article)
-            return render(request, "update.html", {"type": type, "form": form})
-        
-        elif request.method == "POST":
-            form = ArticleForm(request.POST, instance= article)
+    try:
+        if type == "article":
+            article = Article.objects.get(ArticleId=id)
+            if request.method == "GET":
+                form = ArticleForm(instance=article)
+                return render(request, "update.html", {"type": type, "form": form})
+            
+            elif request.method == "POST":
+                form = ArticleForm(request.POST, instance= article)
+                form.save()
 
-            form.save()
+                return redirect("item_view", type = type, id=article.ArticleId)
+            
+        elif type == "course":
+            course = Course.objects.get(CourseId=id)
+            if request.method == "GET":
+                form = CourseForm(instance=course)
+                return render(request, "update.html", {"type": type, "form": form})
+            
+            elif request.method == "POST":
+                form = CourseForm(request.POST, instance= course)
 
-            return redirect("item_view", type = type, id=article.ArticleId)
-        
-    elif type == "course":
-        course = Course.objects.get(CourseId=id)
-        if request.method == "GET":
-            form = CourseForm(instance=course)
-            return render(request, "update.html", {"type": type, "form": form})
-        
-        elif request.method == "POST":
-            form = CourseForm(request.POST, instance= course)
-
-            form.save()
-            return redirect("item_view", type =type, id=course.CourseId)
-        
-    elif type == 'quizz':
-        quizz = Quizz.objects.get(QuizzId = id)
-        if request.method == "GET":
-            form = QuizzForm(instance=quizz)
-            return render(request, "update.html", {"type": type, "form": form})
-        
-        elif request.method == "POST":
-            form = QuizzForm(request.POST, instance=quizz)
-            form.save()
-            return redirect("home")
+                form.save()
+                return redirect("item_view", type =type, id=course.CourseId)
+            
+        elif type == 'quizz':
+            quizz = Quizz.objects.get(QuizzId = id)
+            if request.method == "GET":
+                form = QuizzForm(instance=quizz)
+                return render(request, "update.html", {"type": type, "form": form})
+            
+            elif request.method == "POST":
+                form = QuizzForm(request.POST, instance=quizz)
+                form.save()
+                return redirect("home")
+    except Exception as e:
+        print(e)
+        return redirect("update", type=type, id=id)
 
         
 

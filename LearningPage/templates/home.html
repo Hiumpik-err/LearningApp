@@ -22,30 +22,17 @@
 {% endblock %}
      
 {% block navbar %}
-    {% include "navbar.html" %}
+    {% comment %} {% include "navbar.html" %} {% endcomment %}
+    {% load content_tags %} {% get_page_name request%}
 {% endblock %}
 
 {% block main %}
     <main class="container-fluid mx-0 px-2 row">
-    {% comment %} sidebar {% endcomment %}
     {% load content_tags %} {% show_categories%}    
          
 {% block main-content %}
         <div class="content col-lg-11">
             {% if articles or courses or quizzes %}
-            {% comment %}
-            <div>
-                {% for data in articles.data %}
-                    <p style="color: white;">{{data.category}}</p>
-                {% endfor %}
-                {% for data in courses.data %}
-                    <p style="color: white;">{{data.category}}</p>
-                {% endfor %}
-                {% for data in quizzes.data %}
-                    <p style="color: white;">{{data.category}}</p>
-                {% endfor %}
-            </div> 
-            {% endcomment %}
             
             <div class="card px-2">
                 <h3>Found articles: </h3>
@@ -61,7 +48,6 @@
                             <div class="card-footer footer position-relative d-flex justify-content-end">
                                 <button class="btn btn-outline-primary">
                                     <a class="text-decoration-none lead text-light" href="{% url "item_view" 'article' data.ArticleId %}">Read more...</a>
-                                    {% comment %} Jak to ma wyglądać <a class="text-decoration-none lead text-light" href="{% url "update" 'article' data.ArticleId %}">👌</a> {% endcomment %}
                                 </button>
                             </div>
                         </div>
