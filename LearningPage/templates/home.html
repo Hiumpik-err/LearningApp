@@ -1,208 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adventure Photography Parallax Homepage</title>
-
-    <!-- Load Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <!-- Use Inter font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-
-    <style>
-        /* Global Styles and Typography */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        /* Navbar style */
-        .navbar-brand {
-            font-weight: 900;
-        }
-
-        /* Parallax Section Styling */
-        .parallax-section {
-            /* Key CSS property for the parallax effect */
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            min-height: 80vh; /* Ensure sections are tall enough for a good scroll effect */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Enhance text readability over images */
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        /* Specific Background Images (Placeholders) */
-        #hero-bg {
-            /* Placeholder for a dramatic hero shot (e.g., mountains, canyons) */
-            background-image: url('https://placehold.co/1920x1080/4f46e5/ffffff?text=ADVENTURE+LANDSCAPE');
-        }
-
-        #gallery-bg {
-            /* Placeholder for a secondary visual break (e.g., river, forest) */
-            background-image: url('https://placehold.co/1920x1080/7c3aed/ffffff?text=WILDERNESS+JOURNEY');
-        }
-
-        /* Content Section Styling */
-        .content-section {
-            background-color: #ffffff;
-            padding: 6rem 0;
-        }
-
-        .cta-section {
-            background-color: #e9ecef; /* Light gray background for contrast */
-            padding: 4rem 0;
-        }
-
-        /* Custom Card Styles for Photo Grid */
-        .photo-card {
-            border: none;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
-        }
-
-        .photo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
-
-        .img-fluid {
-            border-radius: 0.75rem;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Parallax Home Page</title>
 </head>
-<body>
+<body class="w-full h-full text-gray-800">
+  <!-- Navbar -->
+  <nav class="w-full flex items-center justify-between px-6 py-4 bg-white shadow fixed top-0 left-0 z-50">
+    <div class="flex items-center gap-4">
+      <div class="text-2xl font-bold">Logo</div>
+      <div class="text-xl font-semibold">Page Name</div>
+    </div>
+    <div class="flex items-center gap-10 text-lg">
+      <a href="#home" class="hover:underline">Home</a>
+      <a href="#search" class="hover:underline">Search</a>
+      <a href="#user" class="hover:underline">User</a>
+    </div>
+  </nav>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
-        <div class="container">
-            <a class="navbar-brand text-light" href="#">ADVENTURE VISUALS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#hero-bg">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about-us">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <!-- Spacer -->
+  <div class="h-20"></div>
 
-    <!-- Parallax Section 1: Hero Banner -->
-    <section id="hero-bg" class="parallax-section">
-        <div class="container text-center">
-            <h1 class="display-1 fw-bolder mb-3 text-uppercase">Where The Wild Things Are</h1>
-            <p class="lead mb-4 fs-4">Capturing the untamed beauty of the canyons, peaks, and hidden trails.</p>
-            <a href="#portfolio" class="btn btn-light btn-lg fw-bold rounded-pill shadow-lg px-5 py-3 text-uppercase" style="letter-spacing: 0.1em;">View Gallery</a>
-        </div>
-    </section>
+  <!-- SECTION: ABOUT -->
+  <section class="max-w-6xl mx-auto px-6 py-24 text-center">
+    <h2 class="text-4xl font-bold mb-6">About Us</h2>
+    <p class="text-lg leading-relaxed max-w-3xl mx-auto">
+      Discover a space designed for exploration, creativity, and learning. This platform brings together
+      knowledge, tasks, articles, and quizzes under a beautifully modern experience.
+    </p>
+  </section>
 
-    <!-- Content Section 1: About Us -->
-    <section id="about-us" class="content-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="display-5 fw-bold mb-4">The Story Behind the Lens</h2>
-                    <p class="fs-5 text-muted mb-4">
-                        We believe that the greatest stories are written in the dirt and stone of the natural world. Our mission is to capture not just photographs, but the raw, emotional experience of adventure, preserving moments of solitude and majesty for you to cherish.
-                    </p>
-                    <a href="#contact" class="btn btn-outline-dark rounded-3 px-4 py-2">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- PARALLAX BREAK -->
+  <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1503264116251-35a269479413');"></div>
 
-    <!-- Parallax Section 2: Visual Break -->
-    <section id="gallery-bg" class="parallax-section">
-        <div class="container text-center">
-            <blockquote class="blockquote display-4 fw-light">
-                "Look deep into nature, and then you will understand everything better."
-            </blockquote>
-            <footer class="blockquote-footer text-light fs-5">Albert Einstein</footer>
-        </div>
-    </section>
+  <!-- SECTION: ARTICLES -->
+  <section class="max-w-6xl mx-auto px-6 py-24">
+    <h2 class="text-4xl font-bold text-center mb-10">Latest Articles</h2>
 
-    <!-- Content Section 2: Portfolio/Gallery Grid -->
-    <section id="portfolio" class="content-section bg-light">
-        <div class="container">
-            <div class="row justify-content-center mb-5">
-                <div class="col-lg-8 text-center">
-                    <h2 class="display-5 fw-bold mb-3">Featured Adventures</h2>
-                    <p class="lead text-muted">A selection of recent works from our journeys through the rugged American West.</p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <!-- Gallery Item 1 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="photo-card">
-                        <img src="https://placehold.co/600x400/34d399/ffffff?text=Canyon+Sunrise" class="img-fluid" alt="Canyon Sunrise Photo">
-                        <div class="p-3">
-                            <h5 class="fw-semibold">The Narrows Descent</h5>
-                            <p class="text-muted small mb-0">Zion National Park, Utah</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Gallery Item 2 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="photo-card">
-                        <img src="https://placehold.co/600x400/fcd34d/333333?text=Desert+Night+Sky" class="img-fluid" alt="Desert Night Sky Photo">
-                        <div class="p-3">
-                            <h5 class="fw-semibold">Milky Way over Mesa</h5>
-                            <p class="text-muted small mb-0">Monument Valley, Arizona</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Gallery Item 3 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="photo-card">
-                        <img src="https://placehold.co/600x400/f87171/ffffff?text=Mountain+Peak+View" class="img-fluid" alt="Mountain Peak View Photo">
-                        <div class="p-3">
-                            <h5 class="fw-semibold">Alpine Solitude</h5>
-                            <p class="text-muted small mb-0">Grand Teton, Wyoming</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2">Article Title 1</h3>
+        <p class="text-gray-700 mb-3">A short description of this featured article that highlights insights and engaging topics.</p>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
+      </div>
 
-    <!-- Call to Action Section -->
-    <section id="contact" class="cta-section">
-        <div class="container text-center">
-            <h2 class="display-5 fw-bold mb-3">Ready for Your Next Adventure?</h2>
-            <p class="lead text-muted mb-4">
-                Whether you need fine art prints or personalized photography services, let's create something unforgettable.
-            </p>
-            <button class="btn btn-primary btn-lg rounded-pill fw-bold px-5 py-3 shadow-sm" style="background-color: #4f46e5; border-color: #4f46e5;">
-                Book a Session
-            </button>
-        </div>
-    </section>
+      <div class="bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2">Article Title 2</h3>
+        <p class="text-gray-700 mb-3">A short description of this featured article that highlights insights and engaging topics.</p>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
+      </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white-50 py-4">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 Adventure Visuals. All rights reserved.</p>
-            <div class="small">
-                <a href="#" class="text-white-50 me-2">Privacy Policy</a> &middot;
-                <a href="#" class="text-white-50">Terms of Service</a>
-            </div>
-        </div>
-    </footer>
+      <div class="bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2">Article Title 3</h3>
+        <p class="text-gray-700 mb-3">A short description of this featured article that highlights insights and engaging topics.</p>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
+      </div>
+    </div>
+  </section>
 
-    <!-- Load Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <!-- PARALLAX BREAK -->
+  <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');"></div>
+
+  <!-- SECTION: TASKS -->
+  <section class="max-w-6xl mx-auto px-6 py-24">
+    <h2 class="text-4xl font-bold text-center mb-10">Latest Tasks</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2">Task 1</h3>
+        <p class="text-gray-700 mb-3">An engaging task encouraging productivity and progress.</p>
+        <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start Task</button>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2">Task 2</h3>
+        <p class="text-gray-700 mb-3">An engaging task encouraging productivity and progress.</p>
+        <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start Task</button>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2">Task 3</h3>
+        <p class="text-gray-700 mb-3">An engaging task encouraging productivity and progress.</p>
+        <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start Task</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARALLAX BREAK -->
+  <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d');"></div>
+
+  <!-- SECTION: QUIZZES -->
+  <section class="max-w-6xl mx-auto px-6 py-24">
+    <h2 class="text-4xl font-bold text-center mb-10">Latest Quizzes</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2">Quiz 1</h3>
+        <p class="text-gray-700 mb-3">Test your knowledge with this fun and challenging quiz.</p>
+        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Take Quiz</button>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2">Quiz 2</h3>
+        <p class="text-gray-700 mb-3">Test your knowledge with this fun and challenging quiz.</p>
+        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Take Quiz</button>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2">Quiz 3</h3>
+        <p class="text-gray-700 mb-3">Test your knowledge with this fun and challenging quiz.</p>
+        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Take Quiz</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARALLAX BREAK -->
+  <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1484417894907-623942c8ee29');"></div>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-gray-900 text-white py-8 text-center">
+    <p class="text-lg">Admin Panel · Managed by Site Administrator</p>
+    <p class="text-sm opacity-70 mt-2">© 2025 All rights reserved.</p>
+  </footer>
 </body>
 </html>
