@@ -1,128 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Parallax Home Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>EEX</title>
+    <link rel="icon" href="{% static 'images/favicon.png'%}" type="image/x-icon">
 </head>
+
 <body class="w-full h-full text-gray-800">
-  <!-- Navbar -->
-  <nav class="w-full flex items-center justify-between px-6 py-4 bg-white shadow fixed top-0 left-0 z-50">
-    <div class="flex items-center gap-4">
-      <div class="text-2xl font-bold">Logo</div>
-      <div class="text-xl font-semibold">Page Name</div>
-    </div>
-    <div class="flex items-center gap-10 text-lg">
-      <a href="#home" class="hover:underline">Home</a>
-      <a href="#search" class="hover:underline">Search</a>
-      <a href="#user" class="hover:underline">User</a>
-    </div>
-  </nav>
 
-  <!-- Spacer -->
-  <div class="h-20"></div>
+    {% include 'components/navbar.html' %}
 
-  <!-- SECTION: ABOUT -->
-  <section class="max-w-6xl mx-auto px-6 py-24 text-center">
-    <h2 class="text-4xl font-bold mb-6">About Us</h2>
-    <p class="text-lg leading-relaxed max-w-3xl mx-auto">
-      Discover a space designed for exploration, creativity, and learning. This platform brings together
-      knowledge, tasks, articles, and quizzes under a beautifully modern experience.
-    </p>
-  </section>
+    <!-- Spacer -->
+    <div class="h-20"></div>
 
-  <!-- PARALLAX BREAK -->
-  <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1503264116251-35a269479413');"></div>
+    <!-- SECTION: ABOUT -->
+    {% include 'components/about.html' %}
 
-  <!-- SECTION: ARTICLES -->
-  <section class="max-w-6xl mx-auto px-6 py-24">
-    <h2 class="text-4xl font-bold text-center mb-10">Latest Articles</h2>
+    <!-- PARALLAX BREAK -->
+    <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1503264116251-35a269479413');"></div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-2">Article Title 1</h3>
-        <p class="text-gray-700 mb-3">A short description of this featured article that highlights insights and engaging topics.</p>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
-      </div>
+    <!-- SECTION: ARTICLES -->
+    {% include 'components/articles.html' %}
 
-      <div class="bg-white p-6 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-2">Article Title 2</h3>
-        <p class="text-gray-700 mb-3">A short description of this featured article that highlights insights and engaging topics.</p>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
-      </div>
+    <!-- PARALLAX BREAK -->
+    <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');"></div>
 
-      <div class="bg-white p-6 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-2">Article Title 3</h3>
-        <p class="text-gray-700 mb-3">A short description of this featured article that highlights insights and engaging topics.</p>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
-      </div>
-    </div>
-  </section>
+    <!-- SECTION: TASKS -->
+    {% include 'components/tasks.html' %}
 
-  <!-- PARALLAX BREAK -->
-  <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');"></div>
+    <!-- PARALLAX BREAK -->
+    <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d');"></div>
 
-  <!-- SECTION: TASKS -->
-  <section class="max-w-6xl mx-auto px-6 py-24">
-    <h2 class="text-4xl font-bold text-center mb-10">Latest Tasks</h2>
+    <!-- SECTION: QUIZZES -->
+    {% include 'components/quizzes.html' %}
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-2">Task 1</h3>
-        <p class="text-gray-700 mb-3">An engaging task encouraging productivity and progress.</p>
-        <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start Task</button>
-      </div>
+    <!-- PARALLAX BREAK -->
+    <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1484417894907-623942c8ee29');"></div>
 
-      <div class="bg-white p-6 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-2">Task 2</h3>
-        <p class="text-gray-700 mb-3">An engaging task encouraging productivity and progress.</p>
-        <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start Task</button>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-2">Task 3</h3>
-        <p class="text-gray-700 mb-3">An engaging task encouraging productivity and progress.</p>
-        <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start Task</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- PARALLAX BREAK -->
-  <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d');"></div>
-
-  <!-- SECTION: QUIZZES -->
-  <section class="max-w-6xl mx-auto px-6 py-24">
-    <h2 class="text-4xl font-bold text-center mb-10">Latest Quizzes</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-2">Quiz 1</h3>
-        <p class="text-gray-700 mb-3">Test your knowledge with this fun and challenging quiz.</p>
-        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Take Quiz</button>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-2">Quiz 2</h3>
-        <p class="text-gray-700 mb-3">Test your knowledge with this fun and challenging quiz.</p>
-        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Take Quiz</button>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-2">Quiz 3</h3>
-        <p class="text-gray-700 mb-3">Test your knowledge with this fun and challenging quiz.</p>
-        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Take Quiz</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- PARALLAX BREAK -->
-  <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1484417894907-623942c8ee29');"></div>
-
-  <!-- FOOTER -->
-  <footer class="w-full bg-gray-900 text-white py-8 text-center">
-    <p class="text-lg">Admin Panel · Managed by Site Administrator</p>
-    <p class="text-sm opacity-70 mt-2">© 2025 All rights reserved.</p>
-  </footer>
+    <!-- FOOTER -->
+    {% include 'components/footer.html' %}
 </body>
+
 </html>
