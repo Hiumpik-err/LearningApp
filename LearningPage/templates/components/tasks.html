@@ -2,22 +2,48 @@
     <h2 class="text-4xl font-bold text-center mb-10">Latest Tasks</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded-2xl shadow-xl">
-            <h3 class="text-2xl font-semibold mb-2">Task 1</h3>
-            <p class="text-gray-700 mb-3">An engaging task encouraging productivity and progress.</p>
-            <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start Task</button>
+        <div class="flex flex-col bg-white p-6 rounded-2xl shadow-xl">
+            <h3 class="text-2xl font-semibold mb-2 line-clamp-1">Task Title 1</h3>
+            <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">Category</p>
+            <p class="text-gray-700 mb-3 line-clamp-3">An interesting task description that will take you to another plane of existence. Here you will learn about nothing at all because why not.</p>
+            <div class="flex justify-end mt-auto">
+                <a href="quiz_url">
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Take Quiz</button>
+                </a>
+            </div>
         </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-xl">
-            <h3 class="text-2xl font-semibold mb-2">Task 2</h3>
-            <p class="text-gray-700 mb-3">An engaging task encouraging productivity and progress.</p>
-            <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start Task</button>
+        <div class="flex flex-col bg-white p-6 rounded-2xl shadow-xl">
+            <h3 class="text-2xl font-semibold mb-2 line-clamp-1">Task Title 1</h3>
+            <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">Category</p>
+            <p class="text-gray-700 mb-3 line-clamp-3">Another interesting task description that will take you to another plane of existence. Here you will learn about nothing at all because why not.</p>
+            <div class="flex justify-end mt-auto">
+                <a href="quiz_url">
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Take Quiz</button>
+                </a>
+            </div>
         </div>
-
-        <div class="bg-white p-6 rounded-2xl shadow-xl">
-            <h3 class="text-2xl font-semibold mb-2">Task 3</h3>
-            <p class="text-gray-700 mb-3">An engaging task encouraging productivity and progress.</p>
-            <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Start Task</button>
+        <div class="flex flex-col bg-white p-6 rounded-2xl shadow-xl">
+            <h3 class="text-2xl font-semibold mb-2 line-clamp-1">Task Title 1</h3>
+            <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">Category</p>
+            <p class="text-gray-700 mb-3 line-clamp-3">Yet another interesting task description that will take you to another plane of existence. Here you will learn about nothing at all because why not.</p>
+            <div class="flex justify-end mt-auto">
+                <a href="quiz_url">
+                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Take Quiz</button>
+                </a>
+            </div>
         </div>
     </div>
+
+    {% comment latest_tasks_template %}
+    <div class="flex flex-col bg-white p-6 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-2 line-clamp-1">Task Title</h3>
+        <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">Category</p>
+        <p class="text-gray-700 mb-3 line-clamp-3">Task Description</p>
+        <div class="flex justify-end mt-auto">
+            <a href="quiz_url">
+                <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Take Quiz</button>
+            </a>
+        </div>
+    </div>
+    {% endcomment %}
 </section>
