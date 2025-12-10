@@ -1,25 +1,46 @@
 {% load static %}
-<nav class="w-full flex items-center justify-between px-6 py-4 bg-white shadow fixed top-0 left-0 z-50">
-
+<nav class="w-full bg-white shadow fixed top-0 left-0 z-50">
+  <div class="max-w-8xl mx-auto px-6 py-4 flex items-center justify-between">
+    
+    <!-- Logo + Title -->
     <div class="flex items-center gap-4">
-        <img src="{% static 'images/logo_eex.png' %}" alt="Logo EEX" class="h-10">
-        <div class="text-xl font-semibold">Home</div>
+      <img src="{% static 'images/logo_eex.png' %}" alt="Logo EEX" class="h-10">
+      <div class="text-2xl font-semibold">Home</div>
+    </div>
 
-        {% comment %}
-        <!-- User position template -->
-        <div class="text-xl font-semibold">
-            <span class="hover:underline">Home</span> &gt; <span class="hover:underline">Category name</span> &gt; <span class="hover:underline">Articles</span>
-        </div>
-        {% endcomment %}
+    <!-- Mobile menu button -->
+    <button class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:bg-gray-100" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- Desktop menu -->
+    <div class="hidden md:flex items-center gap-10 text-lg">
+      <a href="#home" class="hover:underline">Home</a>
+      <a href="#search" class="hover:underline">Search</a>
+
+      <a href="#user" class="inline-flex justify-center gap-x-1.5 px-3 py-2 hover:underline">
+        User
+        <svg viewBox="0 0 20 20" fill="currentColor" class="-mr-1 size-7 text-gray-400">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"/>
+        </svg>
+      </a>
     </div>
-    <div class="flex items-center gap-10 text-lg">
-        <a href="#home" class="hover:underline">Home</a>
-        <a href="#search" class="hover:underline">Search</a>
-        <a href="#user" class="inline-flex justify-center gap-x-1.5 px-3 py-2 hover:underline">
-            User
-            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="-mr-1 size-7 text-gray-400">
-                <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
-            </svg>
-        </a>
-    </div>
+  </div>
+
+  
+  <div id="mobile-menu" class="md:hidden hidden px-6 pb-4 text-lg space-y-3">
+    <a href="#home" class="block hover:underline">Home</a>
+    <a href="#search" class="block hover:underline">Search</a>
+    <a href="#user" class="flex items-center gap-2 hover:underline">
+      User
+      <svg viewBox="0 0 20 20" fill="currentColor" class="size-6 text-gray-400">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"/>
+      </svg>
+    </a>
+  </div>
 </nav>

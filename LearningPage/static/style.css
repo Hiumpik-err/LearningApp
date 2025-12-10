@@ -1,37 +1,19 @@
 
-  /* Custom styles for the purple gradient and subtle depth */
-        .primary-purple-bg {
-            background-color: #6a5acd; /* Base color inspired by the image */
-            background-image: linear-gradient(135deg, #7b68ee 0%, #6a5acd 100%);
-        }
-        .main-card {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
-        }
-        .decorative-shape {
-            /* Mimic the blurred glass/acrylic look in the image */
-            backdrop-filter: blur(20px);
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        /* Custom scrollbar to avoid fixed width issues */
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #e5e7eb; /* Light background for contrast */
-        }
+.header-truncate
+{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        /* SVG icons for social login */
-        .icon-google {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.21A9.75 9.75 0 0 0 11.83 24a12 12 0 0 0 0-21.79z' fill='%23ea4335'/%3E%3Cpath d='M12 2.21A9.75 9.75 0 0 1 21.79 12a9.75 9.75 0 0 1-9.75 9.75v-9.75z' fill='%234285f4'/%3E%3Cpath d='M12 2.21A9.75 9.75 0 0 0 2.21 12a9.75 9.75 0 0 0 9.75 9.75v-9.75z' fill='%23fbbc05'/%3E%3Cpath d='M12 2.21a9.75 9.75 0 0 1 9.75 9.75H12z' fill='%2334a853'/%3E%3Cpath d='M12 12m-5.46 0a5.46 5.46 0 1 0 10.92 0 5.46 5.46 0 1 0-10.92 0' fill='%23fff'/%3E%3Cpath d='M16.92 12a4.92 4.92 0 0 1-4.92 4.92V12h4.92z' fill='%234285f4'/%3E%3C/svg%3E");
-            width: 20px;
-            height: 20px;
-            background-size: contain;
-        }
-        .icon-facebook {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231877F2' d='M12 2.04c-5.44 0-9.87 4.14-9.87 9.25 0 4.13 3.01 7.57 6.87 8.79V15.5h-2.14V13h2.14v-1.74c0-2.12 1.3-3.69 3.5-3.69 1.05 0 2.14.19 2.14.19v2.34h-1.2c-1.12 0-1.48.7-1.48 1.42V13h2.64l-.42 2.5h-2.22v5.79c3.86-1.22 6.87-4.66 6.87-8.79 0-5.11-4.43-9.25-9.87-9.25z'/%3E%3C/svg%3E");
-            width: 20px;
-            height: 20px;
-            background-size: contain;
-        }
+.multi-line-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
