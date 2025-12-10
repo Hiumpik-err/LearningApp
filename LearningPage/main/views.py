@@ -1,3 +1,5 @@
+from password_validation.policy import PasswordPolicy
+
 from django.shortcuts import render, redirect
 from .models import Uzytkownik, Article, Course, Quizz
 from .forms import ArticleForm, CourseForm, QuizzForm
@@ -7,24 +9,37 @@ from django.db.models import Q
 
 def login(request):
     if request.method == "POST":
-        # form = UzytkownikForm(request.POST)
-        if "registering" in request.POST:
+        if "register" in request.POST:
             try:
-                password2_input = request.POST.get("input-repeat-password")
-                password_input = request.POST.get("input-password")
-                email = request.POST.get("input-username", "")
-                # print(form.is_valid())
-                if(not email or not password_input or not password2_input):
-                    messages.error(request, "Fill all fields")
-                    raise Exception("Not all requiered fields are filled")
+                fullname = request.POST.get("fullname", "")
+                email = request.POST.get("email", "")
+                password = request.POST.get("password", "")
+                repeat_password = request.POST.get("repeat_password", "")
 
-                if( password_input != password2_input): 
-                    messages.error(request, "Passwords dont match")
-                    raise Exception("Passwords dont match")
+                password_policy = PasswordPolicy(
+                        min_length=10,
+                        min_uppercase=2,
+                        min_lowercase=2,
+                        min_digits=2,
+                        min_special=1,
+                        max_length=50,
+                        no_whitespace=True
+                )
+
+
+                if not all([fullname, email, password, repeat_password]):
+                    raise Exception("Fill all empty spaces")
                 
-                # user = form.save()
-                # user = Uzytkownik.objects.create(email = email, password = password_input)
-                user = Uzytkownik.objects.create_user(email = email, password= password_input)
+                if " " not in fullname:
+                    raise Exception("Invalid fullname (space requiered)")
+                
+                if not password_policy.validate(password):
+                    raise Exception("Invalid Password, stronger required")
+
+                if str(password).strip() != str(repeat_password).strip():
+                    raise Exception("Invalid passwords, passwords dont match")
+
+                user = Uzytkownik.objects.create_user(email = email, password=password )
                 print(user)
                 auth_login(request, user=user)
                     
@@ -32,18 +47,15 @@ def login(request):
             except Exception as e:
                 messages.info(request, f"Error: {e}")
                 print(e)
+                return redirect("login")
+                
 
-        if "logging" in request.POST:
+        if "login" in request.POST:
             try:
-                '''user = authenticate(request, email=form.data.get("email"), password=form.data.get("password"))'''
                 password_input = request.POST.get("password", "")
                 email = request.POST.get("email", "")
 
-                print(f"{password_input} {email}")
-
                 user = authenticate(request, email=email, password=password_input)
-                print(user)
-
 
                 if not user:
                     messages.error(request, "User not found. womp womp ")
@@ -54,7 +66,6 @@ def login(request):
 
             except Exception as e:
                     messages.error(request, f"Error: {e}")
-                    print(e)
                     return redirect("login")
                 
 
