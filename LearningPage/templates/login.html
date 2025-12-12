@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,30 @@
     <link rel="stylesheet" href="{% static 'login_styles.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
 </head>
+
 <body>
 
-    <div id="auth-container" class="main-card w-full max-w-5xl rounded-3xl overflow-hidden flex flex-col lg:flex-row m-4">
+    <!-- {% if messages %} -->
+    <div class="fixed top-4 right-4 z-50 space-y-2">
+        {% for message in messages %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative shadow-lg" role="alert">
+            <span class="block sm:inline mr-6">{{ message }}</span>
+
+            <button onclick="this.parentElement.remove();" class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <title>Close</title>
+                    <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- {% endif %} -->
+
+    <div id="auth-container"
+        class="main-card w-full max-w-5xl rounded-3xl overflow-hidden flex flex-col lg:flex-row m-4">
         <div class="w-full lg:w-1/2 bg-white p-6 md:p-12 flex flex-col justify-center">
             <div class="mb-8">
                 <h1 id="form-title" class="text-3xl font-bold text-gray-800 tracking-tight">
@@ -21,11 +41,14 @@
                 <p id="form-subtitle" class="text-sm text-gray-500 mt-1">
                     How to get started? Login below or Register for a new account.
                 </p>
-                <div class="mt-6 flex items-center justify-start space-x-2 p-1 bg-gray-100 rounded-full w-full max-w-xs transition duration-300">
-                    <button id="switch-login" data-mode="login" class="flex-1 py-2 text-sm font-semibold rounded-full bg-white text-gray-800 shadow-md transition-all duration-300">
+                <div
+                    class="mt-6 flex items-center justify-start space-x-2 p-1 bg-gray-100 rounded-full w-full max-w-xs transition duration-300">
+                    <button id="switch-login" data-mode="login"
+                        class="flex-1 py-2 text-sm font-semibold rounded-full bg-white text-gray-800 shadow-md transition-all duration-300">
                         Login
                     </button>
-                    <button id="switch-register" data-mode="register" class="flex-1 py-2 text-sm font-semibold rounded-full text-gray-500 hover:text-gray-700 transition-all duration-300">
+                    <button id="switch-register" data-mode="register"
+                        class="flex-1 py-2 text-sm font-semibold rounded-full text-gray-500 hover:text-gray-700 transition-all duration-300">
                         Register
                     </button>
                 </div>
@@ -36,24 +59,39 @@
                 {% csrf_token %}
                 <div>
                     <div class="relative flex items-center bg-gray-50 p-3 rounded-xl border border-gray-200">
-                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        <input name="email" type="email" placeholder="Email or Username" class="bg-transparent focus:outline-none w-full text-gray-700" required>
+                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <input name="email" type="email" placeholder="Email or Username"
+                            class="bg-transparent focus:outline-none w-full text-gray-700" required>
                     </div>
                 </div>
 
                 <div>
                     <div class="relative flex items-center bg-gray-50 p-3 rounded-xl border border-gray-200">
-                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        <input name="password" type="password" id="input-password-login" placeholder="Password" class="bg-transparent focus:outline-none w-full text-gray-700" required>
+                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        <input name="password" type="password" id="input-password-login" placeholder="Password"
+                            class="bg-transparent focus:outline-none w-full text-gray-700" required>
 
-                        <button type="button" onclick="showPassword('input-password-login');" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
-                            <img src="{% static 'images/eye.png' %}" alt="Show password" style="position: relative; top: 4px;">
+                        <button type="button" onclick="showPassword('input-password-login');"
+                            style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
+                            <img src="{% static 'images/eye.png' %}" alt="Show password"
+                                style="position: relative; top: 4px;">
                         </button>
                     </div>
                 </div>
 
-                
-                <button type="submit" name="login" class="w-full py-3 mt-6 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition duration-150 shadow-md shadow-indigo-300">
+
+                <button type="submit" name="login"
+                    class="w-full py-3 mt-6 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition duration-150 shadow-md shadow-indigo-300">
                     Login Now
                 </button>
             </form>
@@ -62,66 +100,110 @@
                 {% csrf_token %}
                 <div>
                     <div class="relative flex items-center bg-gray-50 p-3 rounded-xl border border-gray-200">
-                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        <input name="fullname" type="text" placeholder="Full Name" class="bg-transparent focus:outline-none w-full text-gray-700" required>
+                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                        <input name="fullname" type="text" placeholder="Full Name"
+                            class="bg-transparent focus:outline-none w-full text-gray-700" required>
                     </div>
                 </div>
 
                 <div>
                     <div class="relative flex items-center bg-gray-50 p-3 rounded-xl border border-gray-200">
-                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7"/></svg>
-                        <input name="email" type="email" placeholder="Email Address" class="bg-transparent focus:outline-none w-full text-gray-700" required>
+                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+                            <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        <input name="email" type="email" placeholder="Email Address"
+                            class="bg-transparent focus:outline-none w-full text-gray-700" required>
                     </div>
                 </div>
 
                 <div>
                     <div class="relative flex items-center bg-gray-50 p-3 rounded-xl border border-gray-200">
-                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        <input name="password" type="password" placeholder="Password (min 8 characters)" id="input-password-register" class="bg-transparent focus:outline-none w-full text-gray-700" required>
+                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        <input name="password" type="password" placeholder="Password (min 8 characters)"
+                            id="input-password-register" class="bg-transparent focus:outline-none w-full text-gray-700"
+                            required>
 
-                        <button type="button" onclick="showPassword('input-password-register');" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
-                            <img src="{% static 'images/eye.png' %}" alt="Show password" style="position: relative; top: 4px;">
+                        <button type="button" onclick="showPassword('input-password-register');"
+                            style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
+                            <img src="{% static 'images/eye.png' %}" alt="Show password"
+                                style="position: relative; top: 4px;">
                         </button>
                     </div>
                 </div>
 
                 <div>
                     <div class="relative flex items-center bg-gray-50 p-3 rounded-xl border border-gray-200">
-                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        <input name="repeat_password" type="password" placeholder="Confirm Password" id="input-password-repeat" class="bg-transparent focus:outline-none w-full text-gray-700" required>
+                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        <input name="repeat_password" type="password" placeholder="Confirm Password"
+                            id="input-password-repeat" class="bg-transparent focus:outline-none w-full text-gray-700"
+                            required>
 
-                        <button type="button" onclick="showPassword('input-password-repeat');" style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
-                            <img src="{% static 'images/eye.png' %}" alt="Show password" style="position: relative; top: 4px;">
+                        <button type="button" onclick="showPassword('input-password-repeat');"
+                            style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
+                            <img src="{% static 'images/eye.png' %}" alt="Show password"
+                                style="position: relative; top: 4px;">
                         </button>
                     </div>
                 </div>
 
-                <button name="register" type="submit" class="w-full py-3 mt-6 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition duration-150 shadow-md shadow-indigo-300">
+                <button name="register" type="submit"
+                    class="w-full py-3 mt-6 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition duration-150 shadow-md shadow-indigo-300">
                     Create Account
                 </button>
             </form>
             <div class="mt-8 pt-6 border-t border-gray-100">
                 <p class="text-xs text-gray-500 text-center uppercase tracking-wider mb-4">Or continue as</p>
                 <div class="flex flex-col space-y-3">
-                    <button class="flex items-center justify-center py-3 mt-6 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition duration-150 shadow-md shadow-indigo-300">
+                    <button
+                        class="flex items-center justify-center py-3 mt-6 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition duration-150 shadow-md shadow-indigo-300">
                         Guest User
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="hidden lg:block w-full lg:w-1/2 primary-purple-bg relative flex items-center justify-center p-8 min-h-[300px] lg:min-h-full">
-            <div class="absolute top-0 left-0 w-32 h-32 bg-purple-500 rounded-full opacity-30 -translate-x-1/3 -translate-y-1/3"></div>
-            <div class="absolute bottom-0 right-0 w-48 h-48 bg-purple-500 rounded-full opacity-30 translate-x-1/4 translate-y-1/4"></div>
+        <div
+            class="hidden lg:block w-full lg:w-1/2 primary-purple-bg relative flex items-center justify-center p-8 min-h-[300px] lg:min-h-full">
+            <div
+                class="absolute top-0 left-0 w-32 h-32 bg-purple-500 rounded-full opacity-30 -translate-x-1/3 -translate-y-1/3">
+            </div>
+            <div
+                class="absolute bottom-0 right-0 w-48 h-48 bg-purple-500 rounded-full opacity-30 translate-x-1/4 translate-y-1/4">
+            </div>
 
-            <div class="relative w-full max-w-sm h-full max-h-96 rounded-3xl overflow-hidden p-6 decorative-shape flex items-center justify-center transition duration-500">
-                <img id="visual-image"
-                     src="https://placehold.co/400x400/7b68ee/ffffff?text=Professional%20Welcome"
-                     alt="A professional woman working on a tablet"
-                     class="w-full h-full object-cover rounded-2xl shadow-xl transition-opacity duration-500"
-                     onerror="this.src='https://placehold.co/400x400/7b68ee/ffffff?text=Visual%20Placeholder%20Image';">
+            <div
+                class="relative w-full max-w-sm h-full max-h-96 rounded-3xl overflow-hidden p-6 decorative-shape flex items-center justify-center transition duration-500">
+                <img id="visual-image" src="https://placehold.co/400x400/7b68ee/ffffff?text=Professional%20Welcome"
+                    alt="A professional woman working on a tablet"
+                    class="w-full h-full object-cover rounded-2xl shadow-xl transition-opacity duration-500"
+                    onerror="this.src='https://placehold.co/400x400/7b68ee/ffffff?text=Visual%20Placeholder%20Image';">
                 <div class="absolute bottom-4 left-4 p-2 bg-yellow-400 rounded-full shadow-lg">
-                    <svg class="w-6 h-6 text-yellow-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7"/></svg>
+                    <svg class="w-6 h-6 text-yellow-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                        <path d="M13 2v7h7" />
+                    </svg>
                 </div>
             </div>
         </div>
@@ -147,7 +229,7 @@
 
                 switchLoginBtn.classList.add('bg-white', 'text-gray-800', 'shadow-md');
                 switchLoginBtn.classList.remove('text-gray-500', 'hover:text-gray-700');
-                
+
                 switchRegisterBtn.classList.add('text-gray-500', 'hover:text-gray-700');
                 switchRegisterBtn.classList.remove('bg-white', 'text-gray-800', 'shadow-md');
 
@@ -185,4 +267,5 @@
     </script>
 
 </body>
+
 </html>
