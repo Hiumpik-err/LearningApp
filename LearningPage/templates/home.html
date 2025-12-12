@@ -1,4 +1,5 @@
 {% load static %}
+{% load content_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,19 +25,19 @@
     <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1503264116251-35a269479413');"></div>
 
     <!-- SECTION: ARTICLES -->
-    {% include 'components/articles.html' %}
+    {% get_latest_articles%}
 
     <!-- PARALLAX BREAK -->
     <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');"></div>
 
     <!-- SECTION: TASKS -->
-    {% include 'components/tasks.html' %}
+    {% get_latest_courses%}
 
     <!-- PARALLAX BREAK -->
     <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d');"></div>
 
     <!-- SECTION: QUIZZES -->
-    {% include 'components/quizzes.html' %}
+    {% get_latest_quizzes%}
 
     <!-- PARALLAX BREAK -->
     <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1484417894907-623942c8ee29');"></div>

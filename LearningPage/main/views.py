@@ -1,5 +1,4 @@
 from password_validation.policy import PasswordPolicy
-
 from django.shortcuts import render, redirect
 from .models import Uzytkownik, Article, Course, Quizz
 from .forms import ArticleForm, CourseForm, QuizzForm

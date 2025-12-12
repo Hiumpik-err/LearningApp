@@ -2,7 +2,7 @@ from django import template
 from main.models import Article, Course, Quizz
 
 register = template.Library()
-
+'''
 @register.inclusion_tag("sidebar.html")
 def show_categories():
     categories = set()
@@ -34,3 +34,22 @@ def get_page_name(request):
     else:
         ans = subject[1]
     return {"result" : ans.title()}
+'''
+
+@register.inclusion_tag("components/articles.html")
+def get_latest_articles():
+    aricles = list(Article.objects.all().order_by("-upload_data")[:3])
+
+    return {"articles": aricles}
+
+@register.inclusion_tag("components/tasks.html")
+def get_latest_courses():
+    tasks = list(Course.objects.all().order_by("-upload_data")[:3])
+
+    return {"tasks": tasks}
+
+@register.inclusion_tag("components/quizzes.html")
+def get_latest_quizzes():
+    quizzes = list(Quizz.objects.all().order_by("-upload_data")[:3])
+
+    return {"quizzes": quizzes}

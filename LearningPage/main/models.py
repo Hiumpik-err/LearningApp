@@ -58,6 +58,13 @@ class Article(models.Model):
     lead = models.CharField(null=False, max_length=255)
     content = HTMLField(null=True)
     category = models.CharField(null=False, max_length=50)
+    upload_data = models.DateField( auto_now_add=True)
+    article_author = models.ForeignKey(
+        Uzytkownik,
+        on_delete=models.CASCADE,
+        related_name= "article",
+        default=1
+    )
 
     def __str__(self):
         return self.title
@@ -68,7 +75,14 @@ class Quizz(models.Model):
     description = models.CharField(null=False, max_length=500)
     link = models.URLField(max_length=200, null=False)
     category = models.CharField(max_length=50, null=False)
-
+    upload_data = models.DateField( auto_now_add=True)
+    quizz_author = models.ForeignKey(
+        Uzytkownik,
+        on_delete=models.CASCADE,
+        related_name= "quizz",
+        default=1
+    )
+    
     def __str__(self):
         return self.title
     
@@ -78,6 +92,12 @@ class Course(models.Model):
     title = models.CharField(null=False, max_length=255)
     question = models.TextField(null=False)
     answers = models.CharField(max_length=255)
-
+    upload_data = models.DateField( auto_now_add=True)
+    course_author = models.ForeignKey(
+        Uzytkownik,
+        on_delete=models.CASCADE,
+        related_name= "course",
+        default= 1
+    )
     def __str__(self):
         return self.title
