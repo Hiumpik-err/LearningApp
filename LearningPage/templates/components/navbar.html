@@ -1,20 +1,23 @@
 {% load static %}
-<nav class="w-full bg-white shadow fixed top-0 left-0 z-50">
+<nav class="w-full bg-white shadow fixed top-0 left-0 z-(100)">
 
   <div class="flex items-center justify-between px-6 py-4">
 
-    <div class="flex items-center gap-4">
+    <!-- <div class="flex items-center gap-4 ml-4">
       <img src="{% static 'images/logo_eex.png' %}" class="h-10">
       <div class="text-xl font-semibold">Home</div>
-    </div>
+    </div> -->
+
+    <a href="/home" class="flex items-center gap-4 cursor-pointer">
+      <img src="{% static 'images/logo_eex.png' %}" class="h-10">
+      <div class="text-xl font-semibold">Home</div>
+    </a>
 
 
-    <div class="hidden md:flex items-center gap-10 text-lg relative">
-
-      <a href="#home" class="hover:underline">Home</a>
+    <div class="hidden md:flex items-center gap-5 text-lg relative">
       <a href="#search" class="hover:underline">Search</a>
 
-      <button id="userBtn" class="inline-flex items-center gap-x-1.5 px-3 py-2 hover:underline">
+      <button id="userBtn" class="inline-flex items-center gap-x-1.5 px-3 py-2 hover:underline mr-6">
         User
         <svg viewBox="0 0 20 20" fill="currentColor" class="-mr-1 size-7 text-gray-400">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -45,11 +48,9 @@
   </div>
 
   <div id="mobile-menu"
-       class="hidden md:hidden absolute left-0 w-full bg-white shadow-lg border-t border-gray-200 z-40">
+    class="hidden md:hidden absolute left-0 w-full bg-white shadow-lg border-t border-gray-200 z-40">
 
     <div class="px-6 py-4 flex flex-col gap-4 text-lg">
-
-      <a href="#home" class="hover:underline">Home</a>
       <a href="#search" class="hover:underline">Search</a>
 
       <details class="group">
