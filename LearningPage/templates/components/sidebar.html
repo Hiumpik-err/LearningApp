@@ -1,0 +1,65 @@
+<button id="sidebarToggle" class="hidden md:flex items-center justify-center bg-blue-600 text-white shadow-lg
+           fixed top-1/2 translate-y-1/2
+           w-10 h-12 rounded-r-xl hover:bg-blue-700 z-50 m-0 transition-transform duration-300">
+    <span class="font-bold text-lg">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+    </span>
+</button>
+
+
+<!-- Floating Action Button (Mobile only) -->
+<button id="fabToggle"
+    class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white rounded-full shadow flex items-center justify-center text-2xl hover:bg-blue-700 z-50">
+    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+</button>
+
+
+<!-- Sidebar -->
+<aside id="sidebar" class="absolute inset-y-0 start-0 h-50 w-64 bg-white shadow-xl border-r transform -translate-x-full
+           transition-transform duration-50 z-50">
+    <div class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100">
+        <svg class="h-7 w-7 text-blue-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M4 4.5A2.5 2.5 0 0 1 6.5 7H20v10H6.5a2.5 2.5 0 0 0-2.5 2.5V4.5z"></path>
+        </svg>
+        <span class="text-gray-800 text-lg font-medium md:group-hover:block">Articles</span>
+    </div>
+
+
+    <div class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100">
+        <svg class="h-7 w-7 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+        </svg>
+        <span class="text-gray-800 text-lg font-medium md:group-hover:block">Tasks</span>
+    </div>
+
+
+    <div class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100">
+        <svg class="h-7 w-7 text-purple-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"></path>
+        </svg>
+        <span class="text-gray-800 text-lg font-medium md:group-hover:block">Quizzes</span>
+    </div>
+</aside>
+
+<script>
+    const sidebar = document.getElementById("sidebar");
+    const toggleDesktop = document.getElementById("sidebarToggle");
+    const toggleFAB = document.getElementById("fabToggle");
+
+    const toggleSidebar = () => {
+        sidebar.classList.toggle("-translate-x-full");
+        toggleDesktop.classList.toggle("left-[250px]")
+    };
+
+    toggleDesktop.addEventListener("click", toggleSidebar);
+    toggleFAB.addEventListener("click", toggleSidebar);
+</script>
