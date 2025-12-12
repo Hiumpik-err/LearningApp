@@ -18,12 +18,11 @@ def login(request):
 
                 password_policy = PasswordPolicy(
                         min_length=10,
-                        min_uppercase=2,
-                        min_lowercase=2,
-                        min_digits=2,
-                        min_special=1,
-                        max_length=50,
-                        no_whitespace=True
+                        uppercase=2,
+                        lowercase=2,
+                        numbers=2,
+                        symbols=1,
+                        max_length=50
                 )
 
 
@@ -58,7 +57,7 @@ def login(request):
                 user = authenticate(request, email=email, password=password_input)
 
                 if not user:
-                    messages.error(request, "User not found. womp womp ")
+                    #   messages.error(request, "User not found. womp womp ")
                     raise Exception("User not found")
                 
                 auth_login(request, user)
