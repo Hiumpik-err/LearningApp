@@ -1,19 +1,26 @@
-<section class="max-w-6xl mx-auto px-6 py-24">
-    <h2 class="text-4xl font-bold text-center mb-10">Latest Articles</h2>
+<section class="max-w-full md:max-w-4xl lg:max-w-5xl mx-auto px-6 py-24">
+    <h2 class="text-4xl font-bold text-center mb-10 flex items-center justify-center gap-3">
+        <svg class="h-7 w-7 text-blue-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M4 4.5A2.5 2.5 0 0 1 6.5 7H20v10H6.5a2.5 2.5 0 0 0-2.5 2.5V4.5z"></path>
+        </svg>
+        <span>Latest Articles</span>
+    </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
         {% for article in articles %}
-        
-            <div class="flex flex-col bg-white p-6 rounded-2xl shadow-xl">
-                <h3 class="text-2xl font-semibold mb-2 line-clamp-1">{{article.title}}</h3>
-                <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">{{article.category}}</p>
-                <p class="text-gray-700 mb-3 line-clamp-3">{{article.lead}}</p>
-                <div class="flex justify-end mt-auto">
-                    <a href="article_url">
-                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
-                    </a>
-                </div>
+
+        <div class="flex flex-col bg-white p-6 rounded-2xl shadow-xl">
+            <h3 class="text-2xl font-semibold mb-2 line-clamp-1">{{article.title}}</h3>
+            <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">{{article.category}}</p>
+            <p class="text-gray-700 mb-3 line-clamp-3">{{article.lead}}</p>
+            <div class="flex justify-end mt-auto">
+                <a href="article_url">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
+                </a>
             </div>
+        </div>
 
         {% endfor %}
 
