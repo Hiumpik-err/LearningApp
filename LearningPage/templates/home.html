@@ -15,10 +15,11 @@
 
     {% include 'components/navbar.html' %}
     {% include 'components/sidebar2.html' %}
-
+    
     <!-- Spacer -->
     <div class="h-20"></div>
-
+    
+    {% include 'components/search.html' %}
     <!-- SECTION: ABOUT -->
     {% include 'components/about.html' %}
 
@@ -45,6 +46,13 @@
 
     <!-- FOOTER -->
     {% include 'components/footer.html' %}
+    <script>
+        const dialog = document.getElementById("search-dialog");
+
+        function showDialog() {
+            dialog.showModal();
+        }
+    </script>
 </body>
 
 </html>
