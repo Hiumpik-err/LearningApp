@@ -260,13 +260,13 @@ def profile(request):
 def item_view(request, type, id):
     answer = request.session.get("result", "")
     if request.method == "GET":
-        if type == "article":
+        if type == "articles":
             article = Article.objects.get(ArticleId=id)
             return render(request, "item_view.html", {"article": article, "type":type, "result": False, "answer":answer})
-        elif type == "course":
+        elif type == "courses":
             course = Course.objects.get(CourseId=id)
             return render(request, "item_view.html", {"course": course, "type": type, "result": False, "answer":answer})
-        elif type == "quizz":
+        elif type == "quizzes":
             quizz = Quizz.objects.get(QuizzId = id)
             return render(request, "item_view.html", {"course": quizz, "type": type, "result": False, "answer":answer})
         elif type == "result":
