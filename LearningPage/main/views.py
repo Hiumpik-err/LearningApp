@@ -214,7 +214,7 @@ def content_view(request, type):
         if type == 'articles':
             articles = Article.objects.all().order_by('-upload_data')
             context["articles"] = articles
-        elif type == 'tasks':
+        elif type == 'courses':
             courses = Course.objects.all().order_by('-upload_data')
             context["courses"] = courses
         elif type == 'quizzes':

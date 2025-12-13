@@ -11,7 +11,7 @@
     class="hidden xl:flex fixed top-[4.75em] left-0 h-full w-20 bg-white shadow-xl flex-col items-center py-6 transition-all duration-300 overflow-hidden group hover:w-64 z-40">
 
 
-    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100" href="{% url "content_view_element" 'articles' %}">
+    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100" href="{% url 'content_view_element' 'articles' %}">
         <svg class="h-7 w-7 text-blue-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
@@ -21,7 +21,7 @@
     </a>
 
 
-    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100" href="{% url "content_view_element" 'tasks' %}">
+    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100" href="{% url 'content_view_element' 'courses' %}">
         <svg class="h-7 w-7 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 20h9"></path>
@@ -31,7 +31,7 @@
     </a>
 
 
-    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100" href="{% url "content_view_element" 'quizzes' %}">
+    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100" href="{% url 'content_view_element' 'quizzes' %}">
         <svg class="h-7 w-7 text-purple-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 6L9 17l-5-5"></path>
