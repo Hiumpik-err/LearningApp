@@ -25,7 +25,8 @@
             
             <div class="bg-white p-6 rounded-2xl shadow-xl">
                 <label for="category-select" class="block text-lg font-semibold mb-3">Filter by Category</label>
-                <form method="GET" class="flex gap-3">
+                <form method="POST" class="flex gap-3">
+                    {% csrf_token %}
                     <select id="category-select" name="category" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
                         <option value="">All Categories</option>
                         {% for cat in categories %}
@@ -37,7 +38,7 @@
             </div>
         </div>
 
-        {% if articles and not content_type or content_type == 'articles' %}
+        {% if articles %}
         <section class="mb-12">
             <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
                 <svg class="h-7 w-7 text-blue-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -54,7 +55,7 @@
                     <p class="text-xs text-gray-400 mb-3">📅 {{ article.upload_data }}</p>
                     <p class="text-gray-700 mb-4 line-clamp-3">{{ article.lead }}</p>
                     <div class="flex justify-end mt-auto">
-                        <a href="{% url 'item_view' type='article' id=article.ArticleId %}">
+                        <a href="{% url 'item_view' 'article' article.ArticleId %}">
                             <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
                         </a>
                     </div>
@@ -62,9 +63,8 @@
                 {% endfor %}
             </div>
         </section>
-        {% endif %}
 
-        {% if courses and not content_type or content_type == 'tasks' %}
+        {% elif courses %}
         <section class="mb-12">
             <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
                 <svg class="h-7 w-7 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -89,9 +89,8 @@
                 {% endfor %}
             </div>
         </section>
-        {% endif %}
 
-        {% if quizzes and not content_type or content_type == 'quizzes' %}
+        {% else %}
         <section class="mb-12">
             <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
                 <svg class="h-7 w-7 text-purple-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -127,12 +126,12 @@
 
     {% include 'components/footer.html' %}
 
-    <script>
+    {% comment %} <script>
         const categorySelect = document.getElementById('category-select');
         categorySelect.addEventListener('change', function() {
             this.form.submit();
         });
-    </script>
+    </script> {% endcomment %}
 
 </body>
 

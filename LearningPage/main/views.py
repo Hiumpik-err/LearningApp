@@ -200,47 +200,43 @@ def available_quizzes(request, category):
     return render(request, "quizzes.html", {"quizzes" : quizz})
 
 
-def content_view(request, content_type=None):
-    """View for displaying content items (articles, courses, quizzes) with optional type filtering and category filtering"""
-    category = request.GET.get('category', '')
-    
-    # Get all items ordered by newest first
-    articles = Article.objects.all().order_by('-upload_data')
-    courses = Course.objects.all().order_by('-upload_data')
-    quizzes = Quizz.objects.all().order_by('-upload_data')
-    
-    # Filter by type if provided in URL
-    if content_type == 'articles':
-        courses = Course.objects.none()
-        quizzes = Quizz.objects.none()
-    elif content_type == 'tasks':
-        articles = Article.objects.none()
-        quizzes = Quizz.objects.none()
-    elif content_type == 'quizzes':
-        articles = Article.objects.none()
-        courses = Course.objects.none()
-    
-    # Filter by category if provided
-    if category:
-        articles = articles.filter(category__iexact=category)
-        courses = courses.filter(category__iexact=category)
-        quizzes = quizzes.filter(category__iexact=category)
-    
-    # Get unique categories from all content types
+def content_view(request, type):
+
     article_categories = Article.objects.values_list('category', flat=True).distinct()
     course_categories = Course.objects.values_list('category', flat=True).distinct()
     quizz_categories = Quizz.objects.values_list('category', flat=True).distinct()
     
-    all_categories = sorted(set(list(article_categories) + list(course_categories) + list(quizz_categories)))
+    categories = sorted(set(list(article_categories) + list(course_categories) + list(quizz_categories)))
+
+    context = {"categories": categories}
     
-    context = {
-        'articles': articles,
-        'courses': courses,
-        'quizzes': quizzes,
-        'categories': all_categories,
-        'selected_category': category,
-        'content_type': content_type
-    }
+    if request.method == "GET":
+        if type == 'articles':
+            articles = Article.objects.all().order_by('-upload_data')
+            context["articles"] = articles
+        elif type == 'tasks':
+            courses = Course.objects.all().order_by('-upload_data')
+            context["courses"] = courses
+        elif type == 'quizzes':
+            quizzes = Quizz.objects.all().order_by('-upload_data')
+            context["quizzes"] = quizzes
+
+    elif request.method == "POST":
+        category = request.POST.get("category", "")
+
+        if type == 'articles':
+            articles = Article.objects.all().order_by('-upload_data')
+            articles = articles.filter(category__iexact=category) if category != "" else articles
+            context["articles"] = articles
+        elif type == 'tasks':
+            courses = Course.objects.all().order_by('-upload_data')
+            courses = courses.filter(category__iexact=category) if category != "" else courses
+            context["courses"] = courses
+        elif type == 'quizzes':
+            quizzes = Quizz.objects.all().order_by('-upload_data')
+            quizzes = quizzes.filter(category__iexact=category) if category != "" else quizzes
+            context["quizzes"] = quizzes
+      
     
     return render(request, 'content_view.html', context)
 
