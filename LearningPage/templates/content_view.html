@@ -1,22 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>All Content - EEX</title>
-    <link rel="icon" href="{% static 'images/favicon.png'%}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
+{% extends "home.html" %}
 
-<body class="w-full h-full text-gray-800">
-
-    {% include 'components/navbar.html' %}
-    {% include 'components/sidebar2.html' %}
-
-    
-    <div class="h-20"></div>
+{% block title %}
+    <title>All content - EEX</title>
+{% endblock title %}
+{% block main %}
 
     <main class="max-w-full md:max-w-4xl lg:max-w-5xl mx-auto px-6 py-12">
 
@@ -129,16 +116,4 @@
         {% endif %}
 
     </main>
-
-    {% include 'components/footer.html' %}
-
-    {% comment %} <script>
-        const categorySelect = document.getElementById('category-select');
-        categorySelect.addEventListener('change', function() {
-            this.form.submit();
-        });
-    </script> {% endcomment %}
-
-</body>
-
-</html>
+{% endblock main %}

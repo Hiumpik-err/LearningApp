@@ -1,23 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
+{% extends "home.html" %}
+{% block title %}
     <title>{% if article %}{{ article.title }}{% elif course %}{{ course.title }}{% elif quizz %}{{ quizz.title }}{% endif %} - EEX</title>
-    <link rel="icon" href="{% static 'images/favicon.png'%}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
+{% endblock title %}
 
-<body class="w-full h-full text-gray-800">
-
-    {% include 'components/navbar.html' %}
-    {% include 'components/sidebar2.html' %}
-
-    <!-- Spacer -->
-    <div class="h-20"></div>
-
+{% block main %}
     <!-- Main Content -->
     <main class="max-w-full md:max-w-4xl lg:max-w-5xl mx-auto px-6 py-12">
         
@@ -109,10 +95,5 @@
         {% endif %}
 
     </main>
+{% endblock main %}
 
-    <!-- Footer -->
-    {% include 'components/footer.html' %}
-
-</body>
-
-</html>

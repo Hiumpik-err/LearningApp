@@ -6,53 +6,61 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>EEX</title>
+    {% block title %}
+        <title>EEX</title>
+    {% endblock title %}
     <link rel="icon" href="{% static 'images/favicon.png'%}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
 <body class="w-full h-full text-gray-800">
+    {% block navbar %}
+        {% include 'components/navbar.html' %}
+        {% include 'components/sidebar2.html' %}
 
-    {% include 'components/navbar.html' %}
-    {% include 'components/sidebar2.html' %}
-    
-    <!-- Spacer -->
-    <div class="h-20"></div>
-    
-    {% include 'components/search.html' %}
-    <!-- SECTION: ABOUT -->
-    {% include 'components/about.html' %}
+        <!-- Spacer -->
+        <div class="h-20"></div>
+        {% include 'components/search.html' %}
+    {% endblock navbar %}
 
-    <!-- PARALLAX BREAK -->
-    <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1503264116251-35a269479413');"></div>
+    {% block main %}
+        
+        <!-- SECTION: ABOUT -->
+        {% include 'components/about.html' %}
 
-    <!-- SECTION: ARTICLES -->
-    {% get_latest_articles%}
+        <!-- PARALLAX BREAK -->
+        <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1503264116251-35a269479413');"></div>
 
-    <!-- PARALLAX BREAK -->
-    <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');"></div>
+        <!-- SECTION: ARTICLES -->
+        {% get_latest_articles%}
 
-    <!-- SECTION: TASKS -->
-    {% get_latest_courses%}
+        <!-- PARALLAX BREAK -->
+        <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');"></div>
 
-    <!-- PARALLAX BREAK -->
-    <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d');"></div>
+        <!-- SECTION: TASKS -->
+        {% get_latest_courses%}
 
-    <!-- SECTION: QUIZZES -->
-    {% get_latest_quizzes%}
+        <!-- PARALLAX BREAK -->
+        <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d');"></div>
 
-    <!-- PARALLAX BREAK -->
-    <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1484417894907-623942c8ee29');"></div>
+        <!-- SECTION: QUIZZES -->
+        {% get_latest_quizzes%}
 
+        <!-- PARALLAX BREAK -->
+        <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1484417894907-623942c8ee29');"></div>
+
+    {% endblock main %}
     <!-- FOOTER -->
-    {% include 'components/footer.html' %}
-    <script>
-        const dialog = document.getElementById("search-dialog");
+    {% block footer %}
+        {% include 'components/footer.html' %}
+        <script>
+            const dialog = document.getElementById("search-dialog");
 
-        function showDialog() {
-            dialog.showModal();
-        }
-    </script>
+            function showDialog() {
+                dialog.showModal();
+            }
+        </script>
+    {% endblock footer %}
 </body>
 
 </html>
