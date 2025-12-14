@@ -8,6 +8,7 @@
     <title>Create item - EEX</title>
     <link rel="icon" href="{% static 'images/favicon.png'%}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    {{ form.media }}
 </head>
 
 <body class="w-full h-full text-gray-800">
@@ -31,8 +32,133 @@
             </a>
         </div>
         
+        <div class="bg-white p-8 rounded-2xl shadow-xl">
+            <h1 class="text-3xl font-bold mb-8">Create New Item</h1>
+            
+            {% if type == 'article' %}
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="{{ form.category.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.category.label }}</label>
+                    {% if form.category.errors %}
+                        <div class="text-red-600 mb-2">{{ form.category.errors }}</div>
+                    {% endif %}
+                    {{ form.category }}
+                </div>
 
-        
+                <div>
+                    <label for="{{ form.title.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.title.label }}</label>
+                    {% if form.title.errors %}
+                        <div class="text-red-600 mb-2">{{ form.title.errors }}</div>
+                    {% endif %}
+                    {{ form.title }}
+                </div>
+
+                <div>
+                    <label for="{{ form.lead.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.lead.label }}</label>
+                    {% if form.lead.errors %}
+                        <div class="text-red-600 mb-2">{{ form.lead.errors }}</div>
+                    {% endif %}
+                    {{ form.lead }}
+                </div>
+
+                <div>
+                    <label for="{{ form.content.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.content.label }}</label>
+                    {% if form.content.errors %}
+                        <div class="text-red-600 mb-2">{{ form.content.errors }}</div>
+                    {% endif %}
+                    {{ form.content }}
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
+                </div>
+            </form>
+            {% elif type == 'course' %}
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="{{ form.category.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.category.label }}</label>
+                    {% if form.category.errors %}
+                        <div class="text-red-600 mb-2">{{ form.category.errors }}</div>
+                    {% endif %}
+                    {{ form.category }}
+                </div>
+
+                <div>
+                    <label for="{{ form.title.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.title.label }}</label>
+                    {% if form.title.errors %}
+                        <div class="text-red-600 mb-2">{{ form.title.errors }}</div>
+                    {% endif %}
+                    {{ form.title }}
+                </div>
+
+                <div>
+                    <label for="{{ form.question.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.question.label }}</label>
+                    {% if form.question.errors %}
+                        <div class="text-red-600 mb-2">{{ form.question.errors }}</div>
+                    {% endif %}
+                    {{ form.question }}
+                </div>
+
+                <div>
+                    <label for="{{ form.answers.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.answers.label }}</label>
+                    {% if form.answers.errors %}
+                        <div class="text-red-600 mb-2">{{ form.answers.errors }}</div>
+                    {% endif %}
+                    {{ form.answers }}
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
+                </div>
+            </form>
+            {% else %} 
+
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="{{ form.category.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.category.label }}</label>
+                    {% if form.category.errors %}
+                        <div class="text-red-600 mb-2">{{ form.category.errors }}</div>
+                    {% endif %}
+                    {{ form.category }}
+                </div>
+
+                <div>
+                    <label for="{{ form.title.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.title.label }}</label>
+                    {% if form.title.errors %}
+                        <div class="text-red-600 mb-2">{{ form.title.errors }}</div>
+                    {% endif %}
+                    {{ form.title }}
+                </div>
+
+                <div>
+                    <label for="{{ form.description.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.description.label }}</label>
+                    {% if form.description.errors %}
+                        <div class="text-red-600 mb-2">{{ form.description.errors }}</div>
+                    {% endif %}
+                    {{ form.description }}
+                </div>
+
+                <div>
+                    <label for="{{ form.link.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.link.label }}</label>
+                    {% if form.link.errors %}
+                        <div class="text-red-600 mb-2">{{ form.link.errors }}</div>
+                    {% endif %}
+                    {{ form.link }}
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
+                </div>
+            </form>
+
+            {% endif%}
+        </div>
 
     </main>
 

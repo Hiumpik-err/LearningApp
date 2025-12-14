@@ -69,7 +69,7 @@ class ArticleForm(forms.ModelForm):
     category = forms.ChoiceField(
         choices=CATEGORY_CHOICES,
         widget=forms.Select(attrs={
-            'class': 'form-select text-center',
+            'class': 'category-select w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
             'required': True
         })
     )
@@ -79,14 +79,14 @@ class ArticleForm(forms.ModelForm):
         fields = ['category', 'title', 'lead', 'content']
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-control',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
                 'placeholder': 'Title',
                 'required': True,
                 'minlength': 3,
                 'maxlength': 200
             }),
             'lead': forms.TextInput(attrs={
-                'class': 'form-control',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
                 'placeholder': 'Lead',
                 'required': True,
                 'minlength': 3,
@@ -133,7 +133,7 @@ class CourseForm(forms.ModelForm):
     category = forms.ChoiceField(
         choices=CATEGORY_CHOICES,
         widget=forms.Select(attrs={
-            'class': 'form-select text-center',
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
             'required': True
         })
     )
@@ -143,21 +143,23 @@ class CourseForm(forms.ModelForm):
         fields = ['category', 'title', 'question', 'answers']
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-control',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
                 'placeholder': 'Title',
                 'required': True,
                 'minlength': 3,
                 'maxlength': 200
             }),
             'question': forms.Textarea(attrs={
-                'class': 'form-control form-textarea',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
                 'placeholder': 'Question',
                 'required': True,
-                'minlength': 10
+                'minlength': 10,
+                'rows': 4
             }),
             'answers': forms.Textarea(attrs={
-                'class': 'form-control form-textarea',
-                'placeholder': 'Possible answers separated by semicolon'
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
+                'placeholder': 'Possible answers separated by semicolon',
+                'rows': 4
             })
         }
 
@@ -176,7 +178,7 @@ class QuizzForm(forms.ModelForm):
     category = forms.ChoiceField(
         choices=CATEGORY_CHOICES,
         widget=forms.Select(attrs={
-            'class': 'form-select text-center',
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
             'required': True
         })
     )
@@ -186,20 +188,21 @@ class QuizzForm(forms.ModelForm):
         fields = ['category', 'title', 'description', 'link']
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-control',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
                 'placeholder': 'Title',
                 'required': True,
                 'minlength': 3,
                 'maxlength': 200
             }),
             'description': forms.Textarea(attrs={
-                'class': 'form-control form-textarea',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
                 'placeholder': 'Description',
                 'required': True,
-                'minlength': 10
+                'minlength': 10,
+                'rows': 4
             }),
             'link': forms.URLInput(attrs={
-                'class': 'form-control',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
                 'placeholder': 'https://example.com',
                 'required': True
             })
