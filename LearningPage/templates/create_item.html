@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Create item - EEX</title>
+    <link rel="icon" href="{% static 'images/favicon.png'%}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body class="w-full h-full text-gray-800">
+
+    {% include 'components/navbar.html' %}
+    {% include 'components/sidebar2.html' %}
+
+    <!-- Spacer -->
+    <div class="h-20"></div>
+
+    <!-- Main Content -->
+    <main class="max-w-full md:max-w-4xl lg:max-w-5xl mx-auto px-6 py-12">
+        
+        <!-- Back Button -->
+        <div class="mb-6">
+            <a href="{% url 'home' %}" class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Home
+            </a>
+        </div>
+        
+
+        
+
+    </main>
+
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+
+</body>
+
+</html>

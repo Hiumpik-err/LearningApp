@@ -58,10 +58,15 @@
     {% block footer %}
         {% include 'components/footer.html' %}
         <script>
-            const dialog = document.getElementById("search-dialog");
+            const searchDialog = document.getElementById("search-dialog");
 
-            function showDialog() {
-                dialog.showModal();
+            function showSearchDialog() {
+                searchDialog.showModal();
+            }
+            const createDialog = document.getElementById("create-dialog");
+
+            function showCreateDialog() {
+                createDialog.showModal();
             }
         </script>
     {% endblock footer %}

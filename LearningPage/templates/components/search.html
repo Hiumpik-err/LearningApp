@@ -2,12 +2,16 @@
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold">Search</h2>
         <button onclick="document.getElementById('search-dialog').close()"
-            class="text-gray-500 hover:text-gray-700 text-2xl leading-none">
-            ×
+            class="text-gray-500 hover:text-gray-700 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
         </button>
     </div>
 
-    <form method="POST" action="{% url "home" %}" class="space-y-4">
+    <form method="POST" action="{% url 'home' %}" class="space-y-4">
         {% csrf_token %}
         <div>
             <input type="search" name="searched_value" placeholder="Search articles, tasks, quizzes..."
@@ -17,6 +21,34 @@
         <button type="submit"
             class="w-full px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
             Search
+        </button>
+    </form>
+</dialog>
+
+<dialog id="create-dialog" class="rounded-lg shadow-2xl p-6 w-full max-w-md backdrop:bg-black/50">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Add new</h2>
+        <button onclick="document.getElementById('create-dialog').close()"
+            class="text-gray-500 hover:text-gray-700 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <form method="POST" action="{% url 'create_item' 'type' %}" class="flex flex-column gap-3">
+        {% csrf_token %}
+        <select id="create-select" name="create_select"
+            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+            <option value="article">Article</option>
+            <option value="course">Task</option>
+            <option value="quizz">Quiz</option>
+        </select>
+        <button type="submit"
+            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            Create
         </button>
     </form>
 </dialog>
