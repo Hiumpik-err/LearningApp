@@ -27,7 +27,8 @@
 
         <div class="border-t my-1"></div>
 
-        <form method="POST" action="/logout/">
+        <form method="POST" action="{% url "profile" %}">
+          {% csrf_token %}
           <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">Sign Out</button>
         </form>
       </div>
@@ -60,7 +61,7 @@
         <div class="mt-2 ml-2 border-l pl-4 space-y-2">
           <a href="#profile" class="block hover:underline">Profile</a>
           <div class="border-t"></div>
-          <form method="POST" action="/logout/">
+          <form method="POST" action="{% url "profile" %}">
             <button type="submit" class="text-left w-full hover:underline">Sign Out</button>
           </form>
         </div>

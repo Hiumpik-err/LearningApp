@@ -7,7 +7,7 @@
         </button>
     </div>
 
-    <form method="POST" action="/home" class="space-y-4">
+    <form method="POST" action="{% url "home" %}" class="space-y-4">
         {% csrf_token %}
         <div>
             <input type="search" name="searched_value" placeholder="Search articles, tasks, quizzes..."

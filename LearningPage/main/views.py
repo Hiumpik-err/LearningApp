@@ -186,19 +186,6 @@ def create_item(request, type):
             return render(request, "create_item.html", {"type": type, "form": form})
 
 
-            
-def available_articles(request, category):
-    articles = Article.objects.filter(category=category)
-    return render(request, "articles.html", {"articles": articles})
-
-def available_courses(request, category):
-    courses = Course.objects.filter(category=category)
-    return render(request, "courses.html", {"courses" : courses})
-
-def available_quizzes(request, category):
-    quizz = Quizz.objects.filter(category=category)
-    return render(request, "quizzes.html", {"quizzes" : quizz})
-
 
 def content_view(request, type):
 

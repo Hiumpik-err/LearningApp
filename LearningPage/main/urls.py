@@ -12,9 +12,6 @@ urlpatterns = [
     path("update/<str:type>/<int:id>", views.update, name="update"),
     path("item_view/<str:type>/<int:id>", views.item_view, name="item_view"),
 
-    # path("available_articles/<str:category>", views.available_articles, name="available_articles"),
-    # path("available_courses/<str:category>", views.available_courses, name="available_courses"),
-    # path("available_quizzes/<str:category>", views.available_quizzes, name="available_quizzes"),
 ]
 
 
