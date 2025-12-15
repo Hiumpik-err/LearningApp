@@ -38,7 +38,7 @@
         </button>
     </div>
 
-    <form method="POST" action="{% url 'create_item' 'type' %}" class="flex flex-column gap-3">
+    <form method="POST" action="{% url 'create_item' 'type' %}" class="flex flex-column gap-3" onsubmit="provideDataToCreateElement()" id="formToCreateElement">
         {% csrf_token %}
         <select id="create-select" name="create_select"
             class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
@@ -53,7 +53,7 @@
     </form>
 
 <script>
-    function provideDataToCreateElement(event){
+    function provideDataToCreateElement(){
 
         const form = document.getElementById("formToCreateElement");
         const elementType = document.getElementById("create-select").value;
