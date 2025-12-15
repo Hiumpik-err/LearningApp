@@ -51,4 +51,21 @@
             Create
         </button>
     </form>
+
+<script>
+    function provideDataToCreateElement(event){
+
+        const form = document.getElementById("formToCreateElement");
+        const elementType = document.getElementById("create-select").value;
+
+        const getAction = form.getAttribute("action");
+        const newAction = getAction.replace("type", elementType)
+        
+
+        form.setAttribute("action", newAction)
+
+        form.submit();
+
+    }
+</script>
 </dialog>
