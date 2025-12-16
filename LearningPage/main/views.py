@@ -75,6 +75,7 @@ def home(request):
         return render(request, "home.html", {"request" : request.path})
     
     if request.method == "POST":
+        '''
         searched_value = request.POST.get("searched_value", "")
         articles = list(Article.objects.filter(Q(title__icontains=searched_value) | 
                                           Q(content__icontains=searched_value)
@@ -96,14 +97,14 @@ def home(request):
                 "type": "quizz",
                 "data": quizzes
             }
-        }
+        } '''
 
-        return render(request, "home.html", context)
+        return render(request, "home.html")
         
 
 def create_item(request, type):
     if type == "article":
-        if request.method == "GET":
+        if request.method == "POST" and "showElement" in request.POST:
             form = ArticleForm()
             
             # Zachowaj dane formularza jeśli są w sesji
@@ -144,7 +145,7 @@ def create_item(request, type):
                 return redirect("create_item", type=type)
             
     elif type == 'course':
-        if request.method == "GET":
+        if request.method == "POST" and "showElement" in request.POST:
             form = CourseForm()
             return render(request, "create_item.html", {"type": type, "form": form})
 
@@ -165,7 +166,7 @@ def create_item(request, type):
             return render(request, "create_item.html", {"type": type, "form": form})
 
     else:  # quiz
-        if request.method == "GET":
+        if request.method == "POST" and "showElement" in request.POST:
             form = QuizzForm()
             return render(request, "create_item.html", {"type": type, "form": form})
 
