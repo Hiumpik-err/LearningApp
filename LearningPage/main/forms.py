@@ -5,19 +5,19 @@ from django import forms
 from tinymce.widgets import TinyMCE
 from django.core.validators import RegexValidator
 
-EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$'  
-email_validation = RegexValidator(
-    regex=EMAIL_REGEX,
-    message="Enter valid email",
-    code="invalid_strict_email"
-)
+# EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$'  
+# email_validation = RegexValidator(
+#     regex=EMAIL_REGEX,
+#     message="Enter valid email",
+#     code="invalid_strict_email"
+# )
 
-PASSWORD_REGEX = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-+_=])(?=.{8,}).*$'
-password_validation = RegexValidator(
-    regex=PASSWORD_REGEX,
-    message="Enter more complex password",
-    code="invalid_password"
-)
+# PASSWORD_REGEX = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-+_=])(?=.{8,}).*$'
+# password_validation = RegexValidator(
+#     regex=PASSWORD_REGEX,
+#     message="Enter more complex password",
+#     code="invalid_password"
+# )
 
 CATEGORY_CHOICES = [
         ('', '---Choose category---'),
