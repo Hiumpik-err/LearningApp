@@ -74,32 +74,7 @@ def home(request):
         request.session["title"] = ""
         return render(request, "home.html", {"request" : request.path})
     
-    if request.method == "POST":
-        '''
-        searched_value = request.POST.get("searched_value", "")
-        articles = list(Article.objects.filter(Q(title__icontains=searched_value) | 
-                                          Q(content__icontains=searched_value)
-                                        ))
-        courses = list(Course.objects.filter(title__icontains=searched_value))
-        quizzes = list(Quizz.objects.filter(Q(title__icontains=searched_value) | 
-                                       Q(description__icontains=searched_value)))
-        
-        context = {
-            "articles": {
-                "type": "article",
-                "data": articles
-            },
-            "courses": {
-                "type": "course",
-                "data": courses
-            },
-            "quizzes" : {
-                "type": "quizz",
-                "data": quizzes
-            }
-        } '''
-
-        return render(request, "home.html")
+    return render(request, "home.html")
         
 
 def create_item(request, type):
@@ -315,5 +290,23 @@ def update(request, type, id):
         return redirect("update", type=type, id=id)
 
         
+def search(request):
+    if "allContent" in request.POST:
+        searched_value = request.POST.get("searched_value")
+        articles = list(Article.objects.filter(Q(title__icontains=searched_value) | 
+                                          Q(content__icontains=searched_value)
+                                        ))
+        courses = list(Course.objects.filter(title__icontains=searched_value))
+        quizzes = list(Quizz.objects.filter(Q(title__icontains=searched_value) | 
+                                       Q(description__icontains=searched_value)))
+        
+        context = {
+            "articles": articles,
+            "courses": courses,
+            "quizzes" : quizzes,
+            "search_filter": searched_value
+        }
 
+
+    return render(request, "search_items_view.html", context)
 

@@ -11,14 +11,14 @@
         </button>
     </div>
 
-    <form method="POST" action="{% url 'home' %}" class="space-y-4">
+    <form method="POST" action="{% url 'search' %}" class="space-y-4">
         {% csrf_token %}
         <div>
             <input type="search" name="searched_value" placeholder="Search articles, tasks, quizzes..."
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required>
         </div>
-        <button type="submit"
+        <button type="submit" name="allContent"
             class="w-full px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
             Search
         </button>

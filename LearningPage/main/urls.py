@@ -5,9 +5,9 @@ from . import views
 urlpatterns = [
     path('', views.login, name="login"),
     path('home', views.home, name="home"), 
-    # path('content_view', views.content_view, name="content_view"),
-    path('content_view/<str:type>/', views.content_view, name="content_view_element"),
     path('profile', views.profile, name="profile"),
+    path('search', views.search, name="search"),
+    path('content_view/<str:type>/', views.content_view, name="content_view_element"),
     path("create/<str:type>/", views.create_item , name="create_item"),
     path("update/<str:type>/<int:id>", views.update, name="update"),
     path("item_view/<str:type>/<int:id>", views.item_view, name="item_view"),
