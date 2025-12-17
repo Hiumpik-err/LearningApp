@@ -8,7 +8,7 @@
             </svg>
             <span>Latest Articles</span>
         </div>
-        <a href="{% url "content_view_element" 'articles' %}" class="ml-4 inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800">Go to Articles
+        <a href="{% url 'content_view_element' 'articles' %}" class="ml-4 inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800">Go to Articles
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
@@ -21,9 +21,10 @@
         <div class="flex flex-col bg-white p-6 rounded-2xl shadow-xl">
             <h3 class="text-2xl font-semibold mb-2 line-clamp-1">{{article.title}}</h3>
             <p class="text-xs text-gray-500 uppercase tracking-wider mb-4">{{article.category}}</p>
+            <p class="text-xs text-gray-400 mb-3">📅 {{ article.upload_data }}</p>
             <p class="text-gray-700 mb-3 line-clamp-3">{{article.lead}}</p>
             <div class="flex justify-end mt-auto">
-                <a href="{% url "item_view" 'articles' article.ArticleId %}">
+                <a href="{% url 'item_view' 'articles' article.ArticleId %}">
                     <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Read More</button>
                 </a>
             </div>
