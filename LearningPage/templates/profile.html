@@ -12,22 +12,28 @@
 
         <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center">
             <div class="relative mb-6">
-                
+
                 <div class="avatar-ring mx-auto w-32 h-32 relative">
                     <img class="w-full h-full object-cover rounded-full"
-                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Profile picture">
+                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Profile picture"> <!--Change to user picture-->
                 </div>
                 <div class="text-xl font-semibold text-gray-800 mt-2">Username</div>
                 <div class="text-sm text-gray-500">Student/Teacher</div>
 
-                <div class="flex justify-center gap-4 mt-4">
+                <div class="flex flex-col items-center justify-center gap-5 mt-4">
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <button
+                            class="bg-blue-500 hover:bg-blue-400 text-white text-sm font-medium py-2 px-3 rounded-full shadow-md transition duration-150">
+                            Be admin
+                        </button>
+                        <button
+                            class="bg-fuchsia-700 hover:bg-fuchsia-600 text-white text-sm font-medium py-2 px-3 rounded-full shadow-md transition duration-150">
+                            Change picture
+                        </button>
+                    </div>
                     <button
-                        class="bg-blue-500 hover:bg-blue-400 text-white text-sm font-medium py-2 px-3 rounded-full shadow-md transition duration-150">
-                        Be admin
-                    </button>
-                    <button
-                        class="bg-fuchsia-700 hover:bg-fuchsia-600 text-white text-sm font-medium py-2 px-3 rounded-full shadow-md transition duration-150">
-                        Change picture
+                        class="bg-red-700 hover:bg-red-600 text-white text-sm font-medium py-2 px-3 rounded-full shadow-md transition duration-150">
+                        Delete user
                     </button>
                 </div>
             </div>
@@ -51,7 +57,7 @@
                     <input type="text" id="first_name" value="{{profile_data.first_name}}" readonly
                         class="mt-1 block w-full border border-gray-300 rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
                 </div>
-                
+
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                     <input type="text" id="username" value="{{profile_data.username}}" readonly
@@ -63,7 +69,7 @@
                     <input type="text" id="last_name" value="{{profile_data.last_name}}" readonly
                         class="mt-1 block w-full border border-gray-300 rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
                 </div>
-                
+
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
                     <input type="email" id="email" value="{{profile_data.email}}" readonly
