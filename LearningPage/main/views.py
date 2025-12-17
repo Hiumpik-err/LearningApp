@@ -231,10 +231,10 @@ def item_view(request, type, id):
             return render(request, "item_view.html", {"course": course, "type": type, "result": False, "answer":answer})
         elif type == "quizzes":
             quizz = Quizz.objects.get(QuizzId = id)
-            return render(request, "item_view.html", {"course": quizz, "type": type, "result": False, "answer":answer})
+            return render(request, "item_view.html", {"quizz": quizz, "type": type, "result": False, "answer":answer})
         elif type == "result":
             course = Course.objects.get(CourseId=id)
-            return render(request, "item_view.html", {"course": course, "type": type, "result": True, "answer":answer})
+            return render(request, "item_view.html", {"course": course, "type": "courses", "result": True, "answer":answer})
 
         
     elif request.method == "POST":
