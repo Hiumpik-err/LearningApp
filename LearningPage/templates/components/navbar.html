@@ -63,6 +63,7 @@
           <a href="{% url 'profile' %}" class="block hover:underline">Profile</a>
           <div class="border-t"></div>
           <form method="POST" action="{% url 'profile' %}">
+            {% csrf_token %}
             <button type="submit" class="text-left w-full hover:underline">Sign Out</button>
           </form>
         </div>
