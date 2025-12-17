@@ -74,36 +74,12 @@ def home(request):
         request.session["title"] = ""
         return render(request, "home.html", {"request" : request.path})
     
-    if request.method == "POST":
-        searched_value = request.POST.get("searched_value", "")
-        articles = list(Article.objects.filter(Q(title__icontains=searched_value) | 
-                                          Q(content__icontains=searched_value)
-                                        ))
-        courses = list(Course.objects.filter(title__icontains=searched_value))
-        quizzes = list(Quizz.objects.filter(Q(title__icontains=searched_value) | 
-                                       Q(description__icontains=searched_value)))
-        
-        context = {
-            "articles": {
-                "type": "article",
-                "data": articles
-            },
-            "courses": {
-                "type": "course",
-                "data": courses
-            },
-            "quizzes" : {
-                "type": "quizz",
-                "data": quizzes
-            }
-        }
-
-        return render(request, "home.html", context)
+    return render(request, "home.html")
         
 
 def create_item(request, type):
     if type == "article":
-        if request.method == "GET":
+        if request.method == "POST" and "showElement" in request.POST:
             form = ArticleForm()
             
             # Zachowaj dane formularza jeśli są w sesji
@@ -144,7 +120,7 @@ def create_item(request, type):
                 return redirect("create_item", type=type)
             
     elif type == 'course':
-        if request.method == "GET":
+        if request.method == "POST" and "showElement" in request.POST:
             form = CourseForm()
             return render(request, "create_item.html", {"type": type, "form": form})
 
@@ -165,7 +141,7 @@ def create_item(request, type):
             return render(request, "create_item.html", {"type": type, "form": form})
 
     else:  # quiz
-        if request.method == "GET":
+        if request.method == "POST" and "showElement" in request.POST:
             form = QuizzForm()
             return render(request, "create_item.html", {"type": type, "form": form})
 
@@ -314,5 +290,23 @@ def update(request, type, id):
         return redirect("update", type=type, id=id)
 
         
+def search(request):
+    if "allContent" in request.POST:
+        searched_value = request.POST.get("searched_value")
+        articles = list(Article.objects.filter(Q(title__icontains=searched_value) | 
+                                          Q(content__icontains=searched_value)
+                                        ))
+        courses = list(Course.objects.filter(title__icontains=searched_value))
+        quizzes = list(Quizz.objects.filter(Q(title__icontains=searched_value) | 
+                                       Q(description__icontains=searched_value)))
+        
+        context = {
+            "articles": articles,
+            "courses": courses,
+            "quizzes" : quizzes,
+            "search_filter": searched_value
+        }
 
+
+    return render(request, "search_items_view.html", context)
 
