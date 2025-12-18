@@ -30,8 +30,12 @@ def login(request):
                 
                 fullname_split = str(fullname).split()
                 #! Only for simple first and last names (simple -> 2 segmented)
-                if fullname_split[0] == " " or fullname_split[1] == " " or len(fullname_split) > 2:
-                    raise("Puste lub zbyt dlugie nazwisko")
+                try:
+                    if fullname_split[0] == " " or fullname_split[1] == " " or len(fullname_split) > 2:
+                        raise Exception("Puste lub zbyt dlugie nazwisko")
+                except IndexError:
+                    raise Exception("Invalid fullname field, 2 segmented requiered")
+                
                 
                 if not password_policy.validate(password):
                     raise Exception("Invalid Password, stronger required")
