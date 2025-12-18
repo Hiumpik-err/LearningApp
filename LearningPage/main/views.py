@@ -205,20 +205,34 @@ def content_view(request, type):
 
 
 def profile(request):
+    print("delete_account" in request.POST)
     if request.method == "GET":
         try:
             if request.user.is_authenticated:
                 profile_data = request.user
-                print(profile_data)
                 return render(request, "profile.html", {"profile_data" : profile_data})
             else: 
                 raise Exception("User not authenticated")
         except Exception as e:
             print(e)
             return redirect('profile')
-    if request.method == "POST":
+        
+    if request.method == "POST" and "logout" in request.POST:
         logout(request)
         return redirect("/")
+    elif request.method == "POST" and "admin_request" in request.POST:
+        pass
+    elif request.method == "POST" and "delete_account" in request.POST:
+        print("jestem w usuwaniu")
+        try:
+            user = request.user
+            logout(request)
+            user.delete()
+            return redirect("/")
+            
+        except Exception as e:
+            print(e)
+            return redirect("login")
     
 def item_view(request, type, id):
     answer = request.session.get("result", "")

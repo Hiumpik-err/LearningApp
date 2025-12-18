@@ -26,10 +26,10 @@
                 <ul class="dropdown-menu user-dropdown">
                     <li><a class="dropdown-item user-dropdown" href="{% url 'profile' %}">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <form method="post" action="{% url "profile" %}">
+                    <form method="post" action="{% url 'profile' %}">
                         {% csrf_token %}
                         <li>
-                            <button class="dropdown-item user-dropdown" type="submit">Log out [-></button>
+                            <button class="dropdown-item user-dropdown" type="submit" name="logout">Log out [-></button>
                         </li>
                     </form>
                 </ul>
