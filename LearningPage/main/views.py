@@ -28,8 +28,10 @@ def login(request):
                 if not all([fullname, email, password, repeat_password]):
                     raise Exception("Fill all empty spaces")
                 
-                if " " not in fullname:
-                    raise Exception("Invalid fullname (space requiered)")
+                fullname_split = str(fullname).split()
+                #! Only for simple first and last names (simple -> 2 segmented)
+                if fullname_split[0] == " " or fullname_split[1] == " " or len(fullname_split) > 2:
+                    raise("Puste lub zbyt dlugie nazwisko")
                 
                 if not password_policy.validate(password):
                     raise Exception("Invalid Password, stronger required")
@@ -205,7 +207,7 @@ def content_view(request, type):
 
 
 def profile(request):
-    print("delete_account" in request.POST)
+    print("logout" in request.POST)
     if request.method == "GET":
         try:
             if request.user.is_authenticated:

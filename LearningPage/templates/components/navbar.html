@@ -31,7 +31,7 @@
 
         <form method="POST" action="{% url 'profile' %}">
           {% csrf_token %}
-          <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">Sign Out</button>
+          <button type="submit" name="logout" class="w-full text-left px-4 py-2 hover:bg-gray-100">Sign Out</button>
         </form>
       </div>
     </div>
