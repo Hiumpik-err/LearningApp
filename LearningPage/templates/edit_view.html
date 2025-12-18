@@ -22,7 +22,7 @@
         <div class="bg-white p-8 rounded-2xl shadow-xl">
             <h1 class="text-3xl font-bold mb-8">Edit</h1>
             
-            {% if type == 'article' %}
+            {% if type == 'articles' %}
             <form method="POST" class="space-y-6">
                 {% csrf_token %}
                 
@@ -62,7 +62,7 @@
                     <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
                 </div>
             </form>
-            {% elif type == 'course' %}
+            {% elif type == 'courses' %}
             <form method="POST" class="space-y-6">
                 {% csrf_token %}
                 
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
+                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Update Item</button>
                 </div>
             </form>
             {% else %} 

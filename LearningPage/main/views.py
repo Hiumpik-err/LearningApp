@@ -238,8 +238,8 @@ def item_view(request, type, id):
 
         
     elif request.method == "POST":
-        answer: str = str(request.POST.get("answer", "")).lower()
-        course_answer = Course.objects.get(CourseId=id).answers.lower()
+        answer = str(request.POST.get("answer", "")).strip().lower()
+        course_answer = Course.objects.get(CourseId=id).answers.strip().lower()
 
         if answer != course_answer:
             request.session["result"] = "❌"
@@ -251,11 +251,12 @@ def item_view(request, type, id):
 
 def update(request, type, id):
     try:
-        if type == "article":
+        if type == "articles":
             article = Article.objects.get(ArticleId=id)
+            print("jest w artykule")
             if request.method == "GET":
                 form = ArticleForm(instance=article)
-                return render(request, "update.html", {"type": type, "form": form})
+                return render(request, "edit_view.html", {"type": type, "form": form})
             
             elif request.method == "POST":
                 form = ArticleForm(request.POST, instance= article)
@@ -263,11 +264,11 @@ def update(request, type, id):
 
                 return redirect("item_view", type = type, id=article.ArticleId)
             
-        elif type == "course":
+        elif type == "courses":
             course = Course.objects.get(CourseId=id)
             if request.method == "GET":
                 form = CourseForm(instance=course)
-                return render(request, "update.html", {"type": type, "form": form})
+                return render(request, "edit_view.html", {"type": type, "form": form})
             
             elif request.method == "POST":
                 form = CourseForm(request.POST, instance= course)
@@ -275,11 +276,11 @@ def update(request, type, id):
                 form.save()
                 return redirect("item_view", type =type, id=course.CourseId)
             
-        elif type == 'quizz':
+        elif type == 'quizzes':
             quizz = Quizz.objects.get(QuizzId = id)
             if request.method == "GET":
                 form = QuizzForm(instance=quizz)
-                return render(request, "update.html", {"type": type, "form": form})
+                return render(request, "edit_view.html", {"type": type, "form": form})
             
             elif request.method == "POST":
                 form = QuizzForm(request.POST, instance=quizz)

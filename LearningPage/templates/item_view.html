@@ -15,7 +15,15 @@
                 </svg>
                 Back to Content
             </a>
-            <a href="" class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors w-full sm:w-auto justify-center sm:justify-end">
+            <a href="
+                {% if article %}
+                    {% url "update" type article.ArticleId %}
+                {% elif course %}
+                    {% url "update" type course.CourseId %}
+                {% else %}
+                    {% url "update" type quizz.QuizzId %}
+                {% endif %}
+            " class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors w-full sm:w-auto justify-center sm:justify-end">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 20h9" />
