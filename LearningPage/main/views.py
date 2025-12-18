@@ -191,7 +191,7 @@ def content_view(request, type):
             articles = Article.objects.all().order_by('-upload_data')
             articles = articles.filter(category__iexact=category) if category != "" else articles
             context["articles"] = articles
-        elif type == 'tasks':
+        elif type == 'courses':
             courses = Course.objects.all().order_by('-upload_data')
             courses = courses.filter(category__iexact=category) if category != "" else courses
             context["courses"] = courses
