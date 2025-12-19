@@ -101,7 +101,7 @@ def create_item(request, type):
 
         if request.method == "POST":
             form = ArticleForm(request.POST)
-            print(form.content)
+            #print(form.content)
             
             if form.is_valid():
                 try:
@@ -110,7 +110,7 @@ def create_item(request, type):
                         lead=form.cleaned_data['lead'],
                         content=form.cleaned_data.get('content', ''),
                         category=form.cleaned_data['category'],
-                        article_author = request.user.id
+                        article_author = request.user
                     )
                         # Wyczyść sesję po zapisaniu
                     request.session.pop('form_data', None)
@@ -138,7 +138,7 @@ def create_item(request, type):
             if form.is_valid():
                 try:
                     course = form.save(commit=False)
-                    course.course_author = request.user.id
+                    course.course_author = request.user
                     course.save()
                     messages.success(request, f"Course '{course.title}' created successfully!")
                     return redirect("home")
@@ -161,7 +161,7 @@ def create_item(request, type):
             if form.is_valid():
                 try:
                     quizz = form.save(commit=False)
-                    quizz.quizz_author = request.user.id
+                    quizz.quizz_author = request.user
                     quizz.save()
                     messages.success(request, f"Quiz '{quizz.title}' created successfully!")
                     return redirect("home")

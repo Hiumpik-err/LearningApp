@@ -57,7 +57,7 @@ class ArticleForm(forms.ModelForm):
             'content': TinyMCE(attrs={
                 'cols': 80,
                 'rows': 30,
-                'required': True,
+                'required': False,
                 'minlength': 10
             })
         }
