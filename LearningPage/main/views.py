@@ -361,3 +361,8 @@ def profile_update(request):
     
     if request.method == "GET":
         return render(request, "edit_profile.html", {"profile_data": request.user})
+    
+def ranking(request):
+    #logic here XD
+    return render(request, "ranking_view.html")
+    

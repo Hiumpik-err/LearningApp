@@ -12,6 +12,7 @@ urlpatterns = [
     path("create/<str:type>/", views.create_item , name="create_item"),
     path("update/<str:type>/<int:id>", views.update, name="update"),
     path("item_view/<str:type>/<int:id>", views.item_view, name="item_view"),
+    path("ranking", views.ranking, name="ranking_view"),
 
 ]
 

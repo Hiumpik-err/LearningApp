@@ -1,0 +1,123 @@
+{% extends "home.html" %}
+
+{% block title %}
+
+<title>Ranking - EEX</title>
+{% endblock title %}
+
+{% block main %}
+<div class="h-20"></div>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-16 lg:mr-16 lg:mx-0 lg:w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center">
+            <div class="relative mb-6">
+                <h2 class="text-xl font-semibold mb-4">Top 3 Podium</h2>
+                <div class="flex items-end justify-center gap-4">
+                    <div class="w-24">
+                        <div class="text-sm text-gray-600">2</div>
+                        <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-stone-500"
+                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Bob">
+                        <div class="mt-2 text-sm font-medium">Bob Johnson</div>
+                        <div class="mt-2 text-sm font-semibold">bob</div>
+                        <div class="text-xs text-gray-500">95 contributions</div>
+                    </div>
+
+                    <div class="w-28">
+                        <div class="text-sm text-gray-600">1</div>
+                        <img class="mx-auto w-28 h-28 rounded-full object-cover border-4 border-yellow-400"
+                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
+                        <div class="mt-2 text-sm font-semibold">Alice Smith</div>
+                        <div class="mt-2 text-sm font-semibold">alice</div>
+                        <div class="text-xs text-gray-500">128 contributions</div>
+                    </div>
+
+                    <div class="w-24">
+                        <div class="text-sm text-gray-600">3</div>
+                        <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-orange-800"
+                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Carol">
+                        <div class="mt-2 text-sm font-medium">Carol Lee</div>
+                        <div class="mt-2 text-sm font-medium">carol</div>
+
+                        <div class="text-xs text-gray-500">72 contributions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="text-sm text-gray-500">
+                            <th class="py-2">#</th>
+                            <th class="py-2">User</th>
+                            <th class="py-2">Username</th>
+                            <th class="py-2">Contributions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-t">
+                            <td class="py-3">1</td>
+                            <td class="py-3 flex items-center gap-3">
+                                <img class="w-10 h-10 rounded-full object-cover" src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
+                                <div>
+                                    <div class="font-medium">Alice Smith</div>
+                                </div>
+                            </td>
+                            <td class="py-3 text-sm text-gray-600">alice</td>
+                            <td class="py-3 font-semibold">128</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="py-3">2</td>
+                            <td class="py-3 flex items-center gap-3">
+                                <img class="w-10 h-10 rounded-full object-cover" src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Bob">
+                                <div>
+                                    <div class="font-medium">Bob Johnson</div>
+                                </div>
+                            </td>
+                            <td class="py-3 text-sm text-gray-600">bob</td>
+                            <td class="py-3 font-semibold">95</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="py-3">3</td>
+                            <td class="py-3 flex items-center gap-3">
+                                <img class="w-10 h-10 rounded-full object-cover" src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Carol">
+                                <div>
+                                    <div class="font-medium">Carol Lee</div>
+                                </div>
+                            </td>
+                            <td class="py-3 text-sm text-gray-600">carol</td>
+                            <td class="py-3 font-semibold">72</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="py-3">4</td>
+                            <td class="py-3 flex items-center gap-3">
+                                <img class="w-10 h-10 rounded-full object-cover" src="https://freesvg.org/img/abstract-user-flat-4.png" alt="David">
+                                <div>
+                                    <div class="font-medium">David Kim</div>
+                                </div>
+                            </td>
+                            <td class="py-3 text-sm text-gray-600">david</td>
+                            <td class="py-3 font-semibold">60</td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="py-3">5</td>
+                            <td class="py-3 flex items-center gap-3">
+                                <img class="w-10 h-10 rounded-full object-cover" src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Eve">
+                                <div>
+                                    <div class="font-medium">Eve Martin</div>
+                                </div>
+                            </td>
+                            <td class="py-3 text-sm text-gray-600">eve</td>
+                            <td class="py-3 font-semibold">48</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock main %}
