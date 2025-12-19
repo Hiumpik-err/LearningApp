@@ -14,7 +14,7 @@
             <div class="relative mb-6">
 
                 <div class="avatar-ring mx-auto w-32 h-32 relative">
-                    <img class="w-full h-full object-cover rounded-full"
+                    <img class="w-full h-full object-cover rounded-full" id="profile_picture"
                         src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Profile picture">
                     <!--Change to user picture-->
                 </div>
@@ -25,10 +25,11 @@
                     <form method="POST">
                         {% csrf_token %}
                         <div class="flex flex-wrap gap-3 justify-center">
-                            <input type="file" accept="image/*" name="profile_image"
+                            <input type="file" accept="image/*" name="profile_image" onchange="previewImage()"
+                                id="profile_picture_input"
                                 class="bg-fuchsia-700 hover:bg-fuchsia-600 text-white text-sm font-medium py-2 px-3 rounded-full shadow-md transition duration-150">
                         </div>
-                        
+
                     </form>
                 </div>
             </div>
@@ -76,6 +77,10 @@
         </div>
     </div>
 </main>
-
+<script>
+    function previewImage() {
+        document.getElementById("profile_picture").src = URL.createObjectURL(document.getElementById("profile_picture_input").files[0]);
+    }
+</script>
 
 {% endblock main %}
