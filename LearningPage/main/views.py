@@ -78,7 +78,7 @@ def login(request):
 def home(request):
     if request.method == "GET":
         request.session["title"] = ""
-        return render(request, "home.html", {"request" : request.path})
+        return render(request, "home.html")
     
     return render(request, "home.html")
         

@@ -19,7 +19,8 @@
 
 <body class="w-full h-full text-gray-800">
     {% block navbar %}
-        {% include 'components/navbar.html' %}
+        {%comment %} {% include 'components/navbar.html' %}{% endcomment%}
+        {% get_current_path %}
         {% include 'components/sidebar2.html' %}
 
         <!-- Spacer -->
