@@ -84,6 +84,7 @@ def home(request):
         
 
 def create_item(request, type):
+    #! showElement => GET
     if type == "article":
         if request.method == "POST" and "showElement" in request.POST:
             form = ArticleForm()
@@ -98,32 +99,33 @@ def create_item(request, type):
             }
             return render(request, "create_item.html", context)
 
-        elif request.method == "POST":
-            if "saveAll" in request.POST:
-                form = ArticleForm(request.POST)
-                
-                if form.is_valid():
-                    try:
-                        article = Article.objects.create(
-                            title=form.cleaned_data['title'],
-                            lead=form.cleaned_data['lead'],
-                            content=form.cleaned_data.get('content', ''),
-                            category=form.cleaned_data['category']
-                        )
+        if request.method == "POST":
+            form = ArticleForm(request.POST)
+            print(form.content)
+            
+            if form.is_valid():
+                try:
+                    article = Article.objects.create(
+                        title=form.cleaned_data['title'],
+                        lead=form.cleaned_data['lead'],
+                        content=form.cleaned_data.get('content', ''),
+                        category=form.cleaned_data['category'],
+                        article_author = request.user.id
+                    )
                         # Wyczyść sesję po zapisaniu
-                        request.session.pop('form_data', None)
+                    request.session.pop('form_data', None)
                         
-                        messages.success(request, f"Article '{article.title}' created successfully!")
-                        return redirect("home")
-                    except Exception as e:
-                        messages.error(request, f"Error creating article: {e}")
-                        print(f"Error message: {e}")
-                else:
+                    messages.success(request, f"Article '{article.title}' created successfully!")
+                    return redirect("home")
+                except Exception as e:
+                    messages.error(request, f"Error creating article: {e}")
+                    print(f"Error message: {e}")
+            else:
                     # Jeśli formularz nie jest prawidłowy, zapisz dane w sesji
-                    request.session['form_data'] = request.POST.dict()
-                    messages.error(request, "Please correct the errors below.")
+                request.session['form_data'] = request.POST.dict()
+                messages.error(request, "Please correct the errors below.")
                 
-                return redirect("create_item", type=type)
+            return redirect("create_item", type=type)
             
     elif type == 'course':
         if request.method == "POST" and "showElement" in request.POST:
@@ -135,7 +137,9 @@ def create_item(request, type):
             
             if form.is_valid():
                 try:
-                    course = form.save()
+                    course = form.save(commit=False)
+                    course.course_author = request.user.id
+                    course.save()
                     messages.success(request, f"Course '{course.title}' created successfully!")
                     return redirect("home")
                 except Exception as e:
@@ -156,7 +160,9 @@ def create_item(request, type):
             
             if form.is_valid():
                 try:
-                    quizz = form.save()
+                    quizz = form.save(commit=False)
+                    quizz.quizz_author = request.user.id
+                    quizz.save()
                     messages.success(request, f"Quiz '{quizz.title}' created successfully!")
                     return redirect("home")
                 except Exception as e:

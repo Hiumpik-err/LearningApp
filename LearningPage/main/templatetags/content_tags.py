@@ -35,7 +35,6 @@ def get_current_path(context):
                 res = "".join(res)
                 path = f"content/{res}"
                 print(f"mathc: {path}")
-            # case["create"]
     
 
     return {"path" : str(path).title()}

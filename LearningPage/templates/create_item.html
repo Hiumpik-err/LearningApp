@@ -5,9 +5,9 @@
 {% endblock title %}
 
     {% block main %}
-        {{ form.media }}
     <!-- Main Content -->
     <main class="max-w-full md:max-w-4xl lg:max-w-5xl mx-auto px-6 py-12">
+        {{ form.media }}
         
         <!-- Back Button -->
         <div class="mb-6">
@@ -25,7 +25,6 @@
             {% if type == 'article' %}
             <form method="POST" class="space-y-6">
                 {% csrf_token %}
-                
                 <div>
                     <label for="{{ form.category.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.category.label }}</label>
                     {% if form.category.errors %}
@@ -59,7 +58,7 @@
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
+                    <input type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
                 </div>
             </form>
             {% elif type == 'course' %}
