@@ -331,3 +331,6 @@ def search(request):
 
     return render(request, "search_items_view.html", context)
 
+
+def profile_update(request):
+    return render(request, "edit_profile.html")
