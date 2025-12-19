@@ -333,4 +333,25 @@ def search(request):
 
 
 def profile_update(request):
-    return render(request, "edit_profile.html")
+    if request.method == "POST":
+        fname = request.POST.get("fname", "")
+        lname = request.POST.get("lname", "")
+        username = request.POST.get("username", "")
+        email = request.POST.get("email", "")
+        profile_image = request.POST.get("profile_image", "")
+
+        user = request.user
+
+        user.first_name = fname
+        user.last_name = lname
+        user.username = username
+        user.email = email
+
+        #api -> do imgura
+
+        user.save()
+
+        return redirect("profile")
+    
+    if request.method == "GET":
+        return render(request, "edit_profile.html", {"profile_data": request.user})
