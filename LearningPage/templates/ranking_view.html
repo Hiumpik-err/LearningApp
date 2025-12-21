@@ -70,25 +70,24 @@
                                 <th class="py-2">#</th>
                                 <th class="py-2">User</th>
                                 <th class="py-2">Username</th>
-                                <th class="py-2">Contributions</th>
+                                <th class="py-2">Points</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {% for competitor in daily.top10 %}
-                                <tr class="border-t">
-                                    <td class="py-3">0</td>
-                                    <td class="py-3 flex items-center gap-3">
-                                        <img class="w-10 h-10 rounded-full object-cover"
-                                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
-                                        <div>
-                                            <div class="font-medium">{{competitor.first_name}}</div>
-                                        </div>
-                                    </td>
-                                    <td class="py-3 text-sm text-gray-600">{{competitor.username}}</td>
-                                    <td class="py-3 font-semibold">{{competitor.collected_points}}</td>
-                                </tr>
-                            {% endfor %}
-
+                            {% for competitor in daily.top10 %}
+                                    <tr class="border-t">
+                                        <td class="py-3">{{forloop.counter}}</td>
+                                        <td class="py-3 flex items-center gap-3">
+                                            <img class="w-10 h-10 rounded-full object-cover"
+                                                src="{{competitor.profile_image}}" alt="user_image">
+                                            <div>
+                                                <div class="font-medium">{{competitor.first_name}}</div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">{{competitor.username}}</td>
+                                        <td class="py-3 font-semibold">{{competitor.collected_points}}</td>
+                                    </tr>
+                                {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -136,16 +135,16 @@
                                 <th class="py-2">#</th>
                                 <th class="py-2">User</th>
                                 <th class="py-2">Username</th>
-                                <th class="py-2">Contributions</th>
+                                <th class="py-2">Points</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for competitor in weekly.top10 %}
                                 <tr class="border-t">
-                                    <td class="py-3">0</td>
+                                    <td class="py-3">{{forloop.counter}}</td>
                                     <td class="py-3 flex items-center gap-3">
                                         <img class="w-10 h-10 rounded-full object-cover"
-                                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
+                                            src="{{competitor.profile_image}}" alt="user_image">
                                         <div>
                                             <div class="font-medium">{{competitor.first_name}}</div>
                                         </div>
@@ -201,16 +200,16 @@
                                 <th class="py-2">#</th>
                                 <th class="py-2">User</th>
                                 <th class="py-2">Username</th>
-                                <th class="py-2">Contributions</th>
+                                <th class="py-2">Points</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for competitor in alltime.top10 %}
                                 <tr class="border-t">
-                                    <td class="py-3">0</td>
+                                    <td class="py-3">{{forloop.counter}}</td>
                                     <td class="py-3 flex items-center gap-3">
                                         <img class="w-10 h-10 rounded-full object-cover"
-                                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
+                                            src="{{competitor.profile_image}}" alt="user_image">
                                         <div>
                                             <div class="font-medium">{{competitor.first_name}}</div>
                                         </div>
