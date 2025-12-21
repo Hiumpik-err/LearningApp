@@ -71,6 +71,9 @@ def login(request):
             except Exception as e:
                     messages.error(request, f"Error: {e}")
                     return redirect("login")
+            
+        if "guest" in request.POST:
+            pass
                 
 
     return render(request, "login.html")

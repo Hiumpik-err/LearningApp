@@ -27,13 +27,14 @@
                 Time</button>
         </div>
     </div>
-
+    {% comment %} !DAILY {% endcomment %}
     <div id="daily-ranking" class="ranking-section">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center">
                 <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
                     <h2 class="text-xl font-semibold mb-4">Daily Podium</h2>
                     <div class="flex items-end justify-center gap-4">
+                        {% comment %} ?Podium {% endcomment %}
                         <div class="w-24">
                             <div class="text-sm text-gray-600">2</div>
                             <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-stone-500"
@@ -62,6 +63,7 @@
             <div class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
                 <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
                 <div class="overflow-x-auto">
+                    {% comment %} *table with records {% endcomment %}
                     <table class="w-full text-left">
                         <thead>
                             <tr class="text-sm text-gray-500">
@@ -138,7 +140,7 @@
             </div>
         </div>
     </div>
-
+    {% comment %} !Weekly {% endcomment %}
     <div id="weekly-ranking" class="ranking-section hidden">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center">
@@ -249,7 +251,7 @@
             </div>
         </div>
     </div>
-
+{% comment %} !All time {% endcomment %}
     <div id="alltime-ranking" class="ranking-section hidden">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center">

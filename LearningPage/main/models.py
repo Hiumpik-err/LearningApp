@@ -32,6 +32,8 @@ class Uzytkownik(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=30)
     username = models.CharField(max_length=20, unique=True)
     profile_image = models.TextField(default="https://freesvg.org/img/abstract-user-flat-4.png")
+    # collected_points = models.IntegerField(default=0)
+
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

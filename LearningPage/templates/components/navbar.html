@@ -14,7 +14,7 @@
       <a class="hover:underline cursor-pointer" href="{% url 'ranking_view' %}">Ranking</a>
       <button id="userBtn" class="inline-flex items-center gap-x-1.5 px-3 py-2 hover:underline mr-6">
         <img class="w-5 h-5 object-cover rounded-full"
-                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Profile picture"> <!--Change to user picture-->
+                        src="{{current_user.profile_image}}" alt="Profile picture"> <!--Change to user picture-->
         User
         <svg viewBox="0 0 20 20" fill="currentColor" class="-mr-1 size-7 text-gray-400">
           <path fill-rule="evenodd" clip-rule="evenodd"

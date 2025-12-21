@@ -37,5 +37,5 @@ def get_current_path(context):
                 print(f"mathc: {path}")
     
 
-    return {"path" : str(path).title()}
+    return {"path" : str(path).title(), "current_user" : request.user}
 
