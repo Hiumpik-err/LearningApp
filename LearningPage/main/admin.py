@@ -21,7 +21,7 @@ class UzytkownikAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password', 'password2'), 
+            'fields': ('email', 'password', 'password2', "collected_points"), 
         }),
     )
     

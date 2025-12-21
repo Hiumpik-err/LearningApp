@@ -41,9 +41,10 @@ def login(request):
                     raise Exception("Invalid Password, stronger required")
 
                 if str(password).strip() != str(repeat_password).strip():
-                    raise Exception("Invalid passwords, passwords dont match")
+                    raise Exception("Invalid passwords, passwords dont match")  
+                
 
-                user = Uzytkownik.objects.create_user(email = email, password=password )
+                user = Uzytkownik.objects.create_user(email = email, password=password)
                 print(user)
                 auth_login(request, user=user)
                     
@@ -366,6 +367,40 @@ def profile_update(request):
         return render(request, "edit_profile.html", {"profile_data": request.user})
     
 def ranking(request):
-    #logic here XD
-    return render(request, "ranking_view.html")
+    top10 = Uzytkownik.objects.all().order_by("collected_points")[:10]
+    top1 = top10[:1]
+    top2 = top10[1:2]
+    top3 = top10[2:3]
+
+    weekly_top10 = Uzytkownik.objects.all().order_by("weekly_points")[:10]
+    top1_weekly = weekly_top10[:1]
+    top2_weekly = weekly_top10[1:2]
+    top3_weekly = weekly_top10[2:3]
+
+    daily_top10 = Uzytkownik.objects.all().order_by("daily_points")[:10]
+    top1_daily = daily_top10[:1]
+    top2_daily = daily_top10[1:2]
+    top3_daily = daily_top10[2:3]
+
+    context = {
+        "alltime": {
+            "top10" : top10,
+            "top1" : top1[0],
+            "top2" : top2[0],
+            "top3" : top3[0]
+        },
+        "weekly":{
+            "top10" : weekly_top10,
+            "top1" : top1_weekly[0],
+            "top2" : top2_weekly[0],
+            "top3" : top3_weekly[0]
+        },
+        "daily":{
+            "top10" : daily_top10,
+            "top1" : top1_daily[0],
+            "top2" : top2_daily[0],
+            "top3" : top3_daily[0]
+        }
+    }
+    return render(request, "ranking_view.html", context)
     

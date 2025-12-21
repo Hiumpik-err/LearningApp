@@ -38,23 +38,23 @@
                         <div class="w-24">
                             <div class="text-sm text-gray-600">2</div>
                             <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-stone-500"
-                                src="https://freesvg.org/img/abstract-user-flat-4.png" alt="User">
-                            <div class="mt-2 text-sm font-medium">User B</div>
-                            <div class="text-xs text-gray-500">12 contributions</div>
+                                src="{{daily.top2.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{daily.top2.username}}</div>
+                            <div class="text-xs text-gray-500">{{daily.top2.daily_points}}</div>
                         </div>
                         <div class="w-28">
                             <div class="text-sm text-gray-600">1</div>
                             <img class="mx-auto w-28 h-28 rounded-full object-cover border-4 border-yellow-400"
-                                src="https://freesvg.org/img/abstract-user-flat-4.png" alt="User">
-                            <div class="mt-2 text-sm font-semibold">User A</div>
-                            <div class="text-xs text-gray-500">20 contributions</div>
+                                src="{{daily.top1.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-semibold">{{daily.top1.username}}</div>
+                            <div class="text-xs text-gray-500">{{daily.top1.daily_points}}</div>
                         </div>
                         <div class="w-24">
                             <div class="text-sm text-gray-600">3</div>
                             <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-orange-800"
-                                src="https://freesvg.org/img/abstract-user-flat-4.png" alt="User">
-                            <div class="mt-2 text-sm font-medium">User C</div>
-                            <div class="text-xs text-gray-500">8 contributions</div>
+                                src="{{daily.top3.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{daily.top3.username}}</div>
+                            <div class="text-xs text-gray-500">{{daily.top3.daily_points}}</div>
                         </div>
                     </div>
                 </div>
@@ -74,66 +74,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-t">
-                                <td class="py-3">1</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
-                                    <div>
-                                        <div class="font-medium">Alice Smith</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">alice</td>
-                                <td class="py-3 font-semibold">128</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">2</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Bob">
-                                    <div>
-                                        <div class="font-medium">Bob Johnson</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">bob</td>
-                                <td class="py-3 font-semibold">95</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">3</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Carol">
-                                    <div>
-                                        <div class="font-medium">Carol Lee</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">carol</td>
-                                <td class="py-3 font-semibold">72</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">4</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="David">
-                                    <div>
-                                        <div class="font-medium">David Kim</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">david</td>
-                                <td class="py-3 font-semibold">60</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">5</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Eve">
-                                    <div>
-                                        <div class="font-medium">Eve Martin</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">eve</td>
-                                <td class="py-3 font-semibold">48</td>
-                            </tr>
+                        {% for competitor in daily.top10 %}
+                                <tr class="border-t">
+                                    <td class="py-3">0</td>
+                                    <td class="py-3 flex items-center gap-3">
+                                        <img class="w-10 h-10 rounded-full object-cover"
+                                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
+                                        <div>
+                                            <div class="font-medium">{{competitor.first_name}}</div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-sm text-gray-600">{{competitor.username}}</td>
+                                    <td class="py-3 font-semibold">{{competitor.collected_points}}</td>
+                                </tr>
+                            {% endfor %}
+
                         </tbody>
                     </table>
                 </div>
@@ -150,23 +105,23 @@
                         <div class="w-24">
                             <div class="text-sm text-gray-600">2</div>
                             <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-stone-500"
-                                src="https://freesvg.org/img/abstract-user-flat-4.png" alt="User">
-                            <div class="mt-2 text-sm font-medium">User B</div>
-                            <div class="text-xs text-gray-500">12 contributions</div>
+                                src="{{weekly.top2.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{weekly.top2.username}}</div>
+                            <div class="text-xs text-gray-500">{{weekly.top2.weekly_points}}</div>
                         </div>
                         <div class="w-28">
                             <div class="text-sm text-gray-600">1</div>
                             <img class="mx-auto w-28 h-28 rounded-full object-cover border-4 border-yellow-400"
-                                src="https://freesvg.org/img/abstract-user-flat-4.png" alt="User">
-                            <div class="mt-2 text-sm font-semibold">User A</div>
-                            <div class="text-xs text-gray-500">20 contributions</div>
+                                src="{{weekly.top1.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-semibold">{{weekly.top1.username}}</div>
+                            <div class="text-xs text-gray-500">{{weekly.top1.weekly_points}}</div>
                         </div>
                         <div class="w-24">
                             <div class="text-sm text-gray-600">3</div>
                             <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-orange-800"
-                                src="https://freesvg.org/img/abstract-user-flat-4.png" alt="User">
-                            <div class="mt-2 text-sm font-medium">User C</div>
-                            <div class="text-xs text-gray-500">8 contributions</div>
+                                src="{{weekly.top3.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{weekly.top3.username}}</div>
+                            <div class="text-xs text-gray-500">{{weekly.top3.weekly_points}}</div>
                         </div>
                     </div>
                 </div>
@@ -185,66 +140,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-t">
-                                <td class="py-3">1</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
-                                    <div>
-                                        <div class="font-medium">Alice Smith</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">alice</td>
-                                <td class="py-3 font-semibold">128</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">2</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Bob">
-                                    <div>
-                                        <div class="font-medium">Bob Johnson</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">bob</td>
-                                <td class="py-3 font-semibold">95</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">3</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Carol">
-                                    <div>
-                                        <div class="font-medium">Carol Lee</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">carol</td>
-                                <td class="py-3 font-semibold">72</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">4</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="David">
-                                    <div>
-                                        <div class="font-medium">David Kim</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">david</td>
-                                <td class="py-3 font-semibold">60</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">5</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Eve">
-                                    <div>
-                                        <div class="font-medium">Eve Martin</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">eve</td>
-                                <td class="py-3 font-semibold">48</td>
-                            </tr>
+                            {% for competitor in weekly.top10 %}
+                                <tr class="border-t">
+                                    <td class="py-3">0</td>
+                                    <td class="py-3 flex items-center gap-3">
+                                        <img class="w-10 h-10 rounded-full object-cover"
+                                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
+                                        <div>
+                                            <div class="font-medium">{{competitor.first_name}}</div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-sm text-gray-600">{{competitor.username}}</td>
+                                    <td class="py-3 font-semibold">{{competitor.collected_points}}</td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -261,23 +170,23 @@
                         <div class="w-24">
                             <div class="text-sm text-gray-600">2</div>
                             <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-stone-500"
-                                src="https://freesvg.org/img/abstract-user-flat-4.png" alt="User">
-                            <div class="mt-2 text-sm font-medium">User B</div>
-                            <div class="text-xs text-gray-500">12 contributions</div>
+                                src="{{alltime.top2.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{alltime.top2.username}}</div>
+                            <div class="text-xs text-gray-500">{{alltime.top2.collected_points}}</div>
                         </div>
                         <div class="w-28">
                             <div class="text-sm text-gray-600">1</div>
                             <img class="mx-auto w-28 h-28 rounded-full object-cover border-4 border-yellow-400"
-                                src="https://freesvg.org/img/abstract-user-flat-4.png" alt="User">
-                            <div class="mt-2 text-sm font-semibold">User A</div>
-                            <div class="text-xs text-gray-500">20 contributions</div>
+                                src="{{alltime.top1.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-semibold">{{alltime.top1.username}}</div>
+                            <div class="text-xs text-gray-500">{{alltime.top1.collected_points}}</div>
                         </div>
                         <div class="w-24">
                             <div class="text-sm text-gray-600">3</div>
                             <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-orange-800"
-                                src="https://freesvg.org/img/abstract-user-flat-4.png" alt="User">
-                            <div class="mt-2 text-sm font-medium">User C</div>
-                            <div class="text-xs text-gray-500">8 contributions</div>
+                                src="{{alltime.top3.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{alltime.top3.username}}</div>
+                            <div class="text-xs text-gray-500">{{alltime.top3.collected_points}}</div>
                         </div>
                     </div>
                 </div>
@@ -296,66 +205,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-t">
-                                <td class="py-3">1</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
-                                    <div>
-                                        <div class="font-medium">Alice Smith</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">alice</td>
-                                <td class="py-3 font-semibold">128</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">2</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Bob">
-                                    <div>
-                                        <div class="font-medium">Bob Johnson</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">bob</td>
-                                <td class="py-3 font-semibold">95</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">3</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Carol">
-                                    <div>
-                                        <div class="font-medium">Carol Lee</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">carol</td>
-                                <td class="py-3 font-semibold">72</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">4</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="David">
-                                    <div>
-                                        <div class="font-medium">David Kim</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">david</td>
-                                <td class="py-3 font-semibold">60</td>
-                            </tr>
-                            <tr class="border-t">
-                                <td class="py-3">5</td>
-                                <td class="py-3 flex items-center gap-3">
-                                    <img class="w-10 h-10 rounded-full object-cover"
-                                        src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Eve">
-                                    <div>
-                                        <div class="font-medium">Eve Martin</div>
-                                    </div>
-                                </td>
-                                <td class="py-3 text-sm text-gray-600">eve</td>
-                                <td class="py-3 font-semibold">48</td>
-                            </tr>
+                            {% for competitor in alltime.top10 %}
+                                <tr class="border-t">
+                                    <td class="py-3">0</td>
+                                    <td class="py-3 flex items-center gap-3">
+                                        <img class="w-10 h-10 rounded-full object-cover"
+                                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Alice">
+                                        <div>
+                                            <div class="font-medium">{{competitor.first_name}}</div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-sm text-gray-600">{{competitor.username}}</td>
+                                    <td class="py-3 font-semibold">{{competitor.collected_points}}</td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
