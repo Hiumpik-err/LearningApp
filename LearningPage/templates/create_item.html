@@ -48,6 +48,14 @@
                     {% endif %}
                     {{ form.lead }}
                 </div>
+                
+                <div>
+                    <label for="{{ form.difficulty_level.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.difficulty_level.label }}</label>
+                    {% if form.lead.errors %}
+                        <div class="text-red-600 mb-2">{{ form.difficulty_level.errors }}</div>
+                    {% endif %}
+                    {{ form.difficulty_level }}
+                </div>
 
                 <div>
                     <label for="{{ form.content.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.content.label }}</label>
@@ -82,6 +90,14 @@
                 </div>
 
                 <div>
+                    <label for="{{ form.difficulty_level.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.difficulty_level.label }}</label>
+                    {% if form.lead.errors %}
+                        <div class="text-red-600 mb-2">{{ form.difficulty_level.errors }}</div>
+                    {% endif %}
+                    {{ form.difficulty_level }}
+                </div>
+
+                <div>
                     <label for="{{ form.question.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.question.label }}</label>
                     {% if form.question.errors %}
                         <div class="text-red-600 mb-2">{{ form.question.errors }}</div>
@@ -96,6 +112,7 @@
                     {% endif %}
                     {{ form.answers }}
                 </div>
+
 
                 <div class="pt-4">
                     <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
@@ -120,6 +137,13 @@
                         <div class="text-red-600 mb-2">{{ form.title.errors }}</div>
                     {% endif %}
                     {{ form.title }}
+                </div>
+                <div>
+                    <label for="{{ form.difficulty_level.id_for_label }}" class="block text-lg font-semibold mb-2">{{ form.difficulty_level.label }}</label>
+                    {% if form.lead.errors %}
+                        <div class="text-red-600 mb-2">{{ form.difficulty_level.errors }}</div>
+                    {% endif %}
+                    {{ form.difficulty_level }}
                 </div>
 
                 <div>

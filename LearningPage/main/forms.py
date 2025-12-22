@@ -14,6 +14,13 @@ CATEGORY_CHOICES = [
         ('History', 'History'),
         ('English', 'English'),
     ]
+DIFFICULTY_CHOICES = [
+    ("", "---Choose level---"),
+    ("easy", "Easy"),
+    ("medium", "Medium"),
+    ("hard", "Hard"),
+
+]
 
 class UzytkownikCreationForm(UserCreationForm):
     class Meta:
@@ -35,10 +42,17 @@ class ArticleForm(forms.ModelForm):
             'required': True
         })
     )
+    difficulty_level = forms.ChoiceField(
+        choices = DIFFICULTY_CHOICES,
+         widget=forms.Select(attrs={
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
+            'required': True
+        })
+    )
     
     class Meta:
         model = Article
-        fields = ['category', 'title', 'lead', 'content']
+        fields = ['category', 'title', 'lead', 'content', "difficulty_level"]
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
@@ -99,6 +113,13 @@ class CourseForm(forms.ModelForm):
             'required': True
         })
     )
+    difficulty_level = forms.ChoiceField(
+        choices = DIFFICULTY_CHOICES,
+         widget=forms.Select(attrs={
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
+            'required': True
+        })
+    )
     
     class Meta:
         model = Course
@@ -144,6 +165,13 @@ class QuizzForm(forms.ModelForm):
             'required': True
         })
     )
+    difficulty_level = forms.ChoiceField(
+        choices = DIFFICULTY_CHOICES,
+         widget=forms.Select(attrs={
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
+            'required': True
+        })
+    )
     
     class Meta:
         model = Quizz
@@ -167,5 +195,6 @@ class QuizzForm(forms.ModelForm):
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
                 'placeholder': 'https://example.com',
                 'required': True
-            })
+            }),
+            
         }        

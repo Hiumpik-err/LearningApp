@@ -105,16 +105,25 @@ def create_item(request, type):
 
         if request.method == "POST":
             form = ArticleForm(request.POST)
-            #print(form.content)
-            
             if form.is_valid():
                 try:
+                    points = 0
+                    if form.cleaned_data["difficulty_level"] == "easy":
+                        points = 10
+                    elif form.cleaned_data["difficulty_level"] == "medium":
+                        points = 15
+                    else:
+                        points = 20
+
+
                     article = Article.objects.create(
                         title=form.cleaned_data['title'],
                         lead=form.cleaned_data['lead'],
                         content=form.cleaned_data.get('content', ''),
                         category=form.cleaned_data['category'],
-                        article_author = request.user
+                        article_author = request.user,
+                        difficulty_level= form.cleaned_data["difficulty_level"],
+                        points= points
                     )
                         # Wyczyść sesję po zapisaniu
                     request.session.pop('form_data', None)
@@ -141,8 +150,17 @@ def create_item(request, type):
             
             if form.is_valid():
                 try:
+                    points = 0
+                    if form.cleaned_data["difficulty_level"] == "easy":
+                        points = 10
+                    elif form.cleaned_data["difficulty_level"] == "medium":
+                        points = 15
+                    else:
+                        points = 20
+
                     course = form.save(commit=False)
                     course.course_author = request.user
+                    course.points = points
                     course.save()
                     messages.success(request, f"Course '{course.title}' created successfully!")
                     return redirect("home")
@@ -164,8 +182,17 @@ def create_item(request, type):
             
             if form.is_valid():
                 try:
+                    points = 0
+                    if form.cleaned_data["difficulty_level"] == "easy":
+                        points = 10
+                    elif form.cleaned_data["difficulty_level"] == "medium":
+                        points = 15
+                    else:
+                        points = 20
+
                     quizz = form.save(commit=False)
                     quizz.quizz_author = request.user
+                    quizz.points = points
                     quizz.save()
                     messages.success(request, f"Quiz '{quizz.title}' created successfully!")
                     return redirect("home")
