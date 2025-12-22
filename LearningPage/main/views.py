@@ -125,6 +125,14 @@ def create_item(request, type):
                         difficulty_level= form.cleaned_data["difficulty_level"],
                         points= points
                     )
+                    #* Dodawanie punktow
+                    user = request.user
+                    user.collected_points += points
+                    user.weekly_points += points
+                    user.daily_points += points   
+
+                    user.save()
+
                         # Wyczyść sesję po zapisaniu
                     request.session.pop('form_data', None)
                         
@@ -162,6 +170,15 @@ def create_item(request, type):
                     course.course_author = request.user
                     course.points = points
                     course.save()
+
+                    #* Dodawanie punktow
+                    user = request.user
+                    user.collected_points += points
+                    user.weekly_points += points
+                    user.daily_points += points   
+
+                    user.save()
+
                     messages.success(request, f"Course '{course.title}' created successfully!")
                     return redirect("home")
                 except Exception as e:
@@ -194,6 +211,15 @@ def create_item(request, type):
                     quizz.quizz_author = request.user
                     quizz.points = points
                     quizz.save()
+
+                    #* Dodawanie punktow
+                    user = request.user
+                    user.collected_points += points
+                    user.weekly_points += points
+                    user.daily_points += points   
+
+                    user.save()
+
                     messages.success(request, f"Quiz '{quizz.title}' created successfully!")
                     return redirect("home")
                 except Exception as e:
@@ -394,17 +420,17 @@ def profile_update(request):
         return render(request, "edit_profile.html", {"profile_data": request.user})
     
 def ranking(request):
-    top10 = Uzytkownik.objects.all().order_by("collected_points")[:10]
+    top10 = Uzytkownik.objects.all().order_by("-collected_points")[:10]
     top1 = top10[:1]
     top2 = top10[1:2]
     top3 = top10[2:3]
 
-    weekly_top10 = Uzytkownik.objects.all().order_by("weekly_points")[:10]
+    weekly_top10 = Uzytkownik.objects.all().order_by("-weekly_points")[:10]
     top1_weekly = weekly_top10[:1]
     top2_weekly = weekly_top10[1:2]
     top3_weekly = weekly_top10[2:3]
 
-    daily_top10 = Uzytkownik.objects.all().order_by("daily_points")[:10]
+    daily_top10 = Uzytkownik.objects.all().order_by("-daily_points")[:10]
     top1_daily = daily_top10[:1]
     top2_daily = daily_top10[1:2]
     top3_daily = daily_top10[2:3]
