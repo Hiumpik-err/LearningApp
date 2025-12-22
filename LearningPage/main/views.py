@@ -308,13 +308,35 @@ def item_view(request, type, id):
     if request.method == "GET":
         if type == "articles":
             article = Article.objects.get(ArticleId=id)
-            return render(request, "item_view.html", {"article": article, "type":type, "result": False, "answer":answer})
+            author = article.article_author == request.user
+            print(author)
+            return render(request, "item_view.html", 
+                          {"article": article, 
+                           "type":type, "result": False,
+                            "answer":answer, 
+                            "author":author
+                            })
         elif type == "courses":
             course = Course.objects.get(CourseId=id)
-            return render(request, "item_view.html", {"course": course, "type": type, "result": False, "answer":answer})
+            author = course.course_author == request.user
+            return render(request, "item_view.html", 
+                          {"course": course, 
+                           "type": type, 
+                           "result": False, 
+                           "answer":answer,
+                           "author": author
+                           })
         elif type == "quizzes":
             quizz = Quizz.objects.get(QuizzId = id)
-            return render(request, "item_view.html", {"quizz": quizz, "type": type, "result": False, "answer":answer})
+            author = quizz.quizz_author == request.user
+            print(author)
+            return render(request, "item_view.html", 
+                          {"quizz": quizz, 
+                           "type": type, 
+                           "result": False, 
+                           "answer":answer,
+                           "author": author
+                           })
         elif type == "result":
             course = Course.objects.get(CourseId=id)
             return render(request, "item_view.html", {"course": course, "type": "courses", "result": True, "answer":answer})

@@ -15,22 +15,24 @@
                 </svg>
                 Back to Content
             </a>
-            <a href="
-                {% if article %}
-                    {% url "update" type article.ArticleId %}
-                {% elif course %}
-                    {% url "update" type course.CourseId %}
-                {% else %}
-                    {% url "update" type quizz.QuizzId %}
-                {% endif %}
-            " class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors w-full sm:w-auto justify-center sm:justify-end">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M12 20h9" />
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
-                </svg>
-                Edit
-            </a>
+            {% if author %}
+                <a href="
+                    {% if article %}
+                        {% url "update" type article.ArticleId %}
+                    {% elif course %}
+                        {% url "update" type course.CourseId %}
+                    {% else %}
+                        {% url "update" type quizz.QuizzId %}
+                    {% endif %}
+                " class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors w-full sm:w-auto justify-center sm:justify-end">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                    </svg>
+                    Edit
+                </a>
+            {% endif %}
         </div>
 
         <!-- Article View -->
