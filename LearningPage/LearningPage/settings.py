@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tinymce',
     'main',
+    'django_q',
 ]
 
 MIDDLEWARE = [
@@ -113,6 +114,18 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+# Library to make ranking works
+Q_CLUSTER = {
+    'name': 'DjangORM',
+    'workers': 4,
+    'timeout': 90,
+    'retry': 120,
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default',  # Uses your database to store the task queue
+}
+
 
 
 # Static files (CSS, JavaScript, Images)

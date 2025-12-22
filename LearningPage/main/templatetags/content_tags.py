@@ -24,7 +24,6 @@ def get_latest_quizzes():
 @register.inclusion_tag("components/navbar.html", takes_context=True)
 def get_current_path(context):
     request = context.get("request")
-    print(f'request: {request}')
     if request:
         path = request.path
         path = path.strip("/")
@@ -34,7 +33,6 @@ def get_current_path(context):
             case ["content_view", *res]:
                 res = "".join(res)
                 path = f"content/{res}"
-                print(f"mathc: {path}")
     
 
     return {"path" : str(path).title(), "current_user" : request.user}
