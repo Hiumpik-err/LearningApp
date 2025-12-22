@@ -1,120 +1,119 @@
 {% load static %}
 <nav class="w-full bg-white shadow fixed top-0 left-0 z-50">
 
-  <div class="flex items-center justify-between px-6 py-4">
+    <div class="flex items-center justify-between px-6 py-4">
 
-    <a href="{% url 'home' %}" class="flex items-center gap-4 cursor-pointer">
-      <img src="{% static 'images/logo_eex.png' %}" class="h-10">
-      <div class="text-2xl font-semibold">{{path}}</div>
-    </a>
+        <a href="{% url 'home' %}" class="flex items-center gap-4 cursor-pointer">
+            <img src="{% static 'images/logo_eex.png' %}" class="h-10">
+            <div class="text-2xl font-semibold">{{path}}</div>
+        </a>
 
 
-    <div class="hidden md:flex items-center gap-5 text-lg relative">
-      <p onclick="showSearchDialog();" class="hover:underline cursor-pointer">Search</p>
-      <a class="hover:underline cursor-pointer" href="{% url 'ranking_view' %}">Ranking</a>
-      <button id="userBtn" class="inline-flex items-center gap-x-1.5 px-3 py-2 hover:underline mr-6">
-        {% if not guest %}
-        <img class="w-5 h-5 object-cover rounded-full"
-                        src="{{current_user.profile_image}}" alt="Profile picture"> <!--Change to user picture-->
-                        
-        {% else %}
-          <img class="w-5 h-5 object-cover rounded-full"
-                        src="https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-sitting-orange-cat-on-white-background-png-image_7094889.png" alt="Profile picture">
-        {% endif %}
-        
-        User
-        <svg viewBox="0 0 20 20" fill="currentColor" class="-mr-1 size-7 text-gray-400">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" />
-        </svg>
-      </button>
+        <div class="hidden md:flex items-center gap-5 text-lg relative">
+            <p onclick="showSearchDialog();" class="hover:underline cursor-pointer">Search</p>
+            {% if not guest %}
+            <a class="hover:underline cursor-pointer" href="{% url 'ranking_view' %}">Ranking</a>
+            <button id="userBtn" class="inline-flex items-center gap-x-1.5 px-3 py-2 hover:underline mr-6">
+                <img class="w-5 h-5 object-cover rounded-full" src="{{current_user.profile_image}}"
+                    alt="Profile picture"> <!--Change to user picture-->
 
-      <div id="userMenu"
-        class="hidden absolute right-0 top-full mt-2 w-44 bg-white shadow-lg rounded-lg border border-gray-100 z-50">
-        {% if not guest %}
-        
-        <a href="{% url 'profile' %}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-        
-        <div class="border-t my-1"></div>
+                User
+                <svg viewBox="0 0 20 20" fill="currentColor" class="-mr-1 size-7 text-gray-400">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" />
+                </svg>
+                
+            </button>
+            <div id="userMenu"
+                class="hidden absolute right-0 top-full mt-2 w-44 bg-white shadow-lg rounded-lg border border-gray-100 z-50">
+                
+                <a href="{% url 'profile' %}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
 
-        <form method="POST" action="{% url 'profile' %}">
-          {% csrf_token %}
-          <button type="submit" name="logout" class="w-full text-left px-4 py-2 hover:bg-gray-100">Sign Out</button>
-        </form>
-      </div>
+                <div class="border-t my-1"></div>
 
-      {% else %}
+                <form method="POST" action="{% url 'profile' %}">
+                    {% csrf_token %}
+                    <button type="submit" name="logout" class="w-full text-left px-4 py-2 hover:bg-gray-100">Sign Out</button>
+                </form>
+            </div>
+            {% else %}
+            <a class="hover:underline cursor-pointer mr-6" href="{% url 'ranking_view' %}">Ranking</a>
 
-      {% comment %} ! Dialog wywalajacy na login lub register {% endcomment %}
-      {% endif %}
-    </div>
+            {% endif %}
 
-    <button class="md:hidden inline-flex items-center justify-center p-2 rounded-md"
-      onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-        <path d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
-
-  </div>
-
-  <div id="mobile-menu"
-    class="hidden md:hidden absolute left-0 w-full bg-white shadow-lg border-t border-gray-200 z-40">
-
-    <div class="px-6 py-4 flex flex-col gap-4 text-lg">
-      <p onclick="showSearchDialog();" class="hover:underline cursor-pointer">Search</p>
-      <a class="hover:underline cursor-pointer" href="{% url 'ranking_view' %}">Ranking</a>
-
-      <details class="group">
-        <summary class="flex items-center justify-between cursor-pointer">
-          <span>User</span>
-          <svg class="w-5 h-5 group-open:rotate-180 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" />
-          </svg>
-        </summary>
-
-        <div class="mt-2 ml-2 border-l pl-4 space-y-2">
-          <a href="{% url 'profile' %}" class="block hover:underline">Profile</a>
-          <div class="border-t"></div>
-          <form method="POST" action="{% url 'profile' %}">
-            {% csrf_token %}
-            <button type="submit" class="text-left w-full hover:underline">Sign Out</button>
-          </form>
+            
+            
         </div>
 
-      </details>
-
+        <button class="md:hidden inline-flex items-center justify-center p-2 rounded-md"
+            onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
     </div>
-  </div>
+
+    <div id="mobile-menu"
+        class="hidden md:hidden absolute left-0 w-full bg-white shadow-lg border-t border-gray-200 z-40">
+
+        <div class="px-6 py-4 flex flex-col gap-4 text-lg">
+            <p onclick="showSearchDialog();" class="hover:underline cursor-pointer">Search</p>
+            <a class="hover:underline cursor-pointer" href="{% url 'ranking_view' %}">Ranking</a>
+
+            {% if not guest %}
+            <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer">
+                    <span>User</span>
+                    <svg class="w-5 h-5 group-open:rotate-180 transition-transform" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" />
+                    </svg>
+                </summary>
+
+                <div class="mt-2 ml-2 border-l pl-4 space-y-2">
+                    <a href="{% url 'profile' %}" class="block hover:underline">Profile</a>
+                    <div class="border-t"></div>
+                    <form method="POST" action="{% url 'profile' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="text-left w-full hover:underline">Sign Out</button>
+                    </form>
+                </div>
+
+            </details>
+            {% else %}
+            <p>Logged in as guest</p>
+            {% endif %}
+        </div>
+    </div>
 
 </nav>
 
 
 <script>
-  const userBtn = document.getElementById("userBtn");
-  const userMenu = document.getElementById("userMenu");
+    const userBtn = document.getElementById("userBtn");
+    const userMenu = document.getElementById("userMenu");
 
-  const mobileUserBtn = document.getElementById("mobileUserBtn");
-  const mobileUserMenu = document.getElementById("mobileUserMenu");
+    const mobileUserBtn = document.getElementById("mobileUserBtn");
+    const mobileUserMenu = document.getElementById("mobileUserMenu");
 
-  // Desktop
-  userBtn?.addEventListener("click", () => {
-    userMenu.classList.toggle("hidden");
-  });
+    // Desktop
+    userBtn?.addEventListener("click", () => {
+        userMenu.classList.toggle("hidden");
+    });
 
-  // Mobile
-  mobileUserBtn?.addEventListener("click", () => {
-    mobileUserMenu.classList.toggle("hidden");
-  });
+    // Mobile
+    mobileUserBtn?.addEventListener("click", () => {
+        mobileUserMenu.classList.toggle("hidden");
+    });
 
-  // Close dropdowns when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!userBtn?.contains(e.target) && !userMenu?.contains(e.target)) {
-      userMenu?.classList.add("hidden");
-    }
-    if (!mobileUserBtn?.contains(e.target) && !mobileUserMenu?.contains(e.target)) {
-      mobileUserMenu?.classList.add("hidden");
-    }
-  });
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", (e) => {
+        if (!userBtn?.contains(e.target) && !userMenu?.contains(e.target)) {
+            userMenu?.classList.add("hidden");
+        }
+        if (!mobileUserBtn?.contains(e.target) && !mobileUserMenu?.contains(e.target)) {
+            mobileUserMenu?.classList.add("hidden");
+        }
+    });
 </script>

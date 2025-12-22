@@ -29,29 +29,29 @@
     </div>
     {% comment %} !DAILY {% endcomment %}
     <div id="daily-ranking" class="ranking-section">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center">
-                <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center order-first xl:order-none">
+                <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
                     <h2 class="text-xl font-semibold mb-4">Daily Podium</h2>
                     <div class="flex items-end justify-center gap-4">
                         {% comment %} ?Podium {% endcomment %}
-                        <div class="w-24">
+                        <div class="w-20 md:w-24">
                             <div class="text-sm text-gray-600">2</div>
-                            <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-stone-500"
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-stone-500"
                                 src="{{daily.top2.profile_image}}" alt="User">
                             <div class="mt-2 text-sm font-medium">{{daily.top2.username}}</div>
                             <div class="text-xs text-gray-500">{{daily.top2.daily_points}}</div>
                         </div>
-                        <div class="w-28">
+                        <div class="w-20 md:w-28">
                             <div class="text-sm text-gray-600">1</div>
-                            <img class="mx-auto w-28 h-28 rounded-full object-cover border-4 border-yellow-400"
+                            <img class="mx-auto w-16 h-16 md:w-28 md:h-28 rounded-full object-cover border-4 border-yellow-400"
                                 src="{{daily.top1.profile_image}}" alt="User">
                             <div class="mt-2 text-sm font-semibold">{{daily.top1.username}}</div>
                             <div class="text-xs text-gray-500">{{daily.top1.daily_points}}</div>
                         </div>
-                        <div class="w-24">
+                        <div class="w-20 md:w-24">
                             <div class="text-sm text-gray-600">3</div>
-                            <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-orange-800"
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-orange-800"
                                 src="{{daily.top3.profile_image}}" alt="User">
                             <div class="mt-2 text-sm font-medium">{{daily.top3.username}}</div>
                             <div class="text-xs text-gray-500">{{daily.top3.daily_points}}</div>
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <div class="xl:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
                 <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
                 <div class="overflow-x-auto">
                     {% comment %} *table with records {% endcomment %}
@@ -96,28 +96,28 @@
     </div>
     {% comment %} !Weekly {% endcomment %}
     <div id="weekly-ranking" class="ranking-section hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center">
-                <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center order-first xl:order-none">
+                <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
                     <h2 class="text-xl font-semibold mb-4">Weekly Podium</h2>
                     <div class="flex items-end justify-center gap-4">
-                        <div class="w-24">
+                        <div class="w-20 md:w-24">
                             <div class="text-sm text-gray-600">2</div>
-                            <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-stone-500"
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-stone-500"
                                 src="{{weekly.top2.profile_image}}" alt="User">
                             <div class="mt-2 text-sm font-medium">{{weekly.top2.username}}</div>
                             <div class="text-xs text-gray-500">{{weekly.top2.weekly_points}}</div>
                         </div>
-                        <div class="w-28">
+                        <div class="w-20 md:w-28">
                             <div class="text-sm text-gray-600">1</div>
-                            <img class="mx-auto w-28 h-28 rounded-full object-cover border-4 border-yellow-400"
+                            <img class="mx-auto w-16 h-16 md:w-28 md:h-28 rounded-full object-cover border-4 border-yellow-400"
                                 src="{{weekly.top1.profile_image}}" alt="User">
                             <div class="mt-2 text-sm font-semibold">{{weekly.top1.username}}</div>
                             <div class="text-xs text-gray-500">{{weekly.top1.weekly_points}}</div>
                         </div>
-                        <div class="w-24">
+                        <div class="w-20 md:w-24">
                             <div class="text-sm text-gray-600">3</div>
-                            <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-orange-800"
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-orange-800"
                                 src="{{weekly.top3.profile_image}}" alt="User">
                             <div class="mt-2 text-sm font-medium">{{weekly.top3.username}}</div>
                             <div class="text-xs text-gray-500">{{weekly.top3.weekly_points}}</div>
@@ -126,7 +126,7 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <div class="xl:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
                 <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
@@ -161,28 +161,28 @@
     </div>
 {% comment %} !All time {% endcomment %}
     <div id="alltime-ranking" class="ranking-section hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center">
-                <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center order-first xl:order-none">
+                <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
                     <h2 class="text-xl font-semibold mb-4">All Time Podium</h2>
                     <div class="flex items-end justify-center gap-4">
-                        <div class="w-24">
+                        <div class="w-20 md:w-24">
                             <div class="text-sm text-gray-600">2</div>
-                            <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-stone-500"
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-stone-500"
                                 src="{{alltime.top2.profile_image}}" alt="User">
                             <div class="mt-2 text-sm font-medium">{{alltime.top2.username}}</div>
                             <div class="text-xs text-gray-500">{{alltime.top2.collected_points}}</div>
                         </div>
-                        <div class="w-28">
+                        <div class="w-20 md:w-28">
                             <div class="text-sm text-gray-600">1</div>
-                            <img class="mx-auto w-28 h-28 rounded-full object-cover border-4 border-yellow-400"
+                            <img class="mx-auto w-16 h-16 md:w-28 md:h-28 rounded-full object-cover border-4 border-yellow-400"
                                 src="{{alltime.top1.profile_image}}" alt="User">
                             <div class="mt-2 text-sm font-semibold">{{alltime.top1.username}}</div>
                             <div class="text-xs text-gray-500">{{alltime.top1.collected_points}}</div>
                         </div>
-                        <div class="w-24">
+                        <div class="w-20 md:w-24">
                             <div class="text-sm text-gray-600">3</div>
-                            <img class="mx-auto w-20 h-20 rounded-full object-cover border-2 border-orange-800"
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-orange-800"
                                 src="{{alltime.top3.profile_image}}" alt="User">
                             <div class="mt-2 text-sm font-medium">{{alltime.top3.username}}</div>
                             <div class="text-xs text-gray-500">{{alltime.top3.collected_points}}</div>
@@ -191,7 +191,7 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <div class="xl:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
                 <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
