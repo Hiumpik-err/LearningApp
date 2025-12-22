@@ -74,7 +74,9 @@ def login(request):
                     return redirect("login")
             
         if "guest" in request.POST:
-            pass
+            request.session["guest"] = True
+            request.session.set_expiry(0)
+            return redirect("home")
                 
 
     return render(request, "login.html")
@@ -274,7 +276,6 @@ def content_view(request, type):
 
 
 def profile(request):
-    print("logout" in request.POST)
     if request.method == "GET":
         try:
             if request.user.is_authenticated:
@@ -292,7 +293,6 @@ def profile(request):
     elif request.method == "POST" and "admin_request" in request.POST:
         pass
     elif request.method == "POST" and "delete_account" in request.POST:
-        print("jestem w usuwaniu")
         try:
             user = request.user
             logout(request)
@@ -305,16 +305,17 @@ def profile(request):
     
 def item_view(request, type, id):
     answer = request.session.get("result", "")
+    guest = request.session.get("guest", False)
     if request.method == "GET":
         if type == "articles":
             article = Article.objects.get(ArticleId=id)
             author = article.article_author == request.user
-            print(author)
             return render(request, "item_view.html", 
                           {"article": article, 
                            "type":type, "result": False,
                             "answer":answer, 
-                            "author":author
+                            "author":author,
+                            "guest": guest
                             })
         elif type == "courses":
             course = Course.objects.get(CourseId=id)
@@ -324,18 +325,19 @@ def item_view(request, type, id):
                            "type": type, 
                            "result": False, 
                            "answer":answer,
-                           "author": author
+                           "author": author,
+                           "guest": guest
                            })
         elif type == "quizzes":
             quizz = Quizz.objects.get(QuizzId = id)
             author = quizz.quizz_author == request.user
-            print(author)
             return render(request, "item_view.html", 
                           {"quizz": quizz, 
                            "type": type, 
                            "result": False, 
                            "answer":answer,
-                           "author": author
+                           "author": author,
+                           "guest": guest
                            })
         elif type == "result":
             course = Course.objects.get(CourseId=id)
@@ -358,7 +360,6 @@ def update(request, type, id):
     try:
         if type == "articles":
             article = Article.objects.get(ArticleId=id)
-            print("jest w artykule")
             if request.method == "GET":
                 form = ArticleForm(instance=article)
                 return render(request, "edit_view.html", {"type": type, "form": form})

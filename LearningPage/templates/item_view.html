@@ -15,7 +15,7 @@
                 </svg>
                 Back to Content
             </a>
-            {% if author %}
+            {% if author or request.user.is_admin %}
                 <a href="
                     {% if article %}
                         {% url "update" type article.ArticleId %}
@@ -83,7 +83,9 @@
                     <label for="answer" class="block text-lg font-semibold mb-2">Your Answer</label>
                     <input type="text" id="answer" name="answer" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600" required>
                 </div>
-                <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Submit Answer</button>
+                {% if not guest %}
+                    <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Submit Answer</button>
+                {% endif %}
             </form>
             {% endif %}
         </div>
@@ -103,12 +105,13 @@
             <div class="mb-6 pb-6 border-b border-gray-200">
                 <p class="text-lg text-gray-700">{{ quizz.description }}</p>
             </div>
-            
-            <div class="mt-8">
-                <a href="{{ quizz.link }}" target="_blank" class="inline-block px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
-                    Take the Quiz
-                </a>
-            </div>
+            {% if not guest %}
+                <div class="mt-8">
+                    <a href="{{ quizz.link }}" target="_blank" class="inline-block px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                        Take the Quiz
+                    </a>
+                </div>
+            {% endif %}
         </div>
         {% endif %}
 

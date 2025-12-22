@@ -35,5 +35,9 @@ def get_current_path(context):
                 path = f"content/{res}"
     
 
-    return {"path" : str(path).title(), "current_user" : request.user}
+    return {"path" : str(path).title(), "current_user" : request.user, "guest": request.session.get("guest", False)}
 
+@register.inclusion_tag("components/sidebar2.html", takes_context=True)
+def get_sidebar(context):
+    request = context.get("request")
+    return {"guest": request.session.get("guest", False)}
