@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.db.models import Q
 
 def login(request):
+    request.session.pop("guest", None)
+    #request.session["guest"] = False
     if request.method == "POST":
         if "register" in request.POST:
             try:
