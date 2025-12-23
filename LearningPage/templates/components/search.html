@@ -1,8 +1,8 @@
-<dialog id="search-dialog" class="rounded-lg shadow-2xl p-6 w-full max-w-md backdrop:bg-black/50">
+<dialog id="search-dialog" class="rounded-lg shadow-2xl p-6 w-full max-w-md backdrop:bg-black/50 dark:bg-gray-800 dark:text-white">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold">Search</h2>
+        <h2 class="text-2xl font-bold dark:text-white">Search</h2>
         <button onclick="document.getElementById('search-dialog').close()"
-            class="text-gray-500 hover:text-gray-700 transition-colors">
+            class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -15,7 +15,7 @@
         {% csrf_token %}
         <div>
             <input type="search" name="searched_value" placeholder="Search articles, tasks, quizzes..."
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required>
         </div>
         <button type="submit" name="allContent"
@@ -25,11 +25,11 @@
     </form>
 </dialog>
 
-<dialog id="create-dialog" class="rounded-lg shadow-2xl p-6 w-full max-w-md backdrop:bg-black/50">
+<dialog id="create-dialog" class="rounded-lg shadow-2xl p-6 w-full max-w-md backdrop:bg-black/50 dark:bg-gray-800 dark:text-white">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold">Add new</h2>
+        <h2 class="text-2xl font-bold dark:text-white">Add new</h2>
         <button onclick="document.getElementById('create-dialog').close()"
-            class="text-gray-500 hover:text-gray-700 transition-colors">
+            class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -42,7 +42,7 @@
      onsubmit="provideDataToCreateElement()" id="formToCreateElement" name="showElement">
         {% csrf_token %}
         <select id="create-select" name="create_select"
-            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+            class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
             <option value="article">Article</option>
             <option value="course">Task</option>
             <option value="quizz">Quiz</option>

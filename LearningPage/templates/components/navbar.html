@@ -1,11 +1,11 @@
 {% load static %}
-<nav class="w-full bg-white shadow fixed top-0 left-0 z-50">
+<nav class="w-full bg-white dark:bg-gray-800 shadow fixed top-0 left-0 z-50 transition-colors duration-200">
 
     <div class="flex items-center justify-between px-6 py-4">
 
         <a href="{% url 'home' %}" class="flex items-center gap-4 cursor-pointer">
             <img src="{% static 'images/logo_eex.png' %}" class="h-10">
-            <div class="text-2xl font-semibold">{{path}}</div>
+            <div class="text-2xl font-semibold dark:text-white">{{path}}</div>
         </a>
 
 
@@ -13,32 +13,50 @@
             <p onclick="showSearchDialog();" class="hover:underline cursor-pointer">Search</p>
             {% if not guest %}
             <a class="hover:underline cursor-pointer" href="{% url 'ranking_view' %}">Ranking</a>
-            <button id="userBtn" class="inline-flex items-center gap-x-1.5 px-3 py-2 hover:underline mr-6">
+            
+            <!-- Theme Switcher -->
+            
+            <button id="userBtn" class="inline-flex items-center gap-x-1.5 px-3 py-2 hover:underline">
                 <img class="w-5 h-5 object-cover rounded-full" src="{{current_user.profile_image}}"
                     alt="Profile picture"> <!--Change to user picture-->
 
-                User
+                    User
                 <svg viewBox="0 0 20 20" fill="currentColor" class="-mr-1 size-7 text-gray-400">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" />
-                </svg>
+                    </svg>
+                    
+                </button>
+                <div id="userMenu"
+                class="hidden absolute right-0 top-full mt-2 w-44 bg-white dark:bg-gray-700 shadow-lg rounded-lg border border-gray-100 dark:border-gray-600 z-50">
                 
-            </button>
-            <div id="userMenu"
-                class="hidden absolute right-0 top-full mt-2 w-44 bg-white shadow-lg rounded-lg border border-gray-100 z-50">
+                <a href="{% url 'profile' %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">Profile</a>
                 
-                <a href="{% url 'profile' %}" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-
-                <div class="border-t my-1"></div>
-
+                <div class="border-t dark:border-gray-600 my-1"></div>
+                
                 <form method="POST" action="{% url 'profile' %}">
                     {% csrf_token %}
-                    <button type="submit" name="logout" class="w-full text-left px-4 py-2 hover:bg-gray-100">Sign Out</button>
+                    <button type="submit" name="logout" class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white">Sign Out</button>
                 </form>
             </div>
+            <button id="themeToggle" class="inline-flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mr-6" aria-label="Toggle theme">
+                <svg id="sunIcon" class="w-5 h-5 text-yellow-500 hidden" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l-2.12-2.12a1 1 0 00-1.414 1.414l2.12 2.12a1 1 0 001.414-1.414zm2.12-10.607a1 1 0 010 1.414l-2.12 2.12a1 1 0 11-1.414-1.414l2.12-2.12a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.464 5.05l-2.12 2.12a1 1 0 00-1.414 1.414l2.12-2.12zm5.657-9.193a1 1 0 00-1.414 0l-2.12 2.12a1 1 0 101.414 1.414l2.12-2.12a1 1 0 000-1.414zM5 8a1 1 0 100-2H4a1 1 0 000 2h1zM3.464 6.464a1 1 0 000 1.414l2.12-2.12a1 1 0 00-1.414-1.414l-2.12 2.12z" clip-rule="evenodd" />
+                </svg>
+                <svg id="moonIcon" class="w-5 h-5 text-gray-700 dark:text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+            </button>
             {% else %}
-            <a class="hover:underline cursor-pointer mr-6" href="{% url 'ranking_view' %}">Ranking</a>
-
+            <a class="hover:underline cursor-pointer " href="{% url 'ranking_view' %}">Ranking</a>
+            <button id="themeToggle" class="inline-flex items-center justify-center p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mr-6" aria-label="Toggle theme">
+                <svg id="sunIcon" class="w-5 h-5 text-yellow-500 hidden" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l-2.12-2.12a1 1 0 00-1.414 1.414l2.12 2.12a1 1 0 001.414-1.414zm2.12-10.607a1 1 0 010 1.414l-2.12 2.12a1 1 0 11-1.414-1.414l2.12-2.12a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.464 5.05l-2.12 2.12a1 1 0 00-1.414 1.414l2.12-2.12zm5.657-9.193a1 1 0 00-1.414 0l-2.12 2.12a1 1 0 101.414 1.414l2.12-2.12a1 1 0 000-1.414zM5 8a1 1 0 100-2H4a1 1 0 000 2h1zM3.464 6.464a1 1 0 000 1.414l2.12-2.12a1 1 0 00-1.414-1.414l-2.12 2.12z" clip-rule="evenodd" />
+                </svg>
+                <svg id="moonIcon" class="w-5 h-5 text-gray-700 dark:text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+            </button>
             {% endif %}
 
             
@@ -54,11 +72,22 @@
     </div>
 
     <div id="mobile-menu"
-        class="hidden md:hidden absolute left-0 w-full bg-white shadow-lg border-t border-gray-200 z-40">
+        class="hidden md:hidden absolute left-0 w-full bg-white dark:bg-gray-800 shadow-lg border-t border-gray-200 dark:border-gray-700 z-40">
 
-        <div class="px-6 py-4 flex flex-col gap-4 text-lg">
+        <div class="px-6 py-4 flex flex-col gap-4 text-lg dark:text-white">
             <p onclick="showSearchDialog();" class="hover:underline cursor-pointer">Search</p>
             <a class="hover:underline cursor-pointer" href="{% url 'ranking_view' %}">Ranking</a>
+
+            <!-- Theme Switcher Mobile -->
+            <button id="themeToggleMobile" class="inline-flex items-center gap-2 p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Toggle theme">
+                <svg id="sunIconMobile" class="w-5 h-5 text-yellow-500 hidden" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l-2.12-2.12a1 1 0 00-1.414 1.414l2.12 2.12a1 1 0 001.414-1.414zm2.12-10.607a1 1 0 010 1.414l-2.12 2.12a1 1 0 11-1.414-1.414l2.12-2.12a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.464 5.05l-2.12 2.12a1 1 0 00-1.414 1.414l2.12-2.12zm5.657-9.193a1 1 0 00-1.414 0l-2.12 2.12a1 1 0 101.414 1.414l2.12-2.12a1 1 0 000-1.414zM5 8a1 1 0 100-2H4a1 1 0 000 2h1zM3.464 6.464a1 1 0 000 1.414l2.12-2.12a1 1 0 00-1.414-1.414l-2.12 2.12z" clip-rule="evenodd" />
+                </svg>
+                <svg id="moonIconMobile" class="w-5 h-5 text-gray-700 dark:text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+                <span>Theme</span>
+            </button>
 
             {% if not guest %}
             <details class="group">
@@ -71,12 +100,12 @@
                     </svg>
                 </summary>
 
-                <div class="mt-2 ml-2 border-l pl-4 space-y-2">
-                    <a href="{% url 'profile' %}" class="block hover:underline">Profile</a>
-                    <div class="border-t"></div>
+                <div class="mt-2 ml-2 border-l dark:border-gray-600 pl-4 space-y-2">
+                    <a href="{% url 'profile' %}" class="block hover:underline dark:text-gray-300">Profile</a>
+                    <div class="border-t dark:border-gray-600"></div>
                     <form method="POST" action="{% url 'profile' %}">
                         {% csrf_token %}
-                        <button type="submit" class="text-left w-full hover:underline">Sign Out</button>
+                        <button type="submit" class="text-left w-full hover:underline dark:text-gray-300">Sign Out</button>
                     </form>
                 </div>
 
@@ -107,6 +136,35 @@
         mobileUserMenu.classList.toggle("hidden");
     });
 
+    // Theme Switcher for Mobile
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const sunIconMobile = document.getElementById('sunIconMobile');
+    const moonIconMobile = document.getElementById('moonIconMobile');
+
+    if (themeToggleMobile) {
+        themeToggleMobile.addEventListener('click', () => {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            
+            updateThemeUIMobile();
+        });
+
+        function updateThemeUIMobile() {
+            const isDark = document.documentElement.classList.contains('dark');
+            sunIconMobile.classList.toggle('hidden', !isDark);
+            moonIconMobile.classList.toggle('hidden', isDark);
+        }
+
+        updateThemeUIMobile();
+    }
     // Close dropdowns when clicking outside
     document.addEventListener("click", (e) => {
         if (!userBtn?.contains(e.target) && !userMenu?.contains(e.target)) {

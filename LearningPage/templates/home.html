@@ -1,11 +1,29 @@
 {% load static %}
 {% load content_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+        // Initialize theme from localStorage or system preference
+        const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('theme', theme);
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
     {% block title %}
         <title>EEX</title>
     {% endblock title %}
@@ -17,7 +35,7 @@
     {% endblock tailwind.config %}
 </head>
 
-<body class="w-full h-full text-gray-800">
+<body class="w-full h-full text-gray-800 dark:text-gray-100 dark:bg-gray-900 transition-colors duration-200">
     {% block navbar %}
         {%comment %} {% include 'components/navbar.html' %}{% endcomment%}
         {% get_current_path %}
@@ -69,6 +87,35 @@
             function showCreateDialog() {
                 createDialog.showModal();
             }
+
+            // Theme Switcher
+            const themeToggle = document.getElementById('themeToggle');
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            const html = document.documentElement;
+
+            function updateThemeUI() {
+                const isDark = html.classList.contains('dark');
+                sunIcon.classList.toggle('hidden', !isDark);
+                moonIcon.classList.toggle('hidden', isDark);
+            }
+
+            themeToggle.addEventListener('click', () => {
+                const isDark = html.classList.contains('dark');
+                
+                if (isDark) {
+                    html.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+                
+                updateThemeUI();
+            });
+
+            // Initialize UI on page load
+            updateThemeUI();
         </script>
     {% endblock footer %}
 </body>

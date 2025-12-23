@@ -31,6 +31,20 @@
     font-weight: 700;
     margin-top: 1rem;
     margin-bottom: 0.75rem;
+    color: #111827;
+    /* gray-900 */
+}
+
+@media (prefers-color-scheme: dark) {
+    .article-content h1 {
+        color: #f3f4f6;
+        /* gray-100 */
+    }
+}
+
+.dark .article-content h1 {
+    color: #f3f4f6;
+    /* gray-100 */
 }
 
 .article-content h2 {
@@ -40,6 +54,20 @@
     font-weight: 700;
     margin-top: 0.9rem;
     margin-bottom: 0.6rem;
+    color: #111827;
+    /* gray-900 */
+}
+
+@media (prefers-color-scheme: dark) {
+    .article-content h2 {
+        color: #f3f4f6;
+        /* gray-100 */
+    }
+}
+
+.dark .article-content h2 {
+    color: #f3f4f6;
+    /* gray-100 */
 }
 
 .article-content h3 {
@@ -49,6 +77,20 @@
     font-weight: 600;
     margin-top: 0.75rem;
     margin-bottom: 0.5rem;
+    color: #111827;
+    /* gray-900 */
+}
+
+@media (prefers-color-scheme: dark) {
+    .article-content h3 {
+        color: #f3f4f6;
+        /* gray-100 */
+    }
+}
+
+.dark .article-content h3 {
+    color: #f3f4f6;
+    /* gray-100 */
 }
 
 .article-content p {
@@ -58,11 +100,39 @@
     /* gray-700 */
 }
 
+@media (prefers-color-scheme: dark) {
+    .article-content p {
+        color: #d1d5db;
+        /* gray-300 */
+    }
+}
+
+.dark .article-content p {
+    color: #d1d5db;
+    /* gray-300 */
+}
+
 .article-content ul,
 .article-content ol {
     margin-top: 0.5rem;
     margin-bottom: 0.75rem;
     padding-left: 1.25rem;
+    color: #374151;
+    /* gray-700 */
+}
+
+@media (prefers-color-scheme: dark) {
+    .article-content ul,
+    .article-content ol {
+        color: #d1d5db;
+        /* gray-300 */
+    }
+}
+
+.dark .article-content ul,
+.dark .article-content ol {
+    color: #d1d5db;
+    /* gray-300 */
 }
 
 .article-content ol {
