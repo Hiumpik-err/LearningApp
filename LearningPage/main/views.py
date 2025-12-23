@@ -6,6 +6,7 @@ from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from django.db.models import Q
 
+
 def login(request):
     request.session.pop("guest", None)
     #request.session["guest"] = False
@@ -422,22 +423,53 @@ def search(request):
 
 def profile_update(request):
     if request.method == "POST":
+        #*Dane z formualrza
         fname = request.POST.get("fname", "")
         lname = request.POST.get("lname", "")
         username = request.POST.get("username", "")
         email = request.POST.get("email", "")
-        profile_image = request.POST.get("profile_image", "")
-
+        profile_image = request.FILES.get("profile_image", "")
+        
+        #*Update danych
         user = request.user
-
         user.first_name = fname
         user.last_name = lname
         user.username = username
         user.email = email
 
-        #api -> do imgura
+        #!api -> do https://freeimage.host/api
+        import requests
+        from django.http import JsonResponse
+        def apiFunction(profile_image):
+            API_KEY = ""
+            URL = "https://freeimage.host/api/1/upload"
 
-        user.save()
+            PAYLOAD = {
+                'key': API_KEY,
+                'action': 'upload',
+                'format': 'json',
+                "album_id" : "Zp8ap"
+            }
+            FILES = {
+                "source" : (profile_image.name, profile_image.read(), profile_image.content_type)
+            }
+
+            try:
+                response = requests.post(URL, data=PAYLOAD, files=FILES)
+                data = response.json()
+
+                if response.status_code == 200:
+                    img_url = data["image"]["url"]
+                    user.profile_image = img_url
+                    print("Zdjecie powinno pokazac sie na stronie")
+                    user.save()
+                else:
+                    print("Cos poszlo nie tak")
+            except Exception as e:
+                print(f'Message: {e}')
+
+        #! Wywolanie funckji dla api
+        apiFunction(profile_image)
 
         return redirect("profile")
     
