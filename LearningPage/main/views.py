@@ -5,6 +5,10 @@ from .forms import ArticleForm, CourseForm, QuizzForm
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from django.db.models import Q
+from django.core.mail import send_mail
+from django.http import JsonResponse
+import requests
+from django.conf import settings
 
 
 def login(request):
@@ -293,8 +297,23 @@ def profile(request):
     if request.method == "POST" and "logout" in request.POST:
         logout(request)
         return redirect("/")
+    
     elif request.method == "POST" and "admin_request" in request.POST:
-        pass
+        
+        try:
+            send_mail(
+                "Test",
+                "Sprawdzam czy aplikacja dziala, jesli nie wie Pan/Pani o co chodzi to przepraszam, musialem pomylic e-mail'e",
+                "myprogroad@gmail.com",
+                ["kamil.jendrusz@gmail.com"],
+                fail_silently=False
+            )
+            print("Mail powinien zostac wyslany")
+            return redirect("profile")
+        except Exception as e:
+            print(e)
+            return redirect("profile")
+
     elif request.method == "POST" and "delete_account" in request.POST:
         try:
             user = request.user
@@ -470,10 +489,9 @@ def profile_update(request):
         user.email = email
 
         #!api -> do https://freeimage.host/api
-        import requests
-        from django.http import JsonResponse
+
         def apiFunction(profile_image):
-            API_KEY = ""
+            API_KEY = settings.API_KEY_IMAGES
             URL = "https://freeimage.host/api/1/upload"
 
             PAYLOAD = {
