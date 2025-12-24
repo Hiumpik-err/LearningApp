@@ -309,6 +309,8 @@ def profile(request):
 def item_view(request, type, id):
     answer = request.session.get("result", "")
     guest = request.session.get("guest", False)
+    user = request.user
+
     if request.method == "GET":
         if type == "articles":
             article = Article.objects.get(ArticleId=id)
@@ -320,6 +322,7 @@ def item_view(request, type, id):
                             "author":author,
                             "guest": guest
                             })
+        
         elif type == "courses":
             course = Course.objects.get(CourseId=id)
             author = course.course_author == request.user
@@ -331,8 +334,17 @@ def item_view(request, type, id):
                            "author": author,
                            "guest": guest
                            })
+        
         elif type == "quizzes":
             quizz = Quizz.objects.get(QuizzId = id)
+
+            #* Za wyonienie quizzu -> nie chce mi sie juz dorobiac przycisku ze zrobione
+            user.collected_points += quizz.points
+            user.weekly_points += quizz.points
+            user.daily_points += quizz.points  
+            user.save()
+
+
             author = quizz.quizz_author == request.user
             return render(request, "item_view.html", 
                           {"quizz": quizz, 
@@ -342,22 +354,42 @@ def item_view(request, type, id):
                            "author": author,
                            "guest": guest
                            })
+        
         elif type == "result":
             course = Course.objects.get(CourseId=id)
             return render(request, "item_view.html", {"course": course, "type": "courses", "result": True, "answer":answer})
-
         
-    elif request.method == "POST":
+    elif request.method == "POST" and "task_answer" in request.POST:
         answer = str(request.POST.get("answer", "")).strip().lower()
-        course_answer = Course.objects.get(CourseId=id).answers.strip().lower()
+        course = Course.objects.get(CourseId=id)
 
-        if answer != course_answer:
+        if answer != str(course.answers).strip().lower():
             request.session["result"] = "❌"
         
         else:
             request.session["result"] = "✅"
+
+            user.collected_points += course.points
+            user.weekly_points += course.points
+            user.daily_points += course.points  
+            user.save()
+
         
         return redirect("item_view", type="result", id=id)
+    
+    #*Dorobic przycisk do artykulu
+    elif request.method == "POST" and "read_article" in request.POST:
+        
+        if type == "articles":
+            article = Article.objects.get(ArticleId = id)
+
+            user.collected_points += article.points
+            user.weekly_points += article.points
+            user.daily_points += article.points  
+            user.save()
+
+
+
 
 def update(request, type, id):
     try:
@@ -469,7 +501,10 @@ def profile_update(request):
                 print(f'Message: {e}')
 
         #! Wywolanie funckji dla api
-        apiFunction(profile_image)
+        if profile_image:
+            apiFunction(profile_image)
+        else:
+            user.save()
 
         return redirect("profile")
     
@@ -477,17 +512,18 @@ def profile_update(request):
         return render(request, "edit_profile.html", {"profile_data": request.user})
     
 def ranking(request):
-    top10 = Uzytkownik.objects.all().order_by("-collected_points")[:10]
+    top10 = Uzytkownik.objects.all().filter(is_admin = False).order_by("-collected_points")[:10]
+
     top1 = top10[:1]
     top2 = top10[1:2]
     top3 = top10[2:3]
 
-    weekly_top10 = Uzytkownik.objects.all().order_by("-weekly_points")[:10]
+    weekly_top10 = Uzytkownik.objects.all().filter(is_admin = False).order_by("-weekly_points")[:10]
     top1_weekly = weekly_top10[:1]
     top2_weekly = weekly_top10[1:2]
     top3_weekly = weekly_top10[2:3]
 
-    daily_top10 = Uzytkownik.objects.all().order_by("-daily_points")[:10]
+    daily_top10 = Uzytkownik.objects.all().filter(is_admin = False).order_by("-daily_points")[:10]
     top1_daily = daily_top10[:1]
     top2_daily = daily_top10[1:2]
     top3_daily = daily_top10[2:3]
