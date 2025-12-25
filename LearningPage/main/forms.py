@@ -38,14 +38,14 @@ class ArticleForm(forms.ModelForm):
     category = forms.ChoiceField(
         choices=CATEGORY_CHOICES,
         widget=forms.Select(attrs={
-            'class': 'category-select w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
+            'class': 'category-select w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
             'required': True
         })
     )
     difficulty_level = forms.ChoiceField(
         choices = DIFFICULTY_CHOICES,
          widget=forms.Select(attrs={
-            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
             'required': True
         })
     )
@@ -55,20 +55,21 @@ class ArticleForm(forms.ModelForm):
         fields = ['category', 'title', 'lead', 'content', "difficulty_level"]
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
                 'placeholder': 'Title',
                 'required': True,
                 'minlength': 3,
                 'maxlength': 200
             }),
             'lead': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
                 'placeholder': 'Lead',
                 'required': True,
                 'minlength': 3,
                 'maxlength': 200
             }),
             'content': TinyMCE(attrs={
+                'class': 'dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
                 'cols': 80,
                 'rows': 30,
                 'required': False,
@@ -109,14 +110,14 @@ class CourseForm(forms.ModelForm):
     category = forms.ChoiceField(
         choices=CATEGORY_CHOICES,
         widget=forms.Select(attrs={
-            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
             'required': True
         })
     )
     difficulty_level = forms.ChoiceField(
         choices = DIFFICULTY_CHOICES,
          widget=forms.Select(attrs={
-            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
             'required': True
         })
     )
@@ -126,21 +127,21 @@ class CourseForm(forms.ModelForm):
         fields = ['category', 'title', 'question', 'answers']
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
                 'placeholder': 'Title',
                 'required': True,
                 'minlength': 3,
                 'maxlength': 200
             }),
             'question': forms.Textarea(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
                 'placeholder': 'Question',
                 'required': True,
                 'minlength': 10,
                 'rows': 4
             }),
             'answers': forms.Textarea(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
                 'placeholder': 'Possible answers separated by semicolon',
                 'rows': 4
             })
@@ -161,14 +162,14 @@ class QuizzForm(forms.ModelForm):
     category = forms.ChoiceField(
         choices=CATEGORY_CHOICES,
         widget=forms.Select(attrs={
-            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
             'required': True
         })
     )
     difficulty_level = forms.ChoiceField(
         choices = DIFFICULTY_CHOICES,
          widget=forms.Select(attrs={
-            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white',
+            'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
             'required': True
         })
     )
@@ -178,23 +179,22 @@ class QuizzForm(forms.ModelForm):
         fields = ['category', 'title', 'description', 'link']
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
                 'placeholder': 'Title',
                 'required': True,
                 'minlength': 3,
                 'maxlength': 200
             }),
             'description': forms.Textarea(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
                 'placeholder': 'Description',
                 'required': True,
                 'minlength': 10,
                 'rows': 4
             }),
             'link': forms.URLInput(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600',
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700',
                 'placeholder': 'https://example.com',
                 'required': True
             }),
-            
-        }        
+        }

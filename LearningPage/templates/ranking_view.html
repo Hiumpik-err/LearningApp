@@ -14,24 +14,24 @@
     }
 </style>
 <div class="h-20"></div>
-<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-16 lg:mr-16 lg:mx-0 lg:w-full">
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-16 lg:mr-16 lg:mx-0 lg:w-full dark:bg-gray-900 transition-colors duration-200">
 
     <div class="flex justify-center mb-8">
-        <div class="inline-flex p-1 bg-gray-100 rounded-lg shadow-inner">
+        <div class="inline-flex p-1 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-inner transition-colors duration-200">
             <button onclick="switchTab('daily')" id="tab-daily"
-                class="tab-btn px-6 py-2 rounded-md transition-all duration-200 font-medium text-gray-600 hover:bg-white hover:shadow-sm active-tab">Daily</button>
+                class="tab-btn px-6 py-2 rounded-md transition-all duration-200 font-medium text-gray-600 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm active-tab">Daily</button>
             <button onclick="switchTab('weekly')" id="tab-weekly"
-                class="tab-btn px-6 py-2 rounded-md transition-all duration-200 font-medium text-gray-600 hover:bg-white hover:shadow-sm">Weekly</button>
+                class="tab-btn px-6 py-2 rounded-md transition-all duration-200 font-medium text-gray-600 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm">Weekly</button>
             <button onclick="switchTab('alltime')" id="tab-alltime"
-                class="tab-btn px-6 py-2 rounded-md transition-all duration-200 font-medium text-gray-600 hover:bg-white hover:shadow-sm">All
+                class="tab-btn px-6 py-2 rounded-md transition-all duration-200 font-medium text-gray-600 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm">All
                 Time</button>
         </div>
     </div>
     {% comment %} !DAILY {% endcomment %}
     <div id="daily-ranking" class="ranking-section">
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-            <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center order-first xl:order-none">
-                <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
+            <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center order-first xl:order-none transition-colors border border-gray-200 dark:border-gray-700">
+                <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center border-t-4 border-blue-500 border border-gray-200 dark:border-gray-700 transition-colors">
                     <h2 class="text-xl font-semibold mb-4">Daily Podium</h2>
                     <div class="flex items-end justify-center gap-4">
                         {% comment %} ?Podium {% endcomment %}
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="xl:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <div class="xl:col-span-2 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 transition-colors border border-gray-200 dark:border-gray-700">
                 <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
                 <div class="overflow-x-auto">
                     {% comment %} *table with records {% endcomment %}
@@ -97,8 +97,8 @@
     {% comment %} !Weekly {% endcomment %}
     <div id="weekly-ranking" class="ranking-section hidden">
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-            <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center order-first xl:order-none">
-                <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
+            <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center order-first xl:order-none transition-colors border border-gray-200 dark:border-gray-700">
+                <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center border-t-4 border-blue-500 border border-gray-200 dark:border-gray-700 transition-colors">
                     <h2 class="text-xl font-semibold mb-4">Weekly Podium</h2>
                     <div class="flex items-end justify-center gap-4">
                         <div class="w-20 md:w-24">
@@ -126,12 +126,12 @@
                 </div>
             </div>
 
-            <div class="xl:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <div class="xl:col-span-2 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 transition-colors border border-gray-200 dark:border-gray-700">
                 <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left">
+                    <table class="w-full text-left dark:text-gray-200">
                         <thead>
-                            <tr class="text-sm text-gray-500">
+                            <tr class="text-sm text-gray-500 dark:text-gray-400">
                                 <th class="py-2">#</th>
                                 <th class="py-2">User</th>
                                 <th class="py-2">Username</th>
@@ -140,7 +140,7 @@
                         </thead>
                         <tbody>
                             {% for competitor in weekly.top10 %}
-                                <tr class="border-t">
+                                <tr class="border-t dark:border-gray-700">
                                     <td class="py-3">{{forloop.counter}}</td>
                                     <td class="py-3 flex items-center gap-3">
                                         <img class="w-10 h-10 rounded-full object-cover"
@@ -162,8 +162,8 @@
 {% comment %} !All time {% endcomment %}
     <div id="alltime-ranking" class="ranking-section hidden">
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-            <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center order-first xl:order-none">
-                <div class="xl:col-span-1 bg-white p-6 rounded-xl shadow-lg text-center border-t-4 border-blue-500">
+            <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center order-first xl:order-none transition-colors border border-gray-200 dark:border-gray-700">
+                <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center border-t-4 border-blue-500 border border-gray-200 dark:border-gray-700 transition-colors">
                     <h2 class="text-xl font-semibold mb-4">All Time Podium</h2>
                     <div class="flex items-end justify-center gap-4">
                         <div class="w-20 md:w-24">
@@ -191,12 +191,12 @@
                 </div>
             </div>
 
-            <div class="xl:col-span-2 bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+            <div class="xl:col-span-2 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 transition-colors border border-gray-200 dark:border-gray-700">
                 <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left">
+                    <table class="w-full text-left dark:text-gray-200">
                         <thead>
-                            <tr class="text-sm text-gray-500">
+                            <tr class="text-sm text-gray-500 dark:text-gray-400">
                                 <th class="py-2">#</th>
                                 <th class="py-2">User</th>
                                 <th class="py-2">Username</th>
@@ -205,7 +205,7 @@
                         </thead>
                         <tbody>
                             {% for competitor in alltime.top10 %}
-                                <tr class="border-t">
+                                <tr class="border-t dark:border-gray-700">
                                     <td class="py-3">{{forloop.counter}}</td>
                                     <td class="py-3 flex items-center gap-3">
                                         <img class="w-10 h-10 rounded-full object-cover"

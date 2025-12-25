@@ -17,6 +17,28 @@
         localStorage.setItem('theme', theme);
     </script>
     <link rel="stylesheet" href="{% static 'login_styles.css' %}">
+    <style>
+        .dark-toggle-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 50;
+            background: #2d3748;
+            color: #fff;
+            border: none;
+            border-radius: 9999px;
+            padding: 0.5rem 1.25rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .dark .dark-toggle-btn {
+            background: #f3f4f6;
+            color: #2d3748;
+        }
+    </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -31,6 +53,31 @@
 </head>
 
 <body class="dark:bg-gray-900 transition-colors duration-200">
+    <button class="dark-toggle-btn" id="darkModeToggle" type="button">🌙 Dark Mode</button>
+    <script>
+        document.getElementById('darkModeToggle').onclick = function () {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                this.textContent = '🌙 Dark Mode';
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                this.textContent = '☀️ Light Mode';
+            }
+        };
+        // Set initial button text
+        window.addEventListener('DOMContentLoaded', function () {
+            const html = document.documentElement;
+            const btn = document.getElementById('darkModeToggle');
+            if (html.classList.contains('dark')) {
+                btn.textContent = '☀️ Light Mode';
+            } else {
+                btn.textContent = '🌙 Dark Mode';
+            }
+        });
+    </script>
 
     <!-- {% if messages %} -->
     <div class="fixed top-4 right-4 z-50 space-y-2">
@@ -39,9 +86,11 @@
             <span class="block sm:inline mr-6">{{ message }}</span>
 
             <button onclick="this.parentElement.remove();" class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20">
                     <title>Close</title>
-                    <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    <path
+                        d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
                 </svg>
             </button>
         </div>
@@ -62,13 +111,13 @@
 
             <div
                 class="relative w-full max-w-sm h-full max-h-96 rounded-3xl overflow-hidden p-6 decorative-shape flex items-center justify-center transition duration-500">
-                <img id="visual-image" src="{% static 'images/logo_eex.png' %}"
-                    alt="EEX"
+                <img id="visual-image" src="{% static 'images/logo_eex.png' %}" alt="EEX"
                     class="w-full h-full object-contain rounded-2xl shadow-xl transition-opacity duration-500">
             </div>
         </div>
 
-        <div class="w-full lg:w-1/2 bg-white dark:bg-gray-800 p-6 md:p-12 flex flex-col justify-center transition-colors duration-200">
+        <div
+            class="w-full lg:w-1/2 bg-white dark:bg-gray-800 p-6 md:p-12 flex flex-col justify-center transition-colors duration-200">
             <div class="mb-8">
                 <h1 id="form-title" class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">
                     LOGIN
@@ -93,28 +142,32 @@
             <form id="login-form" class="space-y-4" method="POST">
                 {% csrf_token %}
                 <div>
-                    <div class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
-                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
+                    <div
+                        class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
+                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                             <circle cx="12" cy="7" r="4" />
                         </svg>
                         <input name="email" type="email" placeholder="Email or Username"
-                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" required>
+                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                            required>
                     </div>
                 </div>
 
                 <div>
-                    <div class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
-                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
+                    <div
+                        class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
+                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                         </svg>
                         <input name="password" type="password" id="input-password-login" placeholder="Password"
-                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" required>
+                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                            required>
 
                         <button type="button" onclick="showPassword('input-password-login');"
                             style="position: absolute; left: 92%; border: none; border-radius: 5%; background-color: transparent;">
@@ -134,43 +187,49 @@
             <form id="register-form" class="space-y-4 hidden" method="POST">
                 {% csrf_token %}
                 <div>
-                    <div class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
-                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
+                    <div
+                        class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
+                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                             <circle cx="9" cy="7" r="4" />
                             <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                         </svg>
                         <input name="fullname" type="text" placeholder="Full Name"
-                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" required>
+                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                            required>
                     </div>
                 </div>
 
                 <div>
-                    <div class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
-                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
+                    <div
+                        class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
+                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
                             <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7" />
                         </svg>
                         <input name="email" type="email" placeholder="Email Address"
-                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" required>
+                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                            required>
                     </div>
                 </div>
 
                 <div>
-                    <div class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
-                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
+                    <div
+                        class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
+                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                         </svg>
-                        <input name="password" type="password" placeholder="Password (min 8 characters)"
-                            id="input-password-register" class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                        <input name="password" type="password" placeholder="Password (min 10 characters)"
+                            id="input-password-register"
+                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                             required>
 
                         <button type="button" onclick="showPassword('input-password-register');"
@@ -182,15 +241,17 @@
                 </div>
 
                 <div>
-                    <div class="relative flex items-center bg-gray-50 p-3 rounded-xl border border-gray-200">
-                        <svg class="w-5 h-5 text-gray-400 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
+                    <div
+                        class="relative flex items-center bg-gray-50 dark:bg-gray-700 p-3 rounded-xl border border-gray-200 dark:border-gray-600">
+                        <svg class="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                         </svg>
-                        <input name="repeat_password" type="password" placeholder="Confirm Password"
-                            id="input-password-repeat" class="bg-transparent focus:outline-none w-full text-gray-700"
+                        <input name="repeat_password" type="password" placeholder="Confirm password"
+                            id="input-password-repeat"
+                            class="bg-transparent focus:outline-none w-full text-gray-700 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                             required>
 
                         <button type="button" onclick="showPassword('input-password-repeat');"

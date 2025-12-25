@@ -1,3 +1,57 @@
+/* Form input and select styling for light/dark mode */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+textarea,
+select {
+    background-color: #fff;
+    color: #1a202c;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.dark input[type="text"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark input[type="url"],
+.dark textarea,
+.dark select {
+    background-color: #23272f;
+    color: #f3f4f6;
+    border: 1px solid #374151;
+}
+
+select option {
+    background: #fff;
+    color: #1a202c;
+}
+.dark select option {
+    background: #23272f;
+    color: #f3f4f6;
+}
+
+/* TinyMCE content dark mode support */
+.dark .tox-tinymce,
+.dark .tox-tinymce-aux,
+.dark .tox-edit-area__iframe {
+    background: #23272f !important;
+    color: #f3f4f6 !important;
+}
+.dark .tox .tox-edit-area__iframe body {
+    background: #23272f !important;
+    color: #f3f4f6 !important;
+}
+.dark .tox .tox-toolbar,
+.dark .tox .tox-toolbar__primary {
+    background: #23272f !important;
+    color: #f3f4f6 !important;
+}
+.dark .tox .tox-toolbar__button {
+    color: #f3f4f6 !important;
+}
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
