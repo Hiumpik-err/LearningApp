@@ -1,0 +1,28 @@
+/* Custom styles for the purple gradient and subtle depth */
+.primary-purple-bg {
+    background-color: #6a5acd;
+    /* Base color inspired by the image */
+    background-image: linear-gradient(135deg, #7b68ee 0%, #6a5acd 100%);
+}
+
+.main-card {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.decorative-shape {
+    /* Mimic the blurred glass/acrylic look in the image */
+    backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Custom scrollbar to avoid fixed width issues */
+
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e5e7eb;
+    /* Light background for contrast */
+}

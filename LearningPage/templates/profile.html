@@ -1,20 +1,87 @@
 {% extends "home.html" %}
 
-{% block main-content %}
-<div class="content card col-lg-11">
-    <div class="profile-card">
-        <div class="card-header">
-            <h3 class="profile">Currently logged in as: <span class="lead fs-3">{{profile_data.email}}</span> </h3>
+{% block title %}
+
+<title>Profile - EEX</title>
+{% endblock title %}
+
+{% block main %}
+<div class="h-20"></div>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-16 lg:mr-16 lg:mx-0 lg:w-full dark:bg-gray-900 transition-colors duration-200">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <div class="lg:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center transition-colors duration-200">
+            <div class="relative mb-6">
+
+                <div class="avatar-ring mx-auto w-32 h-32 relative">
+                    <img class="w-full h-full object-cover rounded-full"
+                        src="{{profile_data.profile_image}}" alt="Profile picture">
+                    <!--Change to user picture-->
+                </div>
+                <div class="text-xl font-semibold text-gray-800 dark:text-white mt-2">{{profile_data.username}}</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">Student/Teacher</div>
+
+                <div class="flex flex-col items-center justify-center gap-5 mt-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="flex flex-wrap gap-3 justify-center">
+                            <button name="admin_request"
+                                class="bg-blue-500 hover:bg-blue-400 text-white text-sm font-medium py-2 px-3 rounded-full shadow-md transition duration-150">
+                                Be admin
+                            </button>
+                            <button name="delete_account"
+                                class="bg-red-700 hover:bg-red-600 text-white text-sm font-medium py-2 px-3 rounded-full shadow-md transition duration-150">
+                                Delete user
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
         </div>
-        <div class="card-body">
-            <p>Username: {{profile_data.email}}</p>
-        </div>
-        <div class="card-footer position-relative">
-            <form method="post">
-                {% csrf_token %}
-                <button class="btn btn-outline-primary read-more position-absolute top-50 end-0 mx-3 mt-3" type="submit" name="logout">Log out</button>
-            </form>
+
+        <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 transition-colors duration-200">
+            <div class="flex justify-between items-center mb-6 border-b dark:border-gray-700 pb-4">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">My account</h2>
+                <a href="{% url 'profile_update' %}">
+                    <button
+                        class="bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-4 rounded-full shadow-lg text-sm transition duration-300">
+                        Edit profile
+                    </button>
+                </a>
+            </div>
+
+            <h3 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-4 tracking-widest">User Information</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div>
+                    <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First name</label>
+                    <input type="text" id="first_name" value="{{profile_data.first_name}}" readonly
+                        class="mt-1 block w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
+                </div>
+
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+                    <input type="text" id="username" value="{{profile_data.username}}" readonly
+                        class="mt-1 block w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
+                </div>
+
+                <div>
+                    <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last name</label>
+                    <input type="text" id="last_name" value="{{profile_data.last_name}}" readonly
+                        class="mt-1 block w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email address</label>
+                    <input type="email" id="email" value="{{profile_data.email}}" readonly
+                        class="mt-1 block w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
+                </div>
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+</main>
+
+
+{% endblock main %}

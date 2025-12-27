@@ -1,13 +1,13 @@
 {% extends "home.html" %}
 
 {% block title %}
-    <title>Create item - EEX</title>
+    <title>Edit item - EEX</title>
 {% endblock title %}
 
     {% block main %}
+        {{ form.media }}
     <!-- Main Content -->
     <main class="max-w-full md:max-w-4xl lg:max-w-5xl mx-auto px-6 py-12 dark:bg-gray-900 transition-colors duration-200">
-        {{ form.media }}
         
         <!-- Back Button -->
         <div class="mb-6">
@@ -20,11 +20,12 @@
         </div>
         
         <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl dark:shadow-lg dark:shadow-gray-900/50 transition-colors duration-200">
-            <h1 class="text-3xl font-bold mb-8 dark:text-white">Create New Item</h1>
+            <h1 class="text-3xl font-bold mb-8 dark:text-white">Edit</h1>
             
-            {% if type == 'article' %}
+            {% if type == 'articles' %}
             <form method="POST" class="space-y-6">
                 {% csrf_token %}
+                
                 <div>
                     <label for="{{ form.category.id_for_label }}" class="block text-lg font-semibold mb-2 dark:text-white">{{ form.category.label }}</label>
                     {% if form.category.errors %}
@@ -48,14 +49,6 @@
                     {% endif %}
                     {{ form.lead }}
                 </div>
-                
-                <div>
-                    <label for="{{ form.difficulty_level.id_for_label }}" class="block text-lg font-semibold mb-2 dark:text-white">{{ form.difficulty_level.label }}</label>
-                    {% if form.lead.errors %}
-                        <div class="text-red-600 dark:text-red-400 mb-2">{{ form.difficulty_level.errors }}</div>
-                    {% endif %}
-                    {{ form.difficulty_level }}
-                </div>
 
                 <div>
                     <label for="{{ form.content.id_for_label }}" class="block text-lg font-semibold mb-2 dark:text-white">{{ form.content.label }}</label>
@@ -66,10 +59,10 @@
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
+                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Update Item</button>
                 </div>
             </form>
-            {% elif type == 'course' %}
+            {% elif type == 'courses' %}
             <form method="POST" class="space-y-6">
                 {% csrf_token %}
                 
@@ -90,14 +83,6 @@
                 </div>
 
                 <div>
-                    <label for="{{ form.difficulty_level.id_for_label }}" class="block text-lg font-semibold mb-2 dark:text-white">{{ form.difficulty_level.label }}</label>
-                    {% if form.lead.errors %}
-                        <div class="text-red-600 dark:text-red-400 mb-2">{{ form.difficulty_level.errors }}</div>
-                    {% endif %}
-                    {{ form.difficulty_level }}
-                </div>
-
-                <div>
                     <label for="{{ form.question.id_for_label }}" class="block text-lg font-semibold mb-2 dark:text-white">{{ form.question.label }}</label>
                     {% if form.question.errors %}
                         <div class="text-red-600 dark:text-red-400 mb-2">{{ form.question.errors }}</div>
@@ -113,9 +98,8 @@
                     {{ form.answers }}
                 </div>
 
-
                 <div class="pt-4">
-                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
+                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Update Item</button>
                 </div>
             </form>
             {% else %} 
@@ -138,13 +122,6 @@
                     {% endif %}
                     {{ form.title }}
                 </div>
-                <div>
-                    <label for="{{ form.difficulty_level.id_for_label }}" class="block text-lg font-semibold mb-2 dark:text-white">{{ form.difficulty_level.label }}</label>
-                    {% if form.lead.errors %}
-                        <div class="text-red-600 dark:text-red-400 mb-2">{{ form.difficulty_level.errors }}</div>
-                    {% endif %}
-                    {{ form.difficulty_level }}
-                </div>
 
                 <div>
                     <label for="{{ form.description.id_for_label }}" class="block text-lg font-semibold mb-2 dark:text-white">{{ form.description.label }}</label>
@@ -163,7 +140,7 @@
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Create Item</button>
+                    <button type="submit" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Update Item</button>
                 </div>
             </form>
 

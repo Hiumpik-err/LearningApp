@@ -1,0 +1,84 @@
+{% extends "home.html" %}
+
+{% block title %}
+
+<title>Edit profile - EEX</title>
+{% endblock title %}
+
+{% block main %}
+<div class="h-20"></div>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-16 lg:mr-16 lg:mx-0 lg:w-full dark:bg-gray-900 transition-colors duration-200">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center transition-colors duration-200">
+                <div class="relative mb-6">
+
+                    <div class="avatar-ring mx-auto w-32 h-32 relative">
+                        <img class="w-full h-full object-cover rounded-full" id="profile_picture"
+                            src="https://freesvg.org/img/abstract-user-flat-4.png" alt="Profile picture">
+                        <!--Change to user picture-->
+                    </div>
+                    <div class="text-xl font-semibold text-gray-800 dark:text-white mt-2">{{profile_data.username}}</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Student/Teacher</div>
+
+                    <div class="flex flex-col items-center justify-center gap-5 mt-4">
+                            <div class="flex flex-wrap gap-3 justify-center">
+                                <input type="file" accept="image/*" name="profile_image" onchange="previewImage()"
+                                    id="profile_picture_input"
+                                    class="bg-fuchsia-700 hover:bg-fuchsia-600 text-white text-sm font-medium py-2 px-3 rounded-full shadow-md transition duration-150">
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 transition-colors duration-200">
+                
+                    {% comment %} TU byl formularz {% endcomment %}
+                    <div class="flex justify-between items-center mb-6 border-b dark:border-gray-700 pb-4">
+                        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">My account</h2>
+                        <button name="save_changes"
+                            class="bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-4 rounded-full shadow-lg text-sm transition duration-300">
+                            Save changes
+                        </button>
+                    </div>
+
+                    <h3 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-4 tracking-widest">User Information</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                        <div>
+                            <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First name</label>
+                            <input type="text" id="first_name" value="{{profile_data.first_name}}" name="fname"
+                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
+                        </div>
+
+                        <div>
+                            <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+                            <input type="text" id="username" value="{{profile_data.username}}" name="username"
+                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
+                        </div>
+
+                        <div>
+                            <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last name</label>
+                            <input type="text" id="last_name" value="{{profile_data.last_name}}" name="lname"
+                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email address</label>
+                            <input type="email" id="email" value="{{profile_data.email}}" name="email"
+                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg p-2 sm:p-3 bg-gray-50 text-gray-600 focus:ring-primary-blue focus:border-primary-blue">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+</main>
+<script>
+    function previewImage() {
+        document.getElementById("profile_picture").src = URL.createObjectURL(document.getElementById("profile_picture_input").files[0]);
+    }
+</script>
+
+{% endblock main %}

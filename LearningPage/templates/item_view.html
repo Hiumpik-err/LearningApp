@@ -1,67 +1,119 @@
 {% extends "home.html" %}
-{% block main-content %}
-        <div class="content col-lg-11">
-            <form method="POST">
-                {% csrf_token %}
-                {% if type == 'article' %}
-                    <div class="item-card card">
-                        <div class="card-header">
-                            <h3 class="card-title d-flex justify-content-around">
-                                <div></div>
-                                {{article.title}}
-                                <button class="btn btn-outline-primary" ><a class="text-decoration-none lead text-light" href="{% url "update" 'article' article.ArticleId %}">Edit</a></button>
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <p class="lead">{{article.lead}}</p>   
-                            <p class="content">{{article.content|safe}}</p>
-                        </div>
-                        <div class="card-footer position-relative">
-                            <button class="btn btn-outline-primary btn-footer close-btn" ><a class="text-decoration-none lead text-light" href="{% url 'home' %}">Close</a></button>
-                        </div>
-                    </div>
-                
-                {% elif type == 'course' %}
-                    <div class="item-card card">
-                        <div class="card-header">
-                            <h3 class="card-title d-flex justify-content-around">
-                                <div></div>
-                                {{course.title}}
-                                <button class="btn btn-outline-primary" ><a class="text-decoration-none lead text-light" href="{% url "update" 'course' course.CourseId %}">Edit</a></button>
-                            </h3>
-                        </div>
+{% block title %}
+    <title>{% if article %}{{ article.title }}{% elif course %}{{ course.title }}{% elif quizz %}{{ quizz.title }}{% endif %} - EEX</title>
+{% endblock title %}
 
-                        <div class="card-body">
-                            <p class="lead">{{course.question}}</p>
-                            <div class="input-group mb-3">
-                                <label for="task1ans" class="input-group-text">Your answer</label>
-                                <input type="text" id="task1ans" name="answer">
-                            </div> 
-                        </div>
-                        <div class="card-footer position-relative">
-                            <button class="btn btn-outline-primary btn-footer" id="read-more"> Send
-                                <!-- <a class="text-decoration-none lead text-light" href="{% url 'item_view' 'course' course.CourseId %}">Send</a> -->
-                            
-                            </button>
-                        </div>
-                    </div>
-
-                {% endif %}
-            </form>
+{% block main %}
+    <!-- Main Content -->
+    <main class="max-w-full md:max-w-4xl lg:max-w-5xl mx-auto px-6 py-12 dark:bg-gray-900 transition-colors duration-200">
+        
+        
+        <div class="mb-6 flex flex-row items-center justify-between gap-3">
+            <a href="{% url 'content_view_element' type %}" class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white rounded-lg transition-colors w-full sm:w-auto justify-center sm:justify-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Content
+            </a>
+            {% if author or request.user.is_admin %}
+                <a href="
+                    {% if article %}
+                        {% url 'update' type article.ArticleId %}
+                    {% elif course %}
+                        {% url 'update' type course.CourseId %}
+                    {% else %}
+                        {% url 'update' type quizz.QuizzId %}
+                    {% endif %}
+                " class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white rounded-lg transition-colors w-full sm:w-auto justify-center sm:justify-end">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                    </svg>
+                    Edit
+                </a>
+            {% endif %}
         </div>
 
-        {% if result %}
-            <div class="output">
-                <div class="output-result">
-                    <h1>{{answer}}</h1>
+        <!-- Article View -->
+        {% if article %}
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl dark:shadow-lg dark:shadow-gray-900/50 transition-colors duration-200">
+            <div class="mb-6">
+                <h1 class="text-4xl font-bold mb-3 dark:text-white">{{ article.title }}</h1>
+                <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full">{{ article.category }}</span>
+                    <span>📅 {{ article.upload_data }}</span>
                 </div>
             </div>
-
-            <script>
-                setTimeout(function(){
-                    window.location.href = '{% url "home" %}'
-                }, 3000)
-            </script>
+            
+            <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <p class="text-lg text-gray-700 dark:text-gray-300">{{ article.lead }}</p>
+            </div>
+            
+            <div class="prose prose-lg max-w-none article-content dark:prose-invert">
+                {{ article.content | safe }}
+            </div>
+        </div>
         {% endif %}
-        
-{% endblock %}
+
+        <!-- Course/Task View -->
+        {% if course %}
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl dark:shadow-lg dark:shadow-gray-900/50 transition-colors duration-200">
+            <div class="mb-6">
+                <h1 class="text-4xl font-bold mb-3 dark:text-white">{{ course.title }}</h1>
+                <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                    <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full">{{ course.category }}</span>
+                    <span>📅 {{ course.upload_data }}</span>
+                </div>
+            </div>
+            
+            <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <h2 class="text-2xl font-semibold mb-3 dark:text-white">Question</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300">{{ course.question }}</p>
+            </div>
+            
+            {% if result %}
+            <div class="mb-6 p-4 bg-gray-100 rounded-lg">
+                <p class="text-xl font-semibold">Result: {{ answer }}</p>
+            </div>
+            {% else %}
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label for="answer" class="block text-lg font-semibold mb-2">Your Answer</label>
+                    <input type="text" id="answer" name="answer" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600" required>
+                </div>
+                {% if not guest %}
+                    <button type="submit" name="task_answer" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Submit Answer</button>
+                {% endif %}
+            </form>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Quiz View -->
+        {% if quizz %}
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl dark:shadow-lg dark:shadow-gray-900/50 transition-colors duration-200 border border-gray-200 dark:border-gray-700">
+            <div class="mb-6">
+                <h1 class="text-4xl font-bold mb-3 dark:text-white">{{ quizz.title }}</h1>
+                <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
+                    <span class="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 px-3 py-1 rounded-full">{{ quizz.category }}</span>
+                    <span class="dark:text-gray-400">📅 {{ quizz.upload_data }}</span>
+                </div>
+            </div>
+            <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <p class="text-lg text-gray-700 dark:text-gray-300">{{ quizz.description }}</p>
+            </div>
+            {% if not guest %}
+                <div class="mt-8">
+                    <a href="{{ quizz.link }}" target="_blank" class="inline-block px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-800 transition-colors">
+                        Take the Quiz
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+    </main>
+{% endblock main %}
+

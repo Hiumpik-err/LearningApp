@@ -13,7 +13,7 @@ class UzytkownikAdmin(UserAdmin):
     list_display = ('email', 'is_admin', 'is_active')
     list_filter = ('is_admin', 'is_active', 'groups', 'user_permissions') 
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('email', 'password', 'first_name', 'last_name', 'username', "collected_points", "daily_points", "weekly_points", "profile_image")}),
         ('Permissions', {'fields': ('is_admin', 'is_active', 'is_superuser', 'groups', 'user_permissions')}), 
         ('Important dates', {'fields': ('last_login',)}),
     )
@@ -21,7 +21,7 @@ class UzytkownikAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password', 'password2'), 
+            'fields': ('email', 'password', 'password2', "collected_points"), 
         }),
     )
     

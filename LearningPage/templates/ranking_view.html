@@ -1,0 +1,245 @@
+{% extends "home.html" %}
+
+{% block title %}
+<title>Ranking - EEX</title>
+{% endblock title %}
+
+{% block main %}
+<style>
+    .active-tab {
+        background-color: white !important;
+        color: #2563eb !important;
+        /* blue-600 */
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+</style>
+<div class="h-20"></div>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:ml-16 lg:mr-16 lg:mx-0 lg:w-full dark:bg-gray-900 transition-colors duration-200">
+
+    <div class="flex justify-center mb-8">
+        <div class="inline-flex p-1 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-inner transition-colors duration-200">
+            <button onclick="switchTab('daily')" id="tab-daily"
+                class="tab-btn px-6 py-2 rounded-md transition-all duration-200 font-medium text-gray-600 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm active-tab">Daily</button>
+            <button onclick="switchTab('weekly')" id="tab-weekly"
+                class="tab-btn px-6 py-2 rounded-md transition-all duration-200 font-medium text-gray-600 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm">Weekly</button>
+            <button onclick="switchTab('alltime')" id="tab-alltime"
+                class="tab-btn px-6 py-2 rounded-md transition-all duration-200 font-medium text-gray-600 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm">All
+                Time</button>
+        </div>
+    </div>
+    {% comment %} !DAILY {% endcomment %}
+    <div id="daily-ranking" class="ranking-section">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center order-first xl:order-none transition-colors border border-gray-200 dark:border-gray-700">
+                <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center border-t-4 border-blue-500 border border-gray-200 dark:border-gray-700 transition-colors">
+                    <h2 class="text-xl font-semibold mb-4">Daily Podium</h2>
+                    <div class="flex items-end justify-center gap-4">
+                        {% comment %} ?Podium {% endcomment %}
+                        <div class="w-20 md:w-24">
+                            <div class="text-sm text-gray-600">2</div>
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-stone-500"
+                                src="{{daily.top2.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{daily.top2.username}}</div>
+                            <div class="text-xs text-gray-500">{{daily.top2.daily_points}}</div>
+                        </div>
+                        <div class="w-20 md:w-28">
+                            <div class="text-sm text-gray-600">1</div>
+                            <img class="mx-auto w-16 h-16 md:w-28 md:h-28 rounded-full object-cover border-4 border-yellow-400"
+                                src="{{daily.top1.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-semibold">{{daily.top1.username}}</div>
+                            <div class="text-xs text-gray-500">{{daily.top1.daily_points}}</div>
+                        </div>
+                        <div class="w-20 md:w-24">
+                            <div class="text-sm text-gray-600">3</div>
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-orange-800"
+                                src="{{daily.top3.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{daily.top3.username}}</div>
+                            <div class="text-xs text-gray-500">{{daily.top3.daily_points}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xl:col-span-2 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 transition-colors border border-gray-200 dark:border-gray-700">
+                <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
+                <div class="overflow-x-auto">
+                    {% comment %} *table with records {% endcomment %}
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-sm text-gray-500">
+                                <th class="py-2">#</th>
+                                <th class="py-2">User</th>
+                                <th class="py-2">Username</th>
+                                <th class="py-2">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for competitor in daily.top10 %}
+                                    <tr class="border-t">
+                                        <td class="py-3">{{forloop.counter}}</td>
+                                        <td class="py-3 flex items-center gap-3">
+                                            <img class="w-10 h-10 rounded-full object-cover"
+                                                src="{{competitor.profile_image}}" alt="user_image">
+                                            <div>
+                                                <div class="font-medium">{{competitor.first_name}}</div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 text-sm text-gray-600">{{competitor.username}}</td>
+                                        <td class="py-3 font-semibold">{{competitor.collected_points}}</td>
+                                    </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} !Weekly {% endcomment %}
+    <div id="weekly-ranking" class="ranking-section hidden">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center order-first xl:order-none transition-colors border border-gray-200 dark:border-gray-700">
+                <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center border-t-4 border-blue-500 border border-gray-200 dark:border-gray-700 transition-colors">
+                    <h2 class="text-xl font-semibold mb-4">Weekly Podium</h2>
+                    <div class="flex items-end justify-center gap-4">
+                        <div class="w-20 md:w-24">
+                            <div class="text-sm text-gray-600">2</div>
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-stone-500"
+                                src="{{weekly.top2.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{weekly.top2.username}}</div>
+                            <div class="text-xs text-gray-500">{{weekly.top2.weekly_points}}</div>
+                        </div>
+                        <div class="w-20 md:w-28">
+                            <div class="text-sm text-gray-600">1</div>
+                            <img class="mx-auto w-16 h-16 md:w-28 md:h-28 rounded-full object-cover border-4 border-yellow-400"
+                                src="{{weekly.top1.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-semibold">{{weekly.top1.username}}</div>
+                            <div class="text-xs text-gray-500">{{weekly.top1.weekly_points}}</div>
+                        </div>
+                        <div class="w-20 md:w-24">
+                            <div class="text-sm text-gray-600">3</div>
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-orange-800"
+                                src="{{weekly.top3.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{weekly.top3.username}}</div>
+                            <div class="text-xs text-gray-500">{{weekly.top3.weekly_points}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xl:col-span-2 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 transition-colors border border-gray-200 dark:border-gray-700">
+                <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left dark:text-gray-200">
+                        <thead>
+                            <tr class="text-sm text-gray-500 dark:text-gray-400">
+                                <th class="py-2">#</th>
+                                <th class="py-2">User</th>
+                                <th class="py-2">Username</th>
+                                <th class="py-2">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for competitor in weekly.top10 %}
+                                <tr class="border-t dark:border-gray-700">
+                                    <td class="py-3">{{forloop.counter}}</td>
+                                    <td class="py-3 flex items-center gap-3">
+                                        <img class="w-10 h-10 rounded-full object-cover"
+                                            src="{{competitor.profile_image}}" alt="user_image">
+                                        <div>
+                                            <div class="font-medium">{{competitor.first_name}}</div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-sm text-gray-600">{{competitor.username}}</td>
+                                    <td class="py-3 font-semibold">{{competitor.collected_points}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% comment %} !All time {% endcomment %}
+    <div id="alltime-ranking" class="ranking-section hidden">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center order-first xl:order-none transition-colors border border-gray-200 dark:border-gray-700">
+                <div class="xl:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 text-center border-t-4 border-blue-500 border border-gray-200 dark:border-gray-700 transition-colors">
+                    <h2 class="text-xl font-semibold mb-4">All Time Podium</h2>
+                    <div class="flex items-end justify-center gap-4">
+                        <div class="w-20 md:w-24">
+                            <div class="text-sm text-gray-600">2</div>
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-stone-500"
+                                src="{{alltime.top2.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{alltime.top2.username}}</div>
+                            <div class="text-xs text-gray-500">{{alltime.top2.collected_points}}</div>
+                        </div>
+                        <div class="w-20 md:w-28">
+                            <div class="text-sm text-gray-600">1</div>
+                            <img class="mx-auto w-16 h-16 md:w-28 md:h-28 rounded-full object-cover border-4 border-yellow-400"
+                                src="{{alltime.top1.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-semibold">{{alltime.top1.username}}</div>
+                            <div class="text-xs text-gray-500">{{alltime.top1.collected_points}}</div>
+                        </div>
+                        <div class="w-20 md:w-24">
+                            <div class="text-sm text-gray-600">3</div>
+                            <img class="mx-auto w-14 h-14 md:w-20 md:h-20 rounded-full object-cover border-2 border-orange-800"
+                                src="{{alltime.top3.profile_image}}" alt="User">
+                            <div class="mt-2 text-sm font-medium">{{alltime.top3.username}}</div>
+                            <div class="text-xs text-gray-500">{{alltime.top3.collected_points}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xl:col-span-2 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg dark:shadow-lg dark:shadow-gray-900/50 transition-colors border border-gray-200 dark:border-gray-700">
+                <h2 class="text-xl font-semibold mb-4">Top 10 Contributors</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left dark:text-gray-200">
+                        <thead>
+                            <tr class="text-sm text-gray-500 dark:text-gray-400">
+                                <th class="py-2">#</th>
+                                <th class="py-2">User</th>
+                                <th class="py-2">Username</th>
+                                <th class="py-2">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for competitor in alltime.top10 %}
+                                <tr class="border-t dark:border-gray-700">
+                                    <td class="py-3">{{forloop.counter}}</td>
+                                    <td class="py-3 flex items-center gap-3">
+                                        <img class="w-10 h-10 rounded-full object-cover"
+                                            src="{{competitor.profile_image}}" alt="user_image">
+                                        <div>
+                                            <div class="font-medium">{{competitor.first_name}}</div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 text-sm text-gray-600">{{competitor.username}}</td>
+                                    <td class="py-3 font-semibold">{{competitor.collected_points}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    function switchTab(period) {
+        // Hide all sections
+        document.querySelectorAll('.ranking-section').forEach(section => {
+            section.classList.add('hidden');
+        });
+        // Show selected section
+        document.getElementById(period + '-ranking').classList.remove('hidden');
+
+        // Update Tab Button Styles
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active-tab');
+        });
+        document.getElementById('tab-' + period).classList.add('active-tab');
+    }
+</script>
+{% endblock main %}

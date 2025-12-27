@@ -1,30 +1,57 @@
+from password_validation.policy import PasswordPolicy
 from django.shortcuts import render, redirect
 from .models import Uzytkownik, Article, Course, Quizz
 from .forms import ArticleForm, CourseForm, QuizzForm
 from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib import messages
 from django.db.models import Q
+from django.core.mail import send_mail
+from django.http import JsonResponse
+import requests
+from django.conf import settings
+
 
 def login(request):
+    request.session.pop("guest", None)
+    #request.session["guest"] = False
     if request.method == "POST":
-        # form = UzytkownikForm(request.POST)
-        if "registering" in request.POST:
+        if "register" in request.POST:
             try:
-                password2_input = request.POST.get("input-repeat-password")
-                password_input = request.POST.get("input-password")
-                email = request.POST.get("input-username", "")
-                # print(form.is_valid())
-                if(not email or not password_input or not password2_input):
-                    messages.error(request, "Fill all fields")
-                    raise Exception("Not all requiered fields are filled")
+                fullname = request.POST.get("fullname", "")
+                email = request.POST.get("email", "")
+                password = request.POST.get("password", "")
+                repeat_password = request.POST.get("repeat_password", "")
 
-                if( password_input != password2_input): 
-                    messages.error(request, "Passwords dont match")
-                    raise Exception("Passwords dont match")
+                password_policy = PasswordPolicy(
+                        min_length=10,
+                        uppercase=2,
+                        lowercase=2,
+                        numbers=2,
+                        symbols=1,
+                        max_length=50
+                )
+
+
+                if not all([fullname, email, password, repeat_password]):
+                    raise Exception("Fill all empty spaces")
                 
-                # user = form.save()
-                # user = Uzytkownik.objects.create(email = email, password = password_input)
-                user = Uzytkownik.objects.create_user(email = email, password= password_input)
+                fullname_split = str(fullname).split()
+                #! Only for simple first and last names (simple -> 2 segmented)
+                try:
+                    if fullname_split[0] == " " or fullname_split[1] == " " or len(fullname_split) > 2:
+                        raise Exception("Puste lub zbyt dlugie nazwisko")
+                except IndexError:
+                    raise Exception("Invalid fullname field, 2 segmented requiered")
+                
+                
+                if not password_policy.validate(password):
+                    raise Exception("Invalid Password, stronger required")
+
+                if str(password).strip() != str(repeat_password).strip():
+                    raise Exception("Invalid passwords, passwords dont match")  
+                
+
+                user = Uzytkownik.objects.create_user(email = email, password=password)
                 print(user)
                 auth_login(request, user=user)
                     
@@ -32,21 +59,18 @@ def login(request):
             except Exception as e:
                 messages.info(request, f"Error: {e}")
                 print(e)
+                return redirect("login")
+                
 
-        if "logging" in request.POST:
+        if "login" in request.POST:
             try:
-                '''user = authenticate(request, email=form.data.get("email"), password=form.data.get("password"))'''
                 password_input = request.POST.get("password", "")
                 email = request.POST.get("email", "")
 
-                print(f"{password_input} {email}")
-
                 user = authenticate(request, email=email, password=password_input)
-                print(user)
-
 
                 if not user:
-                    messages.error(request, "User not found. womp womp ")
+                    #   messages.error(request, "User not found. womp womp ")
                     raise Exception("User not found")
                 
                 auth_login(request, user)
@@ -54,8 +78,12 @@ def login(request):
 
             except Exception as e:
                     messages.error(request, f"Error: {e}")
-                    print(e)
                     return redirect("login")
+            
+        if "guest" in request.POST:
+            request.session["guest"] = True
+            request.session.set_expiry(0)
+            return redirect("home")
                 
 
     return render(request, "login.html")
@@ -63,38 +91,15 @@ def login(request):
 def home(request):
     if request.method == "GET":
         request.session["title"] = ""
-        return render(request, "home.html", {"request" : request.path})
+        return render(request, "home.html")
     
-    if request.method == "POST":
-        searched_value = request.POST.get("searched_value", "")
-        articles = list(Article.objects.filter(Q(title__icontains=searched_value) | 
-                                          Q(content__icontains=searched_value)
-                                        ))
-        courses = list(Course.objects.filter(title__icontains=searched_value))
-        quizzes = list(Quizz.objects.filter(Q(title__icontains=searched_value) | 
-                                       Q(description__icontains=searched_value)))
-        
-        context = {
-            "articles": {
-                "type": "article",
-                "data": articles
-            },
-            "courses": {
-                "type": "course",
-                "data": courses
-            },
-            "quizzes" : {
-                "type": "quizz",
-                "data": quizzes
-            }
-        }
-
-        return render(request, "home.html", context)
+    return render(request, "home.html")
         
 
 def create_item(request, type):
+    #! showElement => GET
     if type == "article":
-        if request.method == "GET":
+        if request.method == "POST" and "showElement" in request.POST:
             form = ArticleForm()
             
             # Zachowaj dane formularza jeśli są w sesji
@@ -107,35 +112,53 @@ def create_item(request, type):
             }
             return render(request, "create_item.html", context)
 
-        elif request.method == "POST":
-            if "saveAll" in request.POST:
-                form = ArticleForm(request.POST)
-                
-                if form.is_valid():
-                    try:
-                        article = Article.objects.create(
-                            title=form.cleaned_data['title'],
-                            lead=form.cleaned_data['lead'],
-                            content=form.cleaned_data.get('content', ''),
-                            category=form.cleaned_data['category']
-                        )
+        if request.method == "POST":
+            form = ArticleForm(request.POST)
+            if form.is_valid():
+                try:
+                    points = 0
+                    if form.cleaned_data["difficulty_level"] == "easy":
+                        points = 10
+                    elif form.cleaned_data["difficulty_level"] == "medium":
+                        points = 15
+                    else:
+                        points = 20
+
+
+                    article = Article.objects.create(
+                        title=form.cleaned_data['title'],
+                        lead=form.cleaned_data['lead'],
+                        content=form.cleaned_data.get('content', ''),
+                        category=form.cleaned_data['category'],
+                        article_author = request.user,
+                        difficulty_level= form.cleaned_data["difficulty_level"],
+                        points= points
+                    )
+                    #* Dodawanie punktow
+                    user = request.user
+                    user.collected_points += points
+                    user.weekly_points += points
+                    user.daily_points += points   
+
+                    user.save()
+
                         # Wyczyść sesję po zapisaniu
-                        request.session.pop('form_data', None)
+                    request.session.pop('form_data', None)
                         
-                        messages.success(request, f"Article '{article.title}' created successfully!")
-                        return redirect("home")
-                    except Exception as e:
-                        messages.error(request, f"Error creating article: {e}")
-                        print(f"Error message: {e}")
-                else:
+                    messages.success(request, f"Article '{article.title}' created successfully!")
+                    return redirect("home")
+                except Exception as e:
+                    messages.error(request, f"Error creating article: {e}")
+                    print(f"Error message: {e}")
+            else:
                     # Jeśli formularz nie jest prawidłowy, zapisz dane w sesji
-                    request.session['form_data'] = request.POST.dict()
-                    messages.error(request, "Please correct the errors below.")
+                request.session['form_data'] = request.POST.dict()
+                messages.error(request, "Please correct the errors below.")
                 
-                return redirect("create_item", type=type)
+            return redirect("create_item", type=type)
             
     elif type == 'course':
-        if request.method == "GET":
+        if request.method == "POST" and "showElement" in request.POST:
             form = CourseForm()
             return render(request, "create_item.html", {"type": type, "form": form})
 
@@ -144,7 +167,27 @@ def create_item(request, type):
             
             if form.is_valid():
                 try:
-                    course = form.save()
+                    points = 0
+                    if form.cleaned_data["difficulty_level"] == "easy":
+                        points = 10
+                    elif form.cleaned_data["difficulty_level"] == "medium":
+                        points = 15
+                    else:
+                        points = 20
+
+                    course = form.save(commit=False)
+                    course.course_author = request.user
+                    course.points = points
+                    course.save()
+
+                    #* Dodawanie punktow
+                    user = request.user
+                    user.collected_points += points
+                    user.weekly_points += points
+                    user.daily_points += points   
+
+                    user.save()
+
                     messages.success(request, f"Course '{course.title}' created successfully!")
                     return redirect("home")
                 except Exception as e:
@@ -156,7 +199,7 @@ def create_item(request, type):
             return render(request, "create_item.html", {"type": type, "form": form})
 
     else:  # quiz
-        if request.method == "GET":
+        if request.method == "POST" and "showElement" in request.POST:
             form = QuizzForm()
             return render(request, "create_item.html", {"type": type, "form": form})
 
@@ -165,7 +208,27 @@ def create_item(request, type):
             
             if form.is_valid():
                 try:
-                    quizz = form.save()
+                    points = 0
+                    if form.cleaned_data["difficulty_level"] == "easy":
+                        points = 10
+                    elif form.cleaned_data["difficulty_level"] == "medium":
+                        points = 15
+                    else:
+                        points = 20
+
+                    quizz = form.save(commit=False)
+                    quizz.quizz_author = request.user
+                    quizz.points = points
+                    quizz.save()
+
+                    #* Dodawanie punktow
+                    user = request.user
+                    user.collected_points += points
+                    user.weekly_points += points
+                    user.daily_points += points   
+
+                    user.save()
+
                     messages.success(request, f"Quiz '{quizz.title}' created successfully!")
                     return redirect("home")
                 except Exception as e:
@@ -177,18 +240,46 @@ def create_item(request, type):
             return render(request, "create_item.html", {"type": type, "form": form})
 
 
-            
-def available_articles(request, category):
-    articles = Article.objects.filter(category=category)
-    return render(request, "articles.html", {"articles": articles})
 
-def available_courses(request, category):
-    courses = Course.objects.filter(category=category)
-    return render(request, "courses.html", {"courses" : courses})
+def content_view(request, type):
 
-def available_quizzes(request, category):
-    quizz = Quizz.objects.filter(category=category)
-    return render(request, "quizzes.html", {"quizzes" : quizz})
+    article_categories = Article.objects.values_list('category', flat=True).distinct()
+    course_categories = Course.objects.values_list('category', flat=True).distinct()
+    quizz_categories = Quizz.objects.values_list('category', flat=True).distinct()
+    
+    categories = sorted(set(list(article_categories) + list(course_categories) + list(quizz_categories)))
+
+    context = {"categories": categories}
+    
+    if request.method == "GET":
+        if type == 'articles':
+            articles = Article.objects.all().order_by('-upload_data')
+            context["articles"] = articles
+        elif type == 'courses':
+            courses = Course.objects.all().order_by('-upload_data')
+            context["courses"] = courses
+        elif type == 'quizzes':
+            quizzes = Quizz.objects.all().order_by('-upload_data')
+            context["quizzes"] = quizzes
+
+    elif request.method == "POST":
+        category = request.POST.get("category", "")
+
+        if type == 'articles':
+            articles = Article.objects.all().order_by('-upload_data')
+            articles = articles.filter(category__iexact=category) if category != "" else articles
+            context["articles"] = articles
+        elif type == 'courses':
+            courses = Course.objects.all().order_by('-upload_data')
+            courses = courses.filter(category__iexact=category) if category != "" else courses
+            context["courses"] = courses
+        elif type == 'quizzes':
+            quizzes = Quizz.objects.all().order_by('-upload_data')
+            quizzes = quizzes.filter(category__iexact=category) if category != "" else quizzes
+            context["quizzes"] = quizzes
+      
+    
+    return render(request, 'content_view.html', context)
 
 
 def profile(request):
@@ -196,53 +287,136 @@ def profile(request):
         try:
             if request.user.is_authenticated:
                 profile_data = request.user
-                print(profile_data)
                 return render(request, "profile.html", {"profile_data" : profile_data})
             else: 
                 raise Exception("User not authenticated")
         except Exception as e:
             print(e)
             return redirect('profile')
-    if request.method == "POST":
+        
+    if request.method == "POST" and "logout" in request.POST:
         logout(request)
         return redirect("/")
     
+    elif request.method == "POST" and "admin_request" in request.POST:
+        
+        try:
+            send_mail(
+                "Test",
+                "Sprawdzam czy aplikacja dziala, jesli nie wie Pan/Pani o co chodzi to przepraszam, musialem pomylic e-mail'e",
+                "myprogroad@gmail.com",
+                ["kamil.jendrusz@gmail.com"],
+                fail_silently=False
+            )
+            print("Mail powinien zostac wyslany")
+            return redirect("profile")
+        except Exception as e:
+            print(e)
+            return redirect("profile")
+
+    elif request.method == "POST" and "delete_account" in request.POST:
+        try:
+            user = request.user
+            logout(request)
+            user.delete()
+            return redirect("/")
+            
+        except Exception as e:
+            print(e)
+            return redirect("login")
+    
 def item_view(request, type, id):
     answer = request.session.get("result", "")
+    guest = request.session.get("guest", False)
+    user = request.user
+
     if request.method == "GET":
-        if type == "article":
+        if type == "articles":
             article = Article.objects.get(ArticleId=id)
-            return render(request, "item_view.html", {"article": article, "type":type, "result": False, "answer":answer})
-        elif type == "course":
+            author = article.article_author == request.user
+            return render(request, "item_view.html", 
+                          {"article": article, 
+                           "type":type, "result": False,
+                            "answer":answer, 
+                            "author":author,
+                            "guest": guest
+                            })
+        
+        elif type == "courses":
             course = Course.objects.get(CourseId=id)
-            return render(request, "item_view.html", {"course": course, "type": type, "result": False, "answer":answer})
-        elif type == "quizz":
+            author = course.course_author == request.user
+            return render(request, "item_view.html", 
+                          {"course": course, 
+                           "type": type, 
+                           "result": False, 
+                           "answer":answer,
+                           "author": author,
+                           "guest": guest
+                           })
+        
+        elif type == "quizzes":
             quizz = Quizz.objects.get(QuizzId = id)
-            return render(request, "item_view.html", {"course": quizz, "type": type, "result": False, "answer":answer})
+
+            #* Za wyonienie quizzu -> nie chce mi sie juz dorobiac przycisku ze zrobione
+            user.collected_points += quizz.points
+            user.weekly_points += quizz.points
+            user.daily_points += quizz.points  
+            user.save()
+
+
+            author = quizz.quizz_author == request.user
+            return render(request, "item_view.html", 
+                          {"quizz": quizz, 
+                           "type": type, 
+                           "result": False, 
+                           "answer":answer,
+                           "author": author,
+                           "guest": guest
+                           })
+        
         elif type == "result":
             course = Course.objects.get(CourseId=id)
-            return render(request, "item_view.html", {"course": course, "type": type, "result": True, "answer":answer})
-
+            return render(request, "item_view.html", {"course": course, "type": "courses", "result": True, "answer":answer})
         
-    elif request.method == "POST":
-        answer: str = str(request.POST.get("answer", "")).lower()
-        course_answer = Course.objects.get(CourseId=id).answers.lower()
+    elif request.method == "POST" and "task_answer" in request.POST:
+        answer = str(request.POST.get("answer", "")).strip().lower()
+        course = Course.objects.get(CourseId=id)
 
-        if answer != course_answer:
+        if answer != str(course.answers).strip().lower():
             request.session["result"] = "❌"
         
         else:
             request.session["result"] = "✅"
+
+            user.collected_points += course.points
+            user.weekly_points += course.points
+            user.daily_points += course.points  
+            user.save()
+
         
         return redirect("item_view", type="result", id=id)
+    
+    #*Dorobic przycisk do artykulu
+    elif request.method == "POST" and "read_article" in request.POST:
+        
+        if type == "articles":
+            article = Article.objects.get(ArticleId = id)
+
+            user.collected_points += article.points
+            user.weekly_points += article.points
+            user.daily_points += article.points  
+            user.save()
+
+
+
 
 def update(request, type, id):
     try:
-        if type == "article":
+        if type == "articles":
             article = Article.objects.get(ArticleId=id)
             if request.method == "GET":
                 form = ArticleForm(instance=article)
-                return render(request, "update.html", {"type": type, "form": form})
+                return render(request, "edit_view.html", {"type": type, "form": form})
             
             elif request.method == "POST":
                 form = ArticleForm(request.POST, instance= article)
@@ -250,11 +424,11 @@ def update(request, type, id):
 
                 return redirect("item_view", type = type, id=article.ArticleId)
             
-        elif type == "course":
+        elif type == "courses":
             course = Course.objects.get(CourseId=id)
             if request.method == "GET":
                 form = CourseForm(instance=course)
-                return render(request, "update.html", {"type": type, "form": form})
+                return render(request, "edit_view.html", {"type": type, "form": form})
             
             elif request.method == "POST":
                 form = CourseForm(request.POST, instance= course)
@@ -262,11 +436,11 @@ def update(request, type, id):
                 form.save()
                 return redirect("item_view", type =type, id=course.CourseId)
             
-        elif type == 'quizz':
+        elif type == 'quizzes':
             quizz = Quizz.objects.get(QuizzId = id)
             if request.method == "GET":
                 form = QuizzForm(instance=quizz)
-                return render(request, "update.html", {"type": type, "form": form})
+                return render(request, "edit_view.html", {"type": type, "form": form})
             
             elif request.method == "POST":
                 form = QuizzForm(request.POST, instance=quizz)
@@ -277,5 +451,120 @@ def update(request, type, id):
         return redirect("update", type=type, id=id)
 
         
+def search(request):
+    if "allContent" in request.POST:
+        searched_value = request.POST.get("searched_value")
+        articles = list(Article.objects.filter(Q(title__icontains=searched_value) | 
+                                          Q(content__icontains=searched_value)
+                                        ))
+        courses = list(Course.objects.filter(title__icontains=searched_value))
+        quizzes = list(Quizz.objects.filter(Q(title__icontains=searched_value) | 
+                                       Q(description__icontains=searched_value)))
+        
+        context = {
+            "articles": articles,
+            "courses": courses,
+            "quizzes" : quizzes,
+            "search_filter": searched_value
+        }
 
 
+    return render(request, "search_items_view.html", context)
+
+
+def profile_update(request):
+    if request.method == "POST":
+        #*Dane z formualrza
+        fname = request.POST.get("fname", "")
+        lname = request.POST.get("lname", "")
+        username = request.POST.get("username", "")
+        email = request.POST.get("email", "")
+        profile_image = request.FILES.get("profile_image", "")
+        
+        #*Update danych
+        user = request.user
+        user.first_name = fname
+        user.last_name = lname
+        user.username = username
+        user.email = email
+
+        #!api -> do https://freeimage.host/api
+
+        def apiFunction(profile_image):
+            API_KEY = settings.API_KEY_IMAGES
+            URL = "https://freeimage.host/api/1/upload"
+
+            PAYLOAD = {
+                'key': API_KEY,
+                'action': 'upload',
+                'format': 'json',
+                "album_id" : "Zp8ap"
+            }
+            FILES = {
+                "source" : (profile_image.name, profile_image.read(), profile_image.content_type)
+            }
+
+            try:
+                response = requests.post(URL, data=PAYLOAD, files=FILES)
+                data = response.json()
+
+                if response.status_code == 200:
+                    img_url = data["image"]["url"]
+                    user.profile_image = img_url
+                    print("Zdjecie powinno pokazac sie na stronie")
+                    user.save()
+                else:
+                    print("Cos poszlo nie tak")
+            except Exception as e:
+                print(f'Message: {e}')
+
+        #! Wywolanie funckji dla api
+        if profile_image:
+            apiFunction(profile_image)
+        else:
+            user.save()
+
+        return redirect("profile")
+    
+    if request.method == "GET":
+        return render(request, "edit_profile.html", {"profile_data": request.user})
+    
+def ranking(request):
+    top10 = Uzytkownik.objects.all().filter(is_admin = False).order_by("-collected_points")[:10]
+
+    top1 = top10[:1]
+    top2 = top10[1:2]
+    top3 = top10[2:3]
+
+    weekly_top10 = Uzytkownik.objects.all().filter(is_admin = False).order_by("-weekly_points")[:10]
+    top1_weekly = weekly_top10[:1]
+    top2_weekly = weekly_top10[1:2]
+    top3_weekly = weekly_top10[2:3]
+
+    daily_top10 = Uzytkownik.objects.all().filter(is_admin = False).order_by("-daily_points")[:10]
+    top1_daily = daily_top10[:1]
+    top2_daily = daily_top10[1:2]
+    top3_daily = daily_top10[2:3]
+
+    context = {
+        "alltime": {
+            "top10" : top10,
+            "top1" : top1[0],
+            "top2" : top2[0],
+            "top3" : top3[0]
+        },
+        "weekly":{
+            "top10" : weekly_top10,
+            "top1" : top1_weekly[0],
+            "top2" : top2_weekly[0],
+            "top3" : top3_weekly[0]
+        },
+        "daily":{
+            "top10" : daily_top10,
+            "top1" : top1_daily[0],
+            "top2" : top2_daily[0],
+            "top3" : top3_daily[0]
+        }
+    }
+    return render(request, "ranking_view.html", context)
+    

@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from tinymce.models import HTMLField
 from django.core.validators import EmailValidator
 
+def randomUserName():
+    user = Uzytkownik.objects.last()
+    return f'User{user.id + 1}'
 
 class UzytkownikManager(BaseUserManager):
     def create_user(self, email, password = None):
@@ -12,6 +15,7 @@ class UzytkownikManager(BaseUserManager):
         user = self.model(
             email = self.normalize_email(email)
         )
+        user.username = randomUserName()
         user.set_password(password)
         user.save()
         return user
@@ -28,7 +32,15 @@ class UzytkownikManager(BaseUserManager):
     
 class Uzytkownik(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=50, unique=True, null=False, validators=[EmailValidator(code="", message="Invalid email")])
-    
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    username = models.CharField(max_length=20, unique=True)
+    profile_image = models.TextField(default="https://freesvg.org/img/abstract-user-flat-4.png")
+    collected_points = models.IntegerField(default=0)
+    daily_points = models.IntegerField(default=0)
+    weekly_points = models.IntegerField(default=0)
+
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -58,6 +70,16 @@ class Article(models.Model):
     lead = models.CharField(null=False, max_length=255)
     content = HTMLField(null=True)
     category = models.CharField(null=False, max_length=50)
+    upload_data = models.DateField( auto_now_add=True)
+    difficulty_level = models.CharField(max_length=15, null=False)
+    points = models.IntegerField()
+
+    article_author = models.ForeignKey(
+        Uzytkownik,
+        on_delete=models.CASCADE,
+        related_name= "article",
+        default=1
+    )
 
     def __str__(self):
         return self.title
@@ -68,7 +90,16 @@ class Quizz(models.Model):
     description = models.CharField(null=False, max_length=500)
     link = models.URLField(max_length=200, null=False)
     category = models.CharField(max_length=50, null=False)
-
+    upload_data = models.DateField( auto_now_add=True)
+    difficulty_level = models.CharField(max_length=15, null=False)
+    points = models.IntegerField()
+    quizz_author = models.ForeignKey(
+        Uzytkownik,
+        on_delete=models.CASCADE,
+        related_name= "quizz",
+        default=1
+    )
+    
     def __str__(self):
         return self.title
     
@@ -78,6 +109,14 @@ class Course(models.Model):
     title = models.CharField(null=False, max_length=255)
     question = models.TextField(null=False)
     answers = models.CharField(max_length=255)
-
+    upload_data = models.DateField( auto_now_add=True)
+    difficulty_level = models.CharField(max_length=15, null=False)
+    points = models.IntegerField()
+    course_author = models.ForeignKey(
+        Uzytkownik,
+        on_delete=models.CASCADE,
+        related_name= "course",
+        default= 1
+    )
     def __str__(self):
         return self.title

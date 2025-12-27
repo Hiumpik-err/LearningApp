@@ -1,129 +1,123 @@
+{% load static %}
+{% load content_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    
-    <title>European Educational Experience</title>
-    
-    
-    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+        // Initialize theme from localStorage or system preference
+        const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('theme', theme);
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    {% block title %}
+        <title>EEX</title>
+    {% endblock title %}
+    <link rel="icon" href="{% static 'images/favicon.png'%}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
-    <script src="{% static 'scripts/main.js' %}"></script>
+    
+    {% block tailwind.config %}
+    
+    {% endblock tailwind.config %}
 </head>
-<body style="background-color: rgb(34, 40, 49) !important;">
-     
-{% block navbar %}
-    {% load content_tags %} {% get_page_name request%}
-{% endblock %}
 
-{% block main %}
-    <main class="container-fluid mx-0 px-2 row">
-    {% load content_tags %} {% show_categories%}    
-         
-{% block main-content %}
-        <div class="content col-lg-11">
-            {% if articles or courses or quizzes %}
-            
-            <div class="card px-2">
-                <div class="d-flex justify-content-between">
-                    <hr style="width: 33%;">
-                    <h2 class="text-center" style="width: 33%;">Found articles: </h3>
-                    <hr style="width: 33%;"> 
-                </div>
-                <div class="found-articles item-content col-lg-11">
-                    {% for data in articles.data %}
-                        <div class="article-card">
-                            <div class="card-header">
-                                <h3 class="card-title header-truncate">{{data.category}} | {{data.title}}</h3>
-                            </div>
-                            <div class="card-body article-body">
-                                <p class="lead multi-line-truncate">{{data.lead}}</p>
-                            </div>
-                            <div class="card-footer footer position-relative d-flex justify-content-end">
-                                <button class="btn btn-outline-primary">
-                                    <a class="text-decoration-none lead text-light" href="{% url "item_view" 'article' data.ArticleId %}">Read more...</a>
-                                </button>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                
-                <div class="d-flex justify-content-between">
-                    <hr style="width: 33%;">
-                    <h2 class="text-center" style="width: 33%;">Found courses: </h3>
-                    <hr style="width: 33%;"> 
-                </div>
+<body class="w-full h-full text-gray-800 dark:text-gray-100 dark:bg-gray-900 transition-colors duration-200">
+    {% block navbar %}
+        {%comment %} {% include 'components/navbar.html' %}{% endcomment%}
+        {% get_current_path %}
+        {% get_sidebar %}
 
-                
-                <div class="found-courses item-content col-lg-11">
-                    {% for data in courses.data %}
-                        <div class="card task-card">
-                            <div class="card-header">
-                                <h3 class="card-title">{{data.category}} | {{data.title}}</h3>
-                            </div>
+        <!-- Spacer -->
+        <div class="h-20"></div>
+        {% include 'components/search.html' %}
+    {% endblock navbar %}
 
-                            <div class="card-body">
-                                <p class="lead multi-line-truncate">{{data.question}}</p>
-                            </div>
-                            <div class="card-footer footer d-flex justify-content-end">
-                                <button class="btn btn-outline-primary" id="read-more"><a class="text-decoration-none lead text-light" href="{% url "item_view" 'course' data.CourseId %}">See more</a></button>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-
-                <div class="d-flex justify-content-between">
-                    <hr style="width: 33%;">
-                    <h2 class="text-center" style="width: 33%;">Found quizzes: </h3>
-                    <hr style="width: 33%;"> 
-                </div>
-                <div class="found-quizzes item-content col-lg-11">
-                    {% for data in quizzes.data %}
-                        <div class="card quiz-card">
-                            <div class="card-header">
-                                <h3 class="card-title">{{data.category}} | {{data.title}}</h3>
-                            </div>
-                            <div class="card-body">
-                                <p class="lead">{{data.description}}</p>
-                            </div>
-                            <div class="card-footer footer d-flex justify-content-end">
-                                <button class="btn btn-outline-primary" type="button"><a class="text-decoration-none lead text-light" href="{{data.link}}" target="_blank">Solve the quiz</a></button>
-                            </div>
-                        </div> 
-                    {% endfor %}
-                </div>
-            </div>
-
-            {% else %}
-            
-            <div class="card px-2">
-                <p class="lead text-center mb-5">Learn, Grow, and Achieve—All in One Place.</p>
-
-                <p>Welcome to EEX - which stands for European Educational Experience! Here you can learn any sorts of things, from learning many languages to various fields of science! We offer high quality articles from subject such as, biology, chemistry or math and even more. Those articles are packed with a lot of information, which could find use on your next tests or quizzes.
-                Our platform is incredibly easy to navigate, all of things needed for you, can be found on the left sidebar, if you are interested in adding some articles by yourself, you found the right place, we also have such possibility, after adding an article contact with your teacher, so he can approve that one and publish it for you.</p>
-
-                <p>This site doesn't feature a lot by itself, but with your help we can build something more! Unlike popular educational platforms we allow you to create the foundational data for others 
-                to learn from. The compilation of quizzes, articles, and tasks reflects the quality of your contributions, everyone here has a chance to shine and inspire others to learn new skills! 
-                And remember you will not be unnoticed, we value each of our fellow users and the profound impact you have on our community. </p>
-
-                <p>We are incredibly proud to host this dynamic educational hub right here in our community. In fact, many of the high-quality resources you see are inspired by the dedication found at institution ZST Mikołów—a testament to local excellence fostering global learning. Join us in making EEX the ultimate destination for knowledge. Start exploring, start contributing, and help us redefine the educational experience!</p>
-            </div>    
-            {% endif %}
-        </div>
+    {% block main %}
         
-    {% endblock %}
-    </main>
-{% endblock %}
+        <!-- SECTION: ABOUT -->
+        {% include 'components/about.html' %}
 
-{% block footer %}
-    <footer class="container text-center py-3">
-        <p class="lead" id="footer">All rights reserved &copy;</p>
-    </footer>
-{% endblock %}
+        <!-- PARALLAX BREAK -->
+        <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1503264116251-35a269479413');"></div>
 
+        <!-- SECTION: ARTICLES -->
+        {% get_latest_articles%}
+
+        <!-- PARALLAX BREAK -->
+        <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f');"></div>
+
+        <!-- SECTION: TASKS -->
+        {% get_latest_courses%}
+
+        <!-- PARALLAX BREAK -->
+        <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1537366898533-fe9bbb1798ca');"></div>
+
+        <!-- SECTION: QUIZZES -->
+        {% get_latest_quizzes%}
+    
+        <!-- PARALLAX BREAK -->
+        <div class="h-96 bg-fixed bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1506452985227-70bc78385fb0');"></div>
+
+    {% endblock main %}
+    <!-- FOOTER -->
+    {% block footer %}
+        {% include 'components/footer.html' %}
+        <script>
+            const searchDialog = document.getElementById("search-dialog");
+
+            function showSearchDialog() {
+                searchDialog.showModal();
+            }
+            const createDialog = document.getElementById("create-dialog");
+
+            function showCreateDialog() {
+                createDialog.showModal();
+            }
+
+            // Theme Switcher
+            const themeToggle = document.getElementById('themeToggle');
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            const html = document.documentElement;
+
+            function updateThemeUI() {
+                const isDark = html.classList.contains('dark');
+                sunIcon.classList.toggle('hidden', !isDark);
+                moonIcon.classList.toggle('hidden', isDark);
+            }
+
+            themeToggle.addEventListener('click', () => {
+                const isDark = html.classList.contains('dark');
+                
+                if (isDark) {
+                    html.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+                
+                updateThemeUI();
+            });
+
+            // Initialize UI on page load
+            updateThemeUI();
+        </script>
+    {% endblock footer %}
 </body>
+
 </html>
