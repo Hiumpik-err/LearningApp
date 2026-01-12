@@ -6,51 +6,51 @@
 </button>
 
 <aside id="sidebar"
-    class="hidden xl:flex fixed top-[4.75em] left-0 h-full w-20 bg-white dark:bg-gray-800 shadow-xl dark:shadow-lg dark:shadow-gray-900/50 flex-col items-center py-6 transition-all duration-300 overflow-hidden group hover:w-64 z-40">
+    class="hidden xl:flex fixed top-[4.45em] left-0 h-full w-20 bg-white dark:bg-gray-800 shadow-xl dark:shadow-lg dark:shadow-gray-900/50 flex-col items-center py-6 transition-all duration-300 overflow-hidden group hover:w-64 z-40 w-auto">
 
 
-    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap"
         href="{% url 'content_view_element' 'articles' %}">
         <svg class="h-7 w-7 text-blue-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
             <path d="M4 4.5A2.5 2.5 0 0 1 6.5 7H20v10H6.5a2.5 2.5 0 0 0-2.5 2.5V4.5z"></path>
         </svg>
-        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium hidden lg:group-hover:block">Articles</span>
+        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium block xl:hidden group-hover:block">Articles</span>
     </a>
 
 
-    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap"
         href="{% url 'content_view_element' 'courses' %}">
         <svg class="h-7 w-7 text-green-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 20h9"></path>
             <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
         </svg>
-        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium hidden lg:group-hover:block">Tasks</span>
+        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium block xl:hidden group-hover:block">Tasks</span>
     </a>
 
 
-    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+    <a class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap"
         href="{% url 'content_view_element' 'quizzes' %}">
         <svg class="h-7 w-7 text-purple-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 6L9 17l-5-5"></path>
         </svg>
-        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium hidden lg:group-hover:block">Quizzes</span>
+        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium block xl:hidden group-hover:block">Quizzes</span>
     </a>
     {% if not guest %}
-    <button class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
+    <button class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap"
         onclick="showCreateDialog();">
         <svg class="h-7 w-7 text-blue-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
-        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium hidden lg:group-hover:block">Create</span>
+        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium block xl:hidden group-hover:block">Create</span>
     </button>
 
-    <button class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+    <button class="flex items-center w-full px-4 py-3 space-x-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 whitespace-nowrap">
         <svg class="h-7 w-7 flex-shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <linearGradient id="gemini-premium-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -65,7 +65,7 @@
                 fill="url(#gemini-premium-gradient)"></path>
         </svg>
 
-        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium hidden lg:group-hover:block">Premium</span>
+        <span class="text-gray-800 dark:text-gray-200 text-lg font-medium block xl:hidden group-hover:block">Premium</span>
     </button>
     {% endif %}
 </aside>
